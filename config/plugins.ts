@@ -64,4 +64,11 @@ export default ({ env }) => ({
     enabled: true,
     config: {},
   },
+  "local-image-sharp": {
+    enabled: true,
+    config: {
+      cacheDir: ".cache/images",
+      maxAge: 2592000,
+    },
+  },
 });

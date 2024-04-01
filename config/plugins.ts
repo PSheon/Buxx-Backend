@@ -77,4 +77,10 @@ export default ({ env }) => ({
       maxAge: 2592000,
     },
   },
+  "request-id": {
+    enabled: true,
+    config: {
+      correlationIdHeader: "X-Bloom-Trace-Id",
+    },
+  },
 });

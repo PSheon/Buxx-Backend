@@ -25,7 +25,8 @@
     "name": "Paul web3.0"
   },
   "strapi": {
-    "uuid": "13234eeb-97ad-42d3-a827-cda2d2b8f3e6"
+    "uuid": "13234eeb-97ad-42d3-a827-cda2d2b8f3e6",
+    "telemetryDisabled": true
   },
   "engines": {
     "node": ">=18.0.0 <=20.x.x",

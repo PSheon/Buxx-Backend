@@ -1654,6 +1654,15 @@
   resolved "https://registry.npmjs.org/@strapi/provider-audit-logs-local/-/provider-audit-logs-local-4.21.1.tgz"
   integrity sha512-L+2IiJU933fDFsOtfYs2XABB5/VhO8LOmhBE0mHjv20r3VezRje6LTfqOEtkYzLggZyUFdCTVz7n2n0gVlmWcw==
 
+"@strapi/provider-email-mailgun@^4.21.1":
+  version "4.21.1"
+  resolved "https://registry.npmjs.org/@strapi/provider-email-mailgun/-/provider-email-mailgun-4.21.1.tgz"
+  integrity sha512-K9Ai1+AQ60VLMvg5wjRvidVV2RCTdw0ErUhhViV0Hzbg7UPPyl2yxNK4WXhQJOlo10Gk+83CXBT7bwnQcGU/7A==
+  dependencies:
+    "@strapi/utils" "4.21.1"
+    form-data "^4.0.0"
+    mailgun.js "8.2.1"
+
 "@strapi/provider-email-sendmail@4.21.1":
   version "4.21.1"
   resolved "https://registry.npmjs.org/@strapi/provider-email-sendmail/-/provider-email-sendmail-4.21.1.tgz"
@@ -2474,7 +2483,7 @@ atob@^2.1.2:
   resolved "https://registry.npmjs.org/atob/-/atob-2.1.2.tgz"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-axios@1.6.0:
+axios@^1.3.3, axios@1.6.0:
   version "1.6.0"
   resolved "https://registry.npmjs.org/axios/-/axios-1.6.0.tgz"
   integrity sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg==
@@ -2539,6 +2548,11 @@ bare-path@^2.0.0, bare-path@^2.1.0:
   integrity sha512-DIIg7ts8bdRKwJRJrUMy/PICEaQZaPGZ26lsSx9MJSwIhSrcdHn7/C8W+XmnG/rKi6BaRcz+JO00CjZteybDtw==
   dependencies:
     bare-os "^2.1.0"
+
+base-64@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/base-64/-/base-64-1.0.0.tgz"
+  integrity sha512-kwDPIFCGx0NZHog36dj+tHiwP4QMzsZ3AgMViUBKI0+V5n4U0ufTCUMhnQ04diaRI8EX/QcPfql7zlhZ7j4zgg==
 
 base@^0.11.1:
   version "0.11.2"
@@ -6191,6 +6205,15 @@ mailcomposer@3.12.0:
     buildmail "3.10.0"
     libmime "2.1.0"
 
+mailgun.js@8.2.1:
+  version "8.2.1"
+  resolved "https://registry.npmjs.org/mailgun.js/-/mailgun.js-8.2.1.tgz"
+  integrity sha512-iKHCMehdUcWzBAp8KU2idLP7AbsTxQ8DjJev4Gvm430Dujul+ZkzKPgn40uYpb9BXGL5l8/w5jpf2pvw51df/w==
+  dependencies:
+    axios "^1.3.3"
+    base-64 "^1.0.0"
+    url-join "^4.0.1"
+
 make-dir@^3.0.0:
   version "3.1.0"
   resolved "https://registry.npmjs.org/make-dir/-/make-dir-3.1.0.tgz"
@@ -9308,7 +9331,7 @@ urix@^0.1.0:
   resolved "https://registry.npmjs.org/urix/-/urix-0.1.0.tgz"
   integrity sha512-Am1ousAhSLBeB9cG/7k7r2R0zj50uDRlZHPGbazid5s9rlF1F/QKYObEKSIunSjIOkJZqwRRLpvewjEkM7pSqg==
 
-url-join@4.0.1:
+url-join@^4.0.1, url-join@4.0.1:
   version "4.0.1"
   resolved "https://registry.npmjs.org/url-join/-/url-join-4.0.1.tgz"
   integrity sha512-jk1+QP6ZJqyOiuEI9AEWQfju/nB2Pw466kbA0LEZljHwKeMgd9WrAEgEGxjPDD2+TNbbb37rTyhEfrCXfuKXnA==

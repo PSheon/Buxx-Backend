@@ -15,6 +15,7 @@
     "@strapi/plugin-i18n": "4.21.1",
     "@strapi/plugin-sentry": "^4.21.1",
     "@strapi/plugin-users-permissions": "4.21.1",
+    "@strapi/provider-email-mailgun": "^4.21.1",
     "@strapi/strapi": "4.21.1",
     "better-sqlite3": "8.6.0",
     "pg": "^8.11.4",

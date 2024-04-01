@@ -27,12 +27,29 @@ export default [
       },
     },
   },
-  "strapi::cors",
-  "strapi::poweredBy",
+  {
+    name: "strapi::cors",
+    config: {
+      origin: [
+        (process.env.FRONTEND_URL as string) || "http://localhost:8080",
+        (process.env.BACKEND_URL as string) || "http://localhost:1337",
+      ],
+      headers: "*",
+    },
+  },
+  {
+    name: "strapi::poweredBy",
+    config: { poweredBy: "PSheon <pauljiangweb3@gmail.com>" },
+  },
   "strapi::query",
-  "strapi::body",
+  { name: "strapi::body", config: { jsonLimit: "25mb" } },
   "strapi::session",
-  "strapi::favicon",
+  {
+    name: "strapi::favicon",
+    config: {
+      path: "./public/favicon.ico",
+    },
+  },
   "strapi::public",
   "plugin::request-id.request-id",
 ];

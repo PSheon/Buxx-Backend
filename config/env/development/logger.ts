@@ -36,7 +36,7 @@ module.exports = {
     }),
     new DailyRotateFile({
       level: "http",
-      filename: "./.log/action-store_%DATE%.log",
+      filename: "./.log/bloom_rwa_%DATE%.log",
       datePattern: "YYYY-MM-DD-HH",
       zippedArchive: true,
       maxSize: "20m",

@@ -54,4 +54,10 @@ export default ({ env }) => ({
       },
     },
   },
+  "strapi-blurhash": {
+    enabled: true,
+    config: {
+      regenerateOnUpdate: true,
+    },
+  },
 });

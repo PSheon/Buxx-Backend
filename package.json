@@ -1,10 +1,10 @@
 {
-  "name": "backend",
+  "name": "bloom-backend",
   "private": true,
-  "version": "0.1.0",
-  "description": "A Strapi application",
+  "version": "0.0.1",
+  "description": "Bloom Backend API",
   "scripts": {
-    "develop": "strapi develop",
+    "dev": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi"
@@ -22,7 +22,7 @@
     "styled-components": "5.3.3"
   },
   "author": {
-    "name": "A Strapi developer"
+    "name": "Paul web3.0"
   },
   "strapi": {
     "uuid": "13234eeb-97ad-42d3-a827-cda2d2b8f3e6"

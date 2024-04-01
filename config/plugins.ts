@@ -60,4 +60,8 @@ export default ({ env }) => ({
       regenerateOnUpdate: true,
     },
   },
+  "import-export-entries": {
+    enabled: true,
+    config: {},
+  },
 });

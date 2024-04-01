@@ -27,6 +27,7 @@
     "strapi-content-type-explorer": "^0.2.2",
     "strapi-plugin-config-sync": "^1.2.3",
     "strapi-plugin-import-export-entries": "^1.23.1",
+    "strapi-plugin-init-admin-user": "^0.2.3",
     "styled-components": "5.3.3"
   },
   "author": {

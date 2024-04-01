@@ -10470,6 +10470,11 @@ strapi-plugin-import-export-entries@^1.23.1:
     node-fetch "2.6.9"
     react-singleton-hook "3.3.0"
 
+strapi-plugin-init-admin-user@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.npmjs.org/strapi-plugin-init-admin-user/-/strapi-plugin-init-admin-user-0.2.3.tgz"
+  integrity sha512-xbhmqQK6qQv/yRE+GiG7PPb5FBfyeNyPJ2CQMWVzYCtaasF5lUoZMQgcoXtkyn+xUenXIdJTJEQdcFZTn+gslg==
+
 stream-browserify@3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/stream-browserify/-/stream-browserify-3.0.0.tgz"

@@ -60,6 +60,12 @@ export default ({ env }) => ({
       regenerateOnUpdate: true,
     },
   },
+  "config-sync": {
+    enabled: true,
+    config: {
+      syncDir: "config/sync/",
+    },
+  },
   "import-export-entries": {
     enabled: true,
     config: {},

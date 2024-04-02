@@ -362,6 +362,56 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiAccessLogAccessLog extends Schema.CollectionType {
+  collectionName: 'access_logs';
+  info: {
+    singularName: 'access-log';
+    pluralName: 'access-logs';
+    displayName: 'AccessLog';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    action: Attribute.Enumeration<
+      [
+        'Login',
+        'ForgotPassword',
+        'ResetPassword',
+        'ChangePassword',
+        'VerifyEmail'
+      ]
+    >;
+    responseMessage: Attribute.String;
+    status: Attribute.Boolean;
+    date: Attribute.DateTime;
+    user: Attribute.Relation<
+      'api::access-log.access-log',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    ip: Attribute.String;
+    os: Attribute.String;
+    browser: Attribute.String;
+    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::access-log.access-log',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::access-log.access-log',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -743,7 +793,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -767,11 +816,16 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     confirmationToken: Attribute.String & Attribute.Private;
     confirmed: Attribute.Boolean & Attribute.DefaultTo<false>;
     blocked: Attribute.Boolean & Attribute.DefaultTo<false>;
+    lastForgotPasswordAt: Attribute.DateTime & Attribute.Private;
     role: Attribute.Relation<
       'plugin::users-permissions.user',
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    avatar: Attribute.Media;
+    title: Attribute.String;
+    phone: Attribute.String;
+    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -799,6 +853,7 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::access-log.access-log': ApiAccessLogAccessLog;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;

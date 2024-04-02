@@ -4,6 +4,70 @@
   "description": "Super Admins can access and manage all features and settings.",
   "permissions": [
     {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::access-log.access-log",
+      "properties": {
+        "fields": [
+          "action",
+          "responseMessage",
+          "status",
+          "date",
+          "user",
+          "ip",
+          "os",
+          "browser",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::access-log.access-log",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::access-log.access-log",
+      "properties": {
+        "fields": [
+          "action",
+          "responseMessage",
+          "status",
+          "date",
+          "user",
+          "ip",
+          "os",
+          "browser",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::access-log.access-log",
+      "properties": {
+        "fields": [
+          "action",
+          "responseMessage",
+          "status",
+          "date",
+          "user",
+          "ip",
+          "os",
+          "browser",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
       "action": "admin::api-tokens.access",
       "actionParameters": {},
       "subject": null,
@@ -234,7 +298,12 @@
           "confirmationToken",
           "confirmed",
           "blocked",
-          "role"
+          "lastForgotPasswordAt",
+          "role",
+          "avatar",
+          "title",
+          "phone",
+          "isHighlighted"
         ]
       },
       "conditions": []
@@ -260,7 +329,12 @@
           "confirmationToken",
           "confirmed",
           "blocked",
-          "role"
+          "lastForgotPasswordAt",
+          "role",
+          "avatar",
+          "title",
+          "phone",
+          "isHighlighted"
         ]
       },
       "conditions": []
@@ -279,7 +353,12 @@
           "confirmationToken",
           "confirmed",
           "blocked",
-          "role"
+          "lastForgotPasswordAt",
+          "role",
+          "avatar",
+          "title",
+          "phone",
+          "isHighlighted"
         ]
       },
       "conditions": []

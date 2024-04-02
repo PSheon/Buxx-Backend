@@ -33,6 +33,7 @@
     "strapi-plugin-local-image-sharp": "^1.7.0",
     "strapi-plugin-request-id": "^1.2.0",
     "styled-components": "5.3.3",
+    "ua-parser-js": "^1.0.37",
     "winston-daily-rotate-file": "^5.0.0"
   },
   "author": {

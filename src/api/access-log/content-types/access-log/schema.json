@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "access_logs",
+  "info": {
+    "singularName": "access-log",
+    "pluralName": "access-logs",
+    "displayName": "AccessLog",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "action": {
+      "type": "enumeration",
+      "enum": [
+        "Login",
+        "ForgotPassword",
+        "ResetPassword",
+        "ChangePassword",
+        "VerifyEmail"
+      ]
+    },
+    "responseMessage": {
+      "type": "string"
+    },
+    "status": {
+      "type": "boolean"
+    },
+    "date": {
+      "type": "datetime"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "ip": {
+      "type": "string"
+    },
+    "os": {
+      "type": "string"
+    },
+    "browser": {
+      "type": "string"
+    },
+    "isHighlighted": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

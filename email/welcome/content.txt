@@ -1,0 +1,16 @@
+<%= content.title %>
+
+<%= metadata.productName %> ( https://example.com )
+
+******************
+<%= content.title %>
+******************
+
+<%= content.greeting %>
+<%= content.thankYouForSigningUp %>
+
+<%= loginButton.text %> ( <%= loginButton.link %> )
+
+<%= content.bestRegard %>
+
+<%= metadata.productName %>

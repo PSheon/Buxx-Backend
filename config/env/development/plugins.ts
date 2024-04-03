@@ -12,6 +12,7 @@ export default ({ env }) => ({
     config: {},
   },
   email: {
+    enabled: true,
     config: {
       provider: "mailgun",
       providerOptions: {
@@ -26,6 +27,7 @@ export default ({ env }) => ({
     },
   },
   upload: {
+    enabled: true,
     config: {
       provider: "local",
       sizeLimit: 15 * 1024 * 1024,
@@ -42,6 +44,10 @@ export default ({ env }) => ({
     config: {
       syncDir: "config/sync/",
     },
+  },
+  "generate-data": {
+    enabled: true,
+    config: {},
   },
   "import-export-entries": {
     enabled: true,

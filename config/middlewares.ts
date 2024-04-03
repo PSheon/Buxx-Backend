@@ -13,6 +13,7 @@ export default [
             "data:",
             "blob:",
             "market-assets.strapi.io",
+            "https://loremflickr.com/",
             "bloom-rwa.s3.ap-northeast-1.amazonaws.com",
           ],
           "media-src": [
@@ -20,6 +21,7 @@ export default [
             "data:",
             "blob:",
             "market-assets.strapi.io",
+            "https://loremflickr.com/",
             "bloom-rwa.s3.ap-northeast-1.amazonaws.com",
           ],
           upgradeInsecureRequests: null,

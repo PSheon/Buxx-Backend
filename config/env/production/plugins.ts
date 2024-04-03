@@ -15,6 +15,7 @@ export default ({ env }) => ({
     },
   },
   email: {
+    enabled: true,
     config: {
       provider: "mailgun",
       providerOptions: {
@@ -29,6 +30,7 @@ export default ({ env }) => ({
     },
   },
   upload: {
+    enabled: true,
     config: {
       provider: "aws-s3",
       providerOptions: {
@@ -65,6 +67,9 @@ export default ({ env }) => ({
     config: {
       syncDir: "config/sync/",
     },
+  },
+  "generate-data": {
+    enabled: false,
   },
   "import-export-entries": {
     enabled: true,

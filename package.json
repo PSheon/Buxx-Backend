@@ -28,6 +28,7 @@
     "strapi-blurhash": "^1.1.1",
     "strapi-content-type-explorer": "^0.2.2",
     "strapi-plugin-config-sync": "^1.2.3",
+    "strapi-plugin-generate-data": "^1.0.32",
     "strapi-plugin-import-export-entries": "^1.23.1",
     "strapi-plugin-init-admin-user": "^0.2.3",
     "strapi-plugin-local-image-sharp": "^1.7.0",

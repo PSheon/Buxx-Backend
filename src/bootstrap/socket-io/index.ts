@@ -112,7 +112,7 @@ export const socketIOBootstrap = (strapi: Strapi) => {
           __dirname,
           `../../../../.log/bloom_rwa_${format(
             new Date(),
-            "yyyy-MM-DD-HH"
+            "yyyy-MM-dd-HH"
           )}.log`
         );
         if (fs.existsSync(logPath)) {

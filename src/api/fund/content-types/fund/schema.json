@@ -1,0 +1,118 @@
+{
+  "kind": "collectionType",
+  "collectionName": "funds",
+  "info": {
+    "singularName": "fund",
+    "pluralName": "funds",
+    "displayName": "Fund",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "banner": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "chain": {
+      "type": "enumeration",
+      "enum": [
+        "Ethereum",
+        "Blast"
+      ],
+      "default": "Ethereum"
+    },
+    "baseCurrency": {
+      "type": "enumeration",
+      "enum": [
+        "ETH",
+        "DAI",
+        "USDC",
+        "USDT"
+      ],
+      "default": "USDT"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "Health and Medical",
+        "Arts and Culture",
+        "Finance and Technology",
+        "Social Enterprise",
+        "Emerging Industries",
+        "Environment and Sustainability",
+        "Food and Agriculture",
+        "Education and Training",
+        "Travel and Hospitality",
+        "Entertainment and Recreation",
+        "Fashion and Beauty",
+        "Social and Communication",
+        "Web3.0 and Blockchain"
+      ],
+      "default": "Web3.0 and Blockchain"
+    },
+    "displayName": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "fundSFTContractAddress": {
+      "type": "string",
+      "regex": "^0x[a-fA-F0-9]{40}$"
+    },
+    "detail": {
+      "type": "json"
+    },
+    "genesisDate": {
+      "type": "datetime"
+    },
+    "saleStartTime": {
+      "type": "datetime"
+    },
+    "maturityDate": {
+      "type": "datetime"
+    },
+    "performanceFeePercentage": {
+      "type": "integer",
+      "default": 10,
+      "max": 100,
+      "min": 0
+    },
+    "redemptionFrequencyInDays": {
+      "type": "integer",
+      "default": 14
+    },
+    "defaultPackages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::package.package"
+    },
+    "tokens": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::token.token"
+    },
+    "isHighlighted": {
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Draft",
+        "Published",
+        "Archived"
+      ],
+      "default": "Draft"
+    }
+  }
+}

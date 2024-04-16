@@ -412,6 +412,166 @@ export interface ApiAccessLogAccessLog extends Schema.CollectionType {
   };
 }
 
+export interface ApiFundFund extends Schema.CollectionType {
+  collectionName: 'funds';
+  info: {
+    singularName: 'fund';
+    pluralName: 'funds';
+    displayName: 'Fund';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    banner: Attribute.Media;
+    chain: Attribute.Enumeration<['Ethereum', 'Blast']> &
+      Attribute.DefaultTo<'Ethereum'>;
+    baseCurrency: Attribute.Enumeration<['ETH', 'DAI', 'USDC', 'USDT']> &
+      Attribute.DefaultTo<'USDT'>;
+    category: Attribute.Enumeration<
+      [
+        'Health and Medical',
+        'Arts and Culture',
+        'Finance and Technology',
+        'Social Enterprise',
+        'Emerging Industries',
+        'Environment and Sustainability',
+        'Food and Agriculture',
+        'Education and Training',
+        'Travel and Hospitality',
+        'Entertainment and Recreation',
+        'Fashion and Beauty',
+        'Social and Communication',
+        'Web3.0 and Blockchain'
+      ]
+    > &
+      Attribute.DefaultTo<'Web3.0 and Blockchain'>;
+    displayName: Attribute.String & Attribute.Required;
+    description: Attribute.String;
+    fundSFTContractAddress: Attribute.String;
+    detail: Attribute.JSON;
+    genesisDate: Attribute.DateTime;
+    saleStartTime: Attribute.DateTime;
+    maturityDate: Attribute.DateTime;
+    performanceFeePercentage: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+          max: 100;
+        },
+        number
+      > &
+      Attribute.DefaultTo<10>;
+    redemptionFrequencyInDays: Attribute.Integer & Attribute.DefaultTo<14>;
+    defaultPackages: Attribute.Relation<
+      'api::fund.fund',
+      'oneToMany',
+      'api::package.package'
+    >;
+    tokens: Attribute.Relation<
+      'api::fund.fund',
+      'oneToMany',
+      'api::token.token'
+    >;
+    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
+    status: Attribute.Enumeration<['Draft', 'Published', 'Archived']> &
+      Attribute.DefaultTo<'Draft'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::fund.fund', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::fund.fund', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPackagePackage extends Schema.CollectionType {
+  collectionName: 'packages';
+  info: {
+    singularName: 'package';
+    pluralName: 'packages';
+    displayName: 'Package';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    displayName: Attribute.String & Attribute.Required;
+    description: Attribute.String;
+    packageId: Attribute.BigInteger & Attribute.Required;
+    skin: Attribute.Enumeration<['Green', 'Purple', 'Orange']> &
+      Attribute.Required;
+    priceInUnit: Attribute.Decimal &
+      Attribute.Required &
+      Attribute.DefaultTo<0>;
+    slot: Attribute.Component<'token.property', true>;
+    status: Attribute.Enumeration<['Draft', 'Published', 'Archived']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'Draft'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::package.package',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::package.package',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTokenToken extends Schema.CollectionType {
+  collectionName: 'tokens';
+  info: {
+    singularName: 'token';
+    pluralName: 'tokens';
+    displayName: 'Token';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    tokenId: Attribute.Integer;
+    displayName: Attribute.String;
+    description: Attribute.String;
+    tokenAddress: Attribute.String;
+    contractAddress: Attribute.String;
+    attributes: Attribute.Component<'token.attribute', true>;
+    package: Attribute.Relation<
+      'api::token.token',
+      'oneToOne',
+      'api::package.package'
+    >;
+    status: Attribute.Enumeration<
+      ['Draft', 'Generating', 'Published', 'Archived']
+    > &
+      Attribute.DefaultTo<'Draft'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::token.token',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::token.token',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -854,6 +1014,9 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::access-log.access-log': ApiAccessLogAccessLog;
+      'api::fund.fund': ApiFundFund;
+      'api::package.package': ApiPackagePackage;
+      'api::token.token': ApiTokenToken;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;

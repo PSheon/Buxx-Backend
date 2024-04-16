@@ -1,0 +1,6 @@
+{
+  "name": "Asset Manager",
+  "description": "Who manages assets",
+  "type": "asset_manager",
+  "permissions": []
+}

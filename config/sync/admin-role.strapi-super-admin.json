@@ -68,6 +68,226 @@
       "conditions": []
     },
     {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::fund.fund",
+      "properties": {
+        "fields": [
+          "banner",
+          "chain",
+          "baseCurrency",
+          "category",
+          "displayName",
+          "description",
+          "fundSFTContractAddress",
+          "detail",
+          "genesisDate",
+          "saleStartTime",
+          "maturityDate",
+          "performanceFeePercentage",
+          "redemptionFrequencyInDays",
+          "defaultPackages",
+          "tokens",
+          "isHighlighted",
+          "status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::fund.fund",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::fund.fund",
+      "properties": {
+        "fields": [
+          "banner",
+          "chain",
+          "baseCurrency",
+          "category",
+          "displayName",
+          "description",
+          "fundSFTContractAddress",
+          "detail",
+          "genesisDate",
+          "saleStartTime",
+          "maturityDate",
+          "performanceFeePercentage",
+          "redemptionFrequencyInDays",
+          "defaultPackages",
+          "tokens",
+          "isHighlighted",
+          "status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::fund.fund",
+      "properties": {
+        "fields": [
+          "banner",
+          "chain",
+          "baseCurrency",
+          "category",
+          "displayName",
+          "description",
+          "fundSFTContractAddress",
+          "detail",
+          "genesisDate",
+          "saleStartTime",
+          "maturityDate",
+          "performanceFeePercentage",
+          "redemptionFrequencyInDays",
+          "defaultPackages",
+          "tokens",
+          "isHighlighted",
+          "status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::package.package",
+      "properties": {
+        "fields": [
+          "displayName",
+          "description",
+          "packageId",
+          "skin",
+          "priceInUnit",
+          "slot.propertyType",
+          "slot.value",
+          "status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::package.package",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::package.package",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::package.package",
+      "properties": {
+        "fields": [
+          "displayName",
+          "description",
+          "packageId",
+          "skin",
+          "priceInUnit",
+          "slot.propertyType",
+          "slot.value",
+          "status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::package.package",
+      "properties": {
+        "fields": [
+          "displayName",
+          "description",
+          "packageId",
+          "skin",
+          "priceInUnit",
+          "slot.propertyType",
+          "slot.value",
+          "status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::token.token",
+      "properties": {
+        "fields": [
+          "tokenId",
+          "displayName",
+          "description",
+          "tokenAddress",
+          "contractAddress",
+          "attributes.traitType",
+          "attributes.value",
+          "package",
+          "status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::token.token",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::token.token",
+      "properties": {
+        "fields": [
+          "tokenId",
+          "displayName",
+          "description",
+          "tokenAddress",
+          "contractAddress",
+          "attributes.traitType",
+          "attributes.value",
+          "package",
+          "status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::token.token",
+      "properties": {
+        "fields": [
+          "tokenId",
+          "displayName",
+          "description",
+          "tokenAddress",
+          "contractAddress",
+          "attributes.traitType",
+          "attributes.value",
+          "package",
+          "status"
+        ]
+      },
+      "conditions": []
+    },
+    {
       "action": "admin::api-tokens.access",
       "actionParameters": {},
       "subject": null,

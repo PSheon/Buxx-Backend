@@ -23,6 +23,9 @@
     },
     {
       "action": "plugin::users-permissions.auth.sendEmailConfirmation"
+    },
+    {
+      "action": "plugin::users-permissions.role.find"
     }
   ]
 }

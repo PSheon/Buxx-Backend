@@ -4,6 +4,24 @@
   "type": "authenticated",
   "permissions": [
     {
+      "action": "api::fund.fund.find"
+    },
+    {
+      "action": "api::fund.fund.findOne"
+    },
+    {
+      "action": "api::package.package.find"
+    },
+    {
+      "action": "api::package.package.findOne"
+    },
+    {
+      "action": "api::token.token.find"
+    },
+    {
+      "action": "api::token.token.findOne"
+    },
+    {
       "action": "plugin::users-permissions.auth.changePassword"
     },
     {
@@ -11,6 +29,9 @@
     },
     {
       "action": "plugin::users-permissions.user.me"
+    },
+    {
+      "action": "plugin::users-permissions.user.updateMe"
     }
   ]
 }

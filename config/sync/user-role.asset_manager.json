@@ -2,5 +2,42 @@
   "name": "Asset Manager",
   "description": "Who manages assets",
   "type": "asset_manager",
-  "permissions": []
+  "permissions": [
+    {
+      "action": "api::fund.fund.find"
+    },
+    {
+      "action": "api::fund.fund.findOne"
+    },
+    {
+      "action": "api::fund.fund.update"
+    },
+    {
+      "action": "api::package.package.find"
+    },
+    {
+      "action": "api::package.package.findOne"
+    },
+    {
+      "action": "api::package.package.update"
+    },
+    {
+      "action": "api::token.token.find"
+    },
+    {
+      "action": "api::token.token.findOne"
+    },
+    {
+      "action": "api::token.token.update"
+    },
+    {
+      "action": "plugin::users-permissions.role.find"
+    },
+    {
+      "action": "plugin::users-permissions.user.me"
+    },
+    {
+      "action": "plugin::users-permissions.user.updateMe"
+    }
+  ]
 }

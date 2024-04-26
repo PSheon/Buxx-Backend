@@ -33,8 +33,8 @@ export default [
     name: "strapi::cors",
     config: {
       origin: [
-        (process.env.FRONTEND_URL as string) || "http://localhost:8080",
-        (process.env.BACKEND_URL as string) || "http://localhost:1337",
+        (process.env.FRONTEND_URL as string) || "http://127.0.0.1:8080",
+        (process.env.BACKEND_URL as string) || "http://127.0.0.1:1337",
       ],
       headers: "*",
     },

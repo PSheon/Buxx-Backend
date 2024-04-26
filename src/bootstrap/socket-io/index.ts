@@ -49,7 +49,7 @@ export const socketIOBootstrap = (strapi: Strapi) => {
 
   const io = require("socket.io")(strapi.server.httpServer, {
     cors: {
-      origin: (process.env.FRONTEND_URL as string) || "http://localhost:8080",
+      origin: (process.env.FRONTEND_URL as string) || "http://127.0.0.1:8080",
     },
   });
 

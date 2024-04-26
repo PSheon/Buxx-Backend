@@ -8,6 +8,7 @@ import {
 } from "./server/controllers/auth";
 import { update, find, findOne, updateMe } from "./server/controllers/user";
 import userService from "./server/services/user";
+import providersService from "./server/services/providers";
 
 export default (plugin) => {
   /* Controllers */
@@ -25,6 +26,7 @@ export default (plugin) => {
 
   /* Services */
   plugin.services.user = userService;
+  plugin.services.providers = providersService;
 
   /* Routes */
   plugin.routes["content-api"].routes.unshift({

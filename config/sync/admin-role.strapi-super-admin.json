@@ -70,6 +70,70 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::activity-log.activity-log",
+      "properties": {
+        "fields": [
+          "status",
+          "action",
+          "refContentType",
+          "refId",
+          "message",
+          "payload",
+          "date",
+          "user",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::activity-log.activity-log",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::activity-log.activity-log",
+      "properties": {
+        "fields": [
+          "status",
+          "action",
+          "refContentType",
+          "refId",
+          "message",
+          "payload",
+          "date",
+          "user",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::activity-log.activity-log",
+      "properties": {
+        "fields": [
+          "status",
+          "action",
+          "refContentType",
+          "refId",
+          "message",
+          "payload",
+          "date",
+          "user",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::fund.fund",
       "properties": {
         "fields": [
@@ -175,13 +239,6 @@
     },
     {
       "action": "plugin::content-manager.explorer.delete",
-      "actionParameters": {},
-      "subject": "api::package.package",
-      "properties": {},
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.publish",
       "actionParameters": {},
       "subject": "api::package.package",
       "properties": {},

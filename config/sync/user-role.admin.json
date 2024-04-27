@@ -13,6 +13,18 @@
       "action": "api::access-log.access-log.update"
     },
     {
+      "action": "api::activity-log.activity-log.find"
+    },
+    {
+      "action": "api::activity-log.activity-log.findMe"
+    },
+    {
+      "action": "api::activity-log.activity-log.findOne"
+    },
+    {
+      "action": "api::activity-log.activity-log.update"
+    },
+    {
       "action": "api::fund.fund.create"
     },
     {

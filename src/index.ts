@@ -1,4 +1,5 @@
 import { socketIOBootstrap } from "./bootstrap/socket-io";
+import { databaseLifecycleBootstrap } from "./bootstrap/database-lifecycle";
 
 export default {
   /**
@@ -19,5 +20,8 @@ export default {
   bootstrap({ strapi }) {
     /* Socket.io Bootstrap */
     socketIOBootstrap(strapi);
+
+    /* Database Lifecycle Bootstrap */
+    databaseLifecycleBootstrap(strapi);
   },
 };

@@ -412,6 +412,50 @@ export interface ApiAccessLogAccessLog extends Schema.CollectionType {
   };
 }
 
+export interface ApiActivityLogActivityLog extends Schema.CollectionType {
+  collectionName: 'activity_logs';
+  info: {
+    singularName: 'activity-log';
+    pluralName: 'activity-logs';
+    displayName: 'ActivityLog';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    status: Attribute.Enumeration<['Pending', 'Fulfilled', 'Rejected']> &
+      Attribute.Required;
+    action: Attribute.Enumeration<['Create', 'Update', 'Delete']> &
+      Attribute.Required;
+    refContentType: Attribute.Enumeration<['Fund']> & Attribute.Required;
+    refId: Attribute.Integer & Attribute.Required;
+    message: Attribute.String;
+    payload: Attribute.JSON;
+    date: Attribute.DateTime & Attribute.Required;
+    user: Attribute.Relation<
+      'api::activity-log.activity-log',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::activity-log.activity-log',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::activity-log.activity-log',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiFundFund extends Schema.CollectionType {
   collectionName: 'funds';
   info: {
@@ -495,7 +539,7 @@ export interface ApiPackagePackage extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     displayName: Attribute.String & Attribute.Required;
@@ -512,7 +556,6 @@ export interface ApiPackagePackage extends Schema.CollectionType {
       Attribute.DefaultTo<'Draft'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::package.package',
       'oneToOne',
@@ -1014,6 +1057,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::access-log.access-log': ApiAccessLogAccessLog;
+      'api::activity-log.activity-log': ApiActivityLogActivityLog;
       'api::fund.fund': ApiFundFund;
       'api::package.package': ApiPackagePackage;
       'api::token.token': ApiTokenToken;

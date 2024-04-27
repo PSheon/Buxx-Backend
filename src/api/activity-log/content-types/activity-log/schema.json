@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "activity_logs",
+  "info": {
+    "singularName": "activity-log",
+    "pluralName": "activity-logs",
+    "displayName": "ActivityLog",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "status": {
+      "type": "enumeration",
+      "enum": ["Pending", "Fulfilled", "Rejected"],
+      "required": true
+    },
+    "action": {
+      "type": "enumeration",
+      "enum": ["Create", "Update", "Delete"],
+      "required": true
+    },
+    "refContentType": {
+      "type": "enumeration",
+      "enum": ["Fund"],
+      "required": true
+    },
+    "refId": {
+      "type": "integer",
+      "required": true
+    },
+    "message": {
+      "type": "string"
+    },
+    "payload": {
+      "type": "json"
+    },
+    "date": {
+      "type": "datetime",
+      "required": true
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "isHighlighted": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

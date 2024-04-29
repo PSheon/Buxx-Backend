@@ -530,6 +530,48 @@ export interface ApiFundFund extends Schema.CollectionType {
   };
 }
 
+export interface ApiNotificationNotification extends Schema.CollectionType {
+  collectionName: 'notifications';
+  info: {
+    singularName: 'notification';
+    pluralName: 'notifications';
+    displayName: 'Notification';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    notifier: Attribute.Relation<
+      'api::notification.notification',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    catalog: Attribute.Enumeration<['System', 'Fund']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'System'>;
+    title: Attribute.String & Attribute.Required;
+    content: Attribute.JSON;
+    date: Attribute.DateTime;
+    isSeen: Attribute.Boolean & Attribute.DefaultTo<false>;
+    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::notification.notification',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::notification.notification',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPackagePackage extends Schema.CollectionType {
   collectionName: 'packages';
   info: {
@@ -1059,6 +1101,7 @@ declare module '@strapi/types' {
       'api::access-log.access-log': ApiAccessLogAccessLog;
       'api::activity-log.activity-log': ApiActivityLogActivityLog;
       'api::fund.fund': ApiFundFund;
+      'api::notification.notification': ApiNotificationNotification;
       'api::package.package': ApiPackagePackage;
       'api::token.token': ApiTokenToken;
       'plugin::upload.file': PluginUploadFile;

@@ -58,12 +58,12 @@ export default factories.createCoreController(
 
       if (!isObject(body.data)) {
         await strapi.service("api::activity-log.activity-log").logActivity({
-          status: "Rejected",
           action: "Update",
           refContentType: "Fund",
           refId: id,
           message: 'Missing "data" payload in the request body',
           payload: {},
+          status: "Rejected",
           user: ctx.state.user,
         });
 

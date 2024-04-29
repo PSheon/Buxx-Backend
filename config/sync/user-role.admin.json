@@ -40,6 +40,27 @@
       "action": "api::fund.fund.update"
     },
     {
+      "action": "api::notification.notification.delete"
+    },
+    {
+      "action": "api::notification.notification.find"
+    },
+    {
+      "action": "api::notification.notification.findMe"
+    },
+    {
+      "action": "api::notification.notification.findMeOne"
+    },
+    {
+      "action": "api::notification.notification.findOne"
+    },
+    {
+      "action": "api::notification.notification.update"
+    },
+    {
+      "action": "api::notification.notification.updateMeOne"
+    },
+    {
       "action": "api::package.package.create"
     },
     {

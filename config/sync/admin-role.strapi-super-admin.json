@@ -222,6 +222,64 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::notification.notification",
+      "properties": {
+        "fields": [
+          "notifier",
+          "catalog",
+          "title",
+          "content",
+          "date",
+          "isSeen",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::notification.notification",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::notification.notification",
+      "properties": {
+        "fields": [
+          "notifier",
+          "catalog",
+          "title",
+          "content",
+          "date",
+          "isSeen",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::notification.notification",
+      "properties": {
+        "fields": [
+          "notifier",
+          "catalog",
+          "title",
+          "content",
+          "date",
+          "isSeen",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::package.package",
       "properties": {
         "fields": [

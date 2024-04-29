@@ -362,301 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiAccessLogAccessLog extends Schema.CollectionType {
-  collectionName: 'access_logs';
-  info: {
-    singularName: 'access-log';
-    pluralName: 'access-logs';
-    displayName: 'AccessLog';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    action: Attribute.Enumeration<
-      [
-        'Login',
-        'ForgotPassword',
-        'ResetPassword',
-        'ChangePassword',
-        'VerifyEmail'
-      ]
-    >;
-    responseMessage: Attribute.String;
-    status: Attribute.Boolean;
-    date: Attribute.DateTime;
-    user: Attribute.Relation<
-      'api::access-log.access-log',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    ip: Attribute.String;
-    os: Attribute.String;
-    browser: Attribute.String;
-    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::access-log.access-log',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::access-log.access-log',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiActivityLogActivityLog extends Schema.CollectionType {
-  collectionName: 'activity_logs';
-  info: {
-    singularName: 'activity-log';
-    pluralName: 'activity-logs';
-    displayName: 'ActivityLog';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    status: Attribute.Enumeration<['Pending', 'Fulfilled', 'Rejected']> &
-      Attribute.Required;
-    action: Attribute.Enumeration<['Create', 'Update', 'Delete']> &
-      Attribute.Required;
-    refContentType: Attribute.Enumeration<['Fund']> & Attribute.Required;
-    refId: Attribute.Integer & Attribute.Required;
-    message: Attribute.String;
-    payload: Attribute.JSON;
-    date: Attribute.DateTime & Attribute.Required;
-    user: Attribute.Relation<
-      'api::activity-log.activity-log',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::activity-log.activity-log',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::activity-log.activity-log',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiFundFund extends Schema.CollectionType {
-  collectionName: 'funds';
-  info: {
-    singularName: 'fund';
-    pluralName: 'funds';
-    displayName: 'Fund';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    banner: Attribute.Media;
-    chain: Attribute.Enumeration<['Ethereum', 'Blast']> &
-      Attribute.DefaultTo<'Ethereum'>;
-    baseCurrency: Attribute.Enumeration<['ETH', 'DAI', 'USDC', 'USDT']> &
-      Attribute.DefaultTo<'USDT'>;
-    category: Attribute.Enumeration<
-      [
-        'Health and Medical',
-        'Arts and Culture',
-        'Finance and Technology',
-        'Social Enterprise',
-        'Emerging Industries',
-        'Environment and Sustainability',
-        'Food and Agriculture',
-        'Education and Training',
-        'Travel and Hospitality',
-        'Entertainment and Recreation',
-        'Fashion and Beauty',
-        'Social and Communication',
-        'Web3.0 and Blockchain'
-      ]
-    > &
-      Attribute.DefaultTo<'Web3.0 and Blockchain'>;
-    displayName: Attribute.String & Attribute.Required;
-    description: Attribute.String;
-    fundSFTContractAddress: Attribute.String;
-    detail: Attribute.JSON;
-    genesisDate: Attribute.DateTime;
-    saleStartTime: Attribute.DateTime;
-    maturityDate: Attribute.DateTime;
-    performanceFeePercentage: Attribute.Integer &
-      Attribute.SetMinMax<
-        {
-          min: 0;
-          max: 100;
-        },
-        number
-      > &
-      Attribute.DefaultTo<10>;
-    redemptionFrequencyInDays: Attribute.Integer & Attribute.DefaultTo<14>;
-    defaultPackages: Attribute.Relation<
-      'api::fund.fund',
-      'oneToMany',
-      'api::package.package'
-    >;
-    tokens: Attribute.Relation<
-      'api::fund.fund',
-      'oneToMany',
-      'api::token.token'
-    >;
-    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
-    status: Attribute.Enumeration<['Draft', 'Published', 'Archived']> &
-      Attribute.DefaultTo<'Draft'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::fund.fund', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::fund.fund', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
-export interface ApiNotificationNotification extends Schema.CollectionType {
-  collectionName: 'notifications';
-  info: {
-    singularName: 'notification';
-    pluralName: 'notifications';
-    displayName: 'Notification';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    notifier: Attribute.Relation<
-      'api::notification.notification',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    catalog: Attribute.Enumeration<['System', 'Fund']> &
-      Attribute.Required &
-      Attribute.DefaultTo<'System'>;
-    title: Attribute.String & Attribute.Required;
-    content: Attribute.JSON;
-    date: Attribute.DateTime;
-    isSeen: Attribute.Boolean & Attribute.DefaultTo<false>;
-    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::notification.notification',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::notification.notification',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiPackagePackage extends Schema.CollectionType {
-  collectionName: 'packages';
-  info: {
-    singularName: 'package';
-    pluralName: 'packages';
-    displayName: 'Package';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    displayName: Attribute.String & Attribute.Required;
-    description: Attribute.String;
-    packageId: Attribute.BigInteger & Attribute.Required;
-    skin: Attribute.Enumeration<['Green', 'Purple', 'Orange']> &
-      Attribute.Required;
-    priceInUnit: Attribute.Decimal &
-      Attribute.Required &
-      Attribute.DefaultTo<0>;
-    slot: Attribute.Component<'token.property', true>;
-    status: Attribute.Enumeration<['Draft', 'Published', 'Archived']> &
-      Attribute.Required &
-      Attribute.DefaultTo<'Draft'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::package.package',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::package.package',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiTokenToken extends Schema.CollectionType {
-  collectionName: 'tokens';
-  info: {
-    singularName: 'token';
-    pluralName: 'tokens';
-    displayName: 'Token';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    tokenId: Attribute.Integer;
-    displayName: Attribute.String;
-    description: Attribute.String;
-    tokenAddress: Attribute.String;
-    contractAddress: Attribute.String;
-    attributes: Attribute.Component<'token.attribute', true>;
-    package: Attribute.Relation<
-      'api::token.token',
-      'oneToOne',
-      'api::package.package'
-    >;
-    status: Attribute.Enumeration<
-      ['Draft', 'Generating', 'Published', 'Archived']
-    > &
-      Attribute.DefaultTo<'Draft'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::token.token',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::token.token',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -1088,6 +793,354 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiAccessLogAccessLog extends Schema.CollectionType {
+  collectionName: 'access_logs';
+  info: {
+    singularName: 'access-log';
+    pluralName: 'access-logs';
+    displayName: 'AccessLog';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    action: Attribute.Enumeration<
+      [
+        'Login',
+        'ForgotPassword',
+        'ResetPassword',
+        'ChangePassword',
+        'VerifyEmail'
+      ]
+    >;
+    responseMessage: Attribute.String;
+    status: Attribute.Boolean;
+    date: Attribute.DateTime;
+    user: Attribute.Relation<
+      'api::access-log.access-log',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    ip: Attribute.String;
+    os: Attribute.String;
+    browser: Attribute.String;
+    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::access-log.access-log',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::access-log.access-log',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiActivityLogActivityLog extends Schema.CollectionType {
+  collectionName: 'activity_logs';
+  info: {
+    singularName: 'activity-log';
+    pluralName: 'activity-logs';
+    displayName: 'ActivityLog';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    status: Attribute.Enumeration<['Pending', 'Fulfilled', 'Rejected']> &
+      Attribute.Required;
+    action: Attribute.Enumeration<['Create', 'Update', 'Delete']> &
+      Attribute.Required;
+    refContentType: Attribute.Enumeration<['Fund', 'Announcement']> &
+      Attribute.Required;
+    refId: Attribute.Integer & Attribute.Required;
+    message: Attribute.String;
+    payload: Attribute.JSON;
+    date: Attribute.DateTime & Attribute.Required;
+    user: Attribute.Relation<
+      'api::activity-log.activity-log',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::activity-log.activity-log',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::activity-log.activity-log',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiAnnouncementAnnouncement extends Schema.CollectionType {
+  collectionName: 'announcements';
+  info: {
+    singularName: 'announcement';
+    pluralName: 'announcements';
+    displayName: 'Announcement';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    cover: Attribute.Media;
+    catalog: Attribute.Enumeration<
+      [
+        'Engineering',
+        'Community',
+        'Company News',
+        'Customer Stories',
+        'Changelog',
+        'Press'
+      ]
+    > &
+      Attribute.Required &
+      Attribute.DefaultTo<'Engineering'>;
+    displayName: Attribute.String;
+    content: Attribute.JSON;
+    author: Attribute.Relation<
+      'api::announcement.announcement',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    status: Attribute.Enumeration<['Draft', 'Published', 'Archived']> &
+      Attribute.DefaultTo<'Draft'>;
+    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::announcement.announcement',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::announcement.announcement',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiFundFund extends Schema.CollectionType {
+  collectionName: 'funds';
+  info: {
+    singularName: 'fund';
+    pluralName: 'funds';
+    displayName: 'Fund';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    banner: Attribute.Media;
+    chain: Attribute.Enumeration<['Ethereum', 'Blast']> &
+      Attribute.DefaultTo<'Ethereum'>;
+    baseCurrency: Attribute.Enumeration<['ETH', 'DAI', 'USDC', 'USDT']> &
+      Attribute.DefaultTo<'USDT'>;
+    category: Attribute.Enumeration<
+      [
+        'Health and Medical',
+        'Arts and Culture',
+        'Finance and Technology',
+        'Social Enterprise',
+        'Emerging Industries',
+        'Environment and Sustainability',
+        'Food and Agriculture',
+        'Education and Training',
+        'Travel and Hospitality',
+        'Entertainment and Recreation',
+        'Fashion and Beauty',
+        'Social and Communication',
+        'Web3.0 and Blockchain'
+      ]
+    > &
+      Attribute.DefaultTo<'Web3.0 and Blockchain'>;
+    displayName: Attribute.String & Attribute.Required;
+    description: Attribute.String;
+    fundSFTContractAddress: Attribute.String;
+    detail: Attribute.JSON;
+    genesisDate: Attribute.DateTime;
+    saleStartTime: Attribute.DateTime;
+    maturityDate: Attribute.DateTime;
+    performanceFeePercentage: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+          max: 100;
+        },
+        number
+      > &
+      Attribute.DefaultTo<10>;
+    redemptionFrequencyInDays: Attribute.Integer & Attribute.DefaultTo<14>;
+    defaultPackages: Attribute.Relation<
+      'api::fund.fund',
+      'oneToMany',
+      'api::package.package'
+    >;
+    tokens: Attribute.Relation<
+      'api::fund.fund',
+      'oneToMany',
+      'api::token.token'
+    >;
+    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
+    status: Attribute.Enumeration<['Draft', 'Published', 'Archived']> &
+      Attribute.DefaultTo<'Draft'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::fund.fund', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::fund.fund', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiNotificationNotification extends Schema.CollectionType {
+  collectionName: 'notifications';
+  info: {
+    singularName: 'notification';
+    pluralName: 'notifications';
+    displayName: 'Notification';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    notifier: Attribute.Relation<
+      'api::notification.notification',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    catalog: Attribute.Enumeration<['System', 'Fund']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'System'>;
+    title: Attribute.String & Attribute.Required;
+    content: Attribute.JSON;
+    date: Attribute.DateTime;
+    isSeen: Attribute.Boolean & Attribute.DefaultTo<false>;
+    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::notification.notification',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::notification.notification',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPackagePackage extends Schema.CollectionType {
+  collectionName: 'packages';
+  info: {
+    singularName: 'package';
+    pluralName: 'packages';
+    displayName: 'Package';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    displayName: Attribute.String & Attribute.Required;
+    description: Attribute.String;
+    packageId: Attribute.BigInteger & Attribute.Required;
+    skin: Attribute.Enumeration<['Green', 'Purple', 'Orange']> &
+      Attribute.Required;
+    priceInUnit: Attribute.Decimal &
+      Attribute.Required &
+      Attribute.DefaultTo<0>;
+    slot: Attribute.Component<'token.property', true>;
+    status: Attribute.Enumeration<['Draft', 'Published', 'Archived']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'Draft'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::package.package',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::package.package',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTokenToken extends Schema.CollectionType {
+  collectionName: 'tokens';
+  info: {
+    singularName: 'token';
+    pluralName: 'tokens';
+    displayName: 'Token';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    tokenId: Attribute.Integer;
+    displayName: Attribute.String;
+    description: Attribute.String;
+    tokenAddress: Attribute.String;
+    contractAddress: Attribute.String;
+    attributes: Attribute.Component<'token.attribute', true>;
+    package: Attribute.Relation<
+      'api::token.token',
+      'oneToOne',
+      'api::package.package'
+    >;
+    status: Attribute.Enumeration<
+      ['Draft', 'Generating', 'Published', 'Archived']
+    > &
+      Attribute.DefaultTo<'Draft'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::token.token',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::token.token',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1098,12 +1151,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::access-log.access-log': ApiAccessLogAccessLog;
-      'api::activity-log.activity-log': ApiActivityLogActivityLog;
-      'api::fund.fund': ApiFundFund;
-      'api::notification.notification': ApiNotificationNotification;
-      'api::package.package': ApiPackagePackage;
-      'api::token.token': ApiTokenToken;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -1112,6 +1159,13 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::access-log.access-log': ApiAccessLogAccessLog;
+      'api::activity-log.activity-log': ApiActivityLogActivityLog;
+      'api::announcement.announcement': ApiAnnouncementAnnouncement;
+      'api::fund.fund': ApiFundFund;
+      'api::notification.notification': ApiNotificationNotification;
+      'api::package.package': ApiPackagePackage;
+      'api::token.token': ApiTokenToken;
     }
   }
 }

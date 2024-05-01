@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "wallets",
+  "info": {
+    "singularName": "wallet",
+    "pluralName": "wallets",
+    "displayName": "Wallet",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "chain": {
+      "type": "enumeration",
+      "enum": [
+        "Ethereum"
+      ],
+      "default": "Ethereum",
+      "required": true
+    },
+    "address": {
+      "type": "string",
+      "regex": "^0x[a-fA-F0-9]{40}$",
+      "required": true
+    },
+    "connector": {
+      "type": "string"
+    },
+    "isConnected": {
+      "type": "boolean",
+      "default": true,
+      "required": false
+    }
+  }
+}

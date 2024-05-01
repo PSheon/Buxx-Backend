@@ -34,7 +34,8 @@
       "type": "enumeration",
       "enum": [
         "Fund",
-        "Announcement"
+        "Announcement",
+        "Wallet"
       ],
       "required": true
     },

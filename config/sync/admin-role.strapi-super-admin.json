@@ -461,6 +461,58 @@
       "conditions": []
     },
     {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::wallet.wallet",
+      "properties": {
+        "fields": [
+          "user",
+          "chain",
+          "address",
+          "connector",
+          "isConnected"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::wallet.wallet",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::wallet.wallet",
+      "properties": {
+        "fields": [
+          "user",
+          "chain",
+          "address",
+          "connector",
+          "isConnected"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::wallet.wallet",
+      "properties": {
+        "fields": [
+          "user",
+          "chain",
+          "address",
+          "connector",
+          "isConnected"
+        ]
+      },
+      "conditions": []
+    },
+    {
       "action": "admin::api-tokens.access",
       "actionParameters": {},
       "subject": null,

@@ -106,6 +106,18 @@
       "action": "api::token.token.update"
     },
     {
+      "action": "api::wallet.wallet.find"
+    },
+    {
+      "action": "api::wallet.wallet.findMe"
+    },
+    {
+      "action": "api::wallet.wallet.getNonce"
+    },
+    {
+      "action": "api::wallet.wallet.verifyWallet"
+    },
+    {
       "action": "plugin::upload.content-api.destroy"
     },
     {

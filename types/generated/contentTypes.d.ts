@@ -859,7 +859,7 @@ export interface ApiActivityLogActivityLog extends Schema.CollectionType {
       Attribute.Required;
     action: Attribute.Enumeration<['Create', 'Update', 'Delete']> &
       Attribute.Required;
-    refContentType: Attribute.Enumeration<['Fund', 'Announcement']> &
+    refContentType: Attribute.Enumeration<['Fund', 'Announcement', 'Wallet']> &
       Attribute.Required;
     refId: Attribute.Integer & Attribute.Required;
     message: Attribute.String;
@@ -1141,6 +1141,46 @@ export interface ApiTokenToken extends Schema.CollectionType {
   };
 }
 
+export interface ApiWalletWallet extends Schema.CollectionType {
+  collectionName: 'wallets';
+  info: {
+    singularName: 'wallet';
+    pluralName: 'wallets';
+    displayName: 'Wallet';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    user: Attribute.Relation<
+      'api::wallet.wallet',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    chain: Attribute.Enumeration<['Ethereum']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'Ethereum'>;
+    address: Attribute.String & Attribute.Required;
+    connector: Attribute.String;
+    isConnected: Attribute.Boolean & Attribute.DefaultTo<true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::wallet.wallet',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::wallet.wallet',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1166,6 +1206,7 @@ declare module '@strapi/types' {
       'api::notification.notification': ApiNotificationNotification;
       'api::package.package': ApiPackagePackage;
       'api::token.token': ApiTokenToken;
+      'api::wallet.wallet': ApiWalletWallet;
     }
   }
 }

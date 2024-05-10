@@ -4,6 +4,12 @@
   "type": "public",
   "permissions": [
     {
+      "action": "api::blog.blog.find"
+    },
+    {
+      "action": "api::blog.blog.findOne"
+    },
+    {
       "action": "plugin::users-permissions.auth.callback"
     },
     {
@@ -26,6 +32,9 @@
     },
     {
       "action": "plugin::users-permissions.role.find"
+    },
+    {
+      "action": "plugin::users-permissions.user.find"
     }
   ]
 }

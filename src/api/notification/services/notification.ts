@@ -15,7 +15,7 @@ export default factories.createCoreService(
       await strapi.entityService.create("api::notification.notification", {
         data: {
           notifier: notifier.id,
-          catalog: "System",
+          category: "System",
           title: `Welcome ${notifier.username}!`,
           content: getWelcomeNotificationContent({ notifier }),
           date: new Date(),

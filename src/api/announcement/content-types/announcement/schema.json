@@ -18,7 +18,7 @@
       "required": false,
       "allowedTypes": ["images"]
     },
-    "catalog": {
+    "category": {
       "type": "enumeration",
       "enum": [
         "Engineering",

@@ -17,12 +17,9 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
-    "catalog": {
+    "category": {
       "type": "enumeration",
-      "enum": [
-        "System",
-        "Fund"
-      ],
+      "enum": ["System", "Fund"],
       "default": "System",
       "required": true
     },

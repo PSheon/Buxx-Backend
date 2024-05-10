@@ -901,7 +901,7 @@ export interface ApiAnnouncementAnnouncement extends Schema.CollectionType {
   };
   attributes: {
     cover: Attribute.Media;
-    catalog: Attribute.Enumeration<
+    category: Attribute.Enumeration<
       [
         'Engineering',
         'Community',
@@ -1079,7 +1079,7 @@ export interface ApiNotificationNotification extends Schema.CollectionType {
       'oneToOne',
       'plugin::users-permissions.user'
     >;
-    catalog: Attribute.Enumeration<['System', 'Fund']> &
+    category: Attribute.Enumeration<['System', 'Fund']> &
       Attribute.Required &
       Attribute.DefaultTo<'System'>;
     title: Attribute.String & Attribute.Required;

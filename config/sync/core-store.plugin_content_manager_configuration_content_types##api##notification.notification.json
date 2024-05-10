@@ -34,16 +34,16 @@
           "sortable": true
         }
       },
-      "catalog": {
+      "category": {
         "edit": {
-          "label": "catalog",
+          "label": "category",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "catalog",
+          "label": "category",
           "searchable": true,
           "sortable": true
         }
@@ -185,7 +185,7 @@
             "size": 4
           },
           {
-            "name": "catalog",
+            "name": "category",
             "size": 8
           }
         ],

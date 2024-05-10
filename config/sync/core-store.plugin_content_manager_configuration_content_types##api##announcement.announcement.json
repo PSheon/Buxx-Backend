@@ -33,6 +33,20 @@
           "sortable": false
         }
       },
+      "category": {
+        "edit": {
+          "label": "category",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "category",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "displayName": {
         "edit": {
           "label": "displayName",
@@ -100,20 +114,6 @@
         },
         "list": {
           "label": "isHighlighted",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "catalog": {
-        "edit": {
-          "label": "catalog",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "catalog",
           "searchable": true,
           "sortable": true
         }
@@ -191,7 +191,7 @@
             "size": 8
           },
           {
-            "name": "catalog",
+            "name": "category",
             "size": 4
           }
         ],

@@ -138,7 +138,7 @@
       "properties": {
         "fields": [
           "cover",
-          "catalog",
+          "category",
           "displayName",
           "content",
           "author",
@@ -162,7 +162,7 @@
       "properties": {
         "fields": [
           "cover",
-          "catalog",
+          "category",
           "displayName",
           "content",
           "author",
@@ -179,7 +179,7 @@
       "properties": {
         "fields": [
           "cover",
-          "catalog",
+          "category",
           "displayName",
           "content",
           "author",
@@ -345,7 +345,7 @@
       "properties": {
         "fields": [
           "notifier",
-          "catalog",
+          "category",
           "title",
           "content",
           "date",
@@ -369,7 +369,7 @@
       "properties": {
         "fields": [
           "notifier",
-          "catalog",
+          "category",
           "title",
           "content",
           "date",
@@ -386,7 +386,7 @@
       "properties": {
         "fields": [
           "notifier",
-          "catalog",
+          "category",
           "title",
           "content",
           "date",

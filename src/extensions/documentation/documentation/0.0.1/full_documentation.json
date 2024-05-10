@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-05-10T06:24:37.980Z"
+    "x-generation-date": "2024-05-10T12:06:44.500Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -2316,7 +2316,7 @@
         "properties": {
           "data": {
             "required": [
-              "catalog"
+              "category"
             ],
             "type": "object",
             "properties": {
@@ -2331,7 +2331,7 @@
                 ],
                 "example": "string or id"
               },
-              "catalog": {
+              "category": {
                 "type": "string",
                 "enum": [
                   "Engineering",
@@ -2421,7 +2421,7 @@
       "Announcement": {
         "type": "object",
         "required": [
-          "catalog"
+          "category"
         ],
         "properties": {
           "cover": {
@@ -3052,7 +3052,7 @@
               }
             }
           },
-          "catalog": {
+          "category": {
             "type": "string",
             "enum": [
               "Engineering",
@@ -6001,7 +6001,7 @@
         "properties": {
           "data": {
             "required": [
-              "catalog",
+              "category",
               "title"
             ],
             "type": "object",
@@ -6017,7 +6017,7 @@
                 ],
                 "example": "string or id"
               },
-              "catalog": {
+              "category": {
                 "type": "string",
                 "enum": [
                   "System",
@@ -6091,7 +6091,7 @@
       "Notification": {
         "type": "object",
         "required": [
-          "catalog",
+          "category",
           "title"
         ],
         "properties": {
@@ -6990,7 +6990,7 @@
               }
             }
           },
-          "catalog": {
+          "category": {
             "type": "string",
             "enum": [
               "System",

@@ -964,14 +964,18 @@ export interface ApiArticleArticle extends Schema.CollectionType {
     > &
       Attribute.Required &
       Attribute.DefaultTo<'Changelog'>;
-    displayName: Attribute.String;
+    displayName: Attribute.String & Attribute.Required;
+    description: Attribute.String;
     content: Attribute.JSON;
     author: Attribute.Relation<
       'api::article.article',
       'oneToOne',
       'plugin::users-permissions.user'
     >;
-    status: Attribute.Enumeration<['Draft', 'Published', 'Archived']> &
+    status: Attribute.Enumeration<
+      ['Draft', 'Generating', 'Published', 'Archived']
+    > &
+      Attribute.Required &
       Attribute.DefaultTo<'Draft'>;
     isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;

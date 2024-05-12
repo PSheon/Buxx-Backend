@@ -25,21 +25,6 @@
       "action": "api::activity-log.activity-log.update"
     },
     {
-      "action": "api::announcement.announcement.create"
-    },
-    {
-      "action": "api::announcement.announcement.delete"
-    },
-    {
-      "action": "api::announcement.announcement.find"
-    },
-    {
-      "action": "api::announcement.announcement.findOne"
-    },
-    {
-      "action": "api::announcement.announcement.update"
-    },
-    {
       "action": "api::article.article.create"
     },
     {

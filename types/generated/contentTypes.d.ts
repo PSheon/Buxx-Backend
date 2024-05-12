@@ -888,58 +888,6 @@ export interface ApiActivityLogActivityLog extends Schema.CollectionType {
   };
 }
 
-export interface ApiAnnouncementAnnouncement extends Schema.CollectionType {
-  collectionName: 'announcements';
-  info: {
-    singularName: 'announcement';
-    pluralName: 'announcements';
-    displayName: 'Announcement';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    cover: Attribute.Media;
-    category: Attribute.Enumeration<
-      [
-        'Engineering',
-        'Community',
-        'Company News',
-        'Customer Stories',
-        'Changelog',
-        'Press'
-      ]
-    > &
-      Attribute.Required &
-      Attribute.DefaultTo<'Engineering'>;
-    displayName: Attribute.String;
-    content: Attribute.JSON;
-    author: Attribute.Relation<
-      'api::announcement.announcement',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    status: Attribute.Enumeration<['Draft', 'Published', 'Archived']> &
-      Attribute.DefaultTo<'Draft'>;
-    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::announcement.announcement',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::announcement.announcement',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiArticleArticle extends Schema.CollectionType {
   collectionName: 'articles';
   info: {
@@ -1256,7 +1204,6 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::access-log.access-log': ApiAccessLogAccessLog;
       'api::activity-log.activity-log': ApiActivityLogActivityLog;
-      'api::announcement.announcement': ApiAnnouncementAnnouncement;
       'api::article.article': ApiArticleArticle;
       'api::fund.fund': ApiFundFund;
       'api::notification.notification': ApiNotificationNotification;

@@ -134,64 +134,6 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
-      "subject": "api::announcement.announcement",
-      "properties": {
-        "fields": [
-          "cover",
-          "category",
-          "displayName",
-          "content",
-          "author",
-          "status",
-          "isHighlighted"
-        ]
-      },
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.delete",
-      "actionParameters": {},
-      "subject": "api::announcement.announcement",
-      "properties": {},
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.read",
-      "actionParameters": {},
-      "subject": "api::announcement.announcement",
-      "properties": {
-        "fields": [
-          "cover",
-          "category",
-          "displayName",
-          "content",
-          "author",
-          "status",
-          "isHighlighted"
-        ]
-      },
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.update",
-      "actionParameters": {},
-      "subject": "api::announcement.announcement",
-      "properties": {
-        "fields": [
-          "cover",
-          "category",
-          "displayName",
-          "content",
-          "author",
-          "status",
-          "isHighlighted"
-        ]
-      },
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.create",
-      "actionParameters": {},
       "subject": "api::article.article",
       "properties": {
         "fields": [

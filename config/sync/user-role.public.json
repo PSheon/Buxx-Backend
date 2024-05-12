@@ -4,6 +4,12 @@
   "type": "public",
   "permissions": [
     {
+      "action": "api::article.article.find"
+    },
+    {
+      "action": "api::article.article.findOne"
+    },
+    {
       "action": "api::blog.blog.find"
     },
     {

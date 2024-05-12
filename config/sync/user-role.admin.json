@@ -40,6 +40,21 @@
       "action": "api::announcement.announcement.update"
     },
     {
+      "action": "api::article.article.create"
+    },
+    {
+      "action": "api::article.article.delete"
+    },
+    {
+      "action": "api::article.article.find"
+    },
+    {
+      "action": "api::article.article.findOne"
+    },
+    {
+      "action": "api::article.article.update"
+    },
+    {
       "action": "api::blog.blog.create"
     },
     {

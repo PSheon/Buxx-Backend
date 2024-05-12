@@ -995,54 +995,6 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   };
 }
 
-export interface ApiBlogBlog extends Schema.CollectionType {
-  collectionName: 'blogs';
-  info: {
-    singularName: 'blog';
-    pluralName: 'blogs';
-    displayName: 'Blog';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    cover: Attribute.Media;
-    category: Attribute.Enumeration<
-      [
-        'Engineering',
-        'Community',
-        'Company News',
-        'Customer Stories',
-        'Changelog',
-        'Press'
-      ]
-    > &
-      Attribute.Required &
-      Attribute.DefaultTo<'Changelog'>;
-    displayName: Attribute.String & Attribute.Required;
-    description: Attribute.String;
-    content: Attribute.JSON;
-    author: Attribute.Relation<
-      'api::blog.blog',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    status: Attribute.Enumeration<
-      ['Draft', 'Generating', 'Published', 'Archived']
-    > &
-      Attribute.Required &
-      Attribute.DefaultTo<'Draft'>;
-    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
 export interface ApiFundFund extends Schema.CollectionType {
   collectionName: 'funds';
   info: {
@@ -1306,7 +1258,6 @@ declare module '@strapi/types' {
       'api::activity-log.activity-log': ApiActivityLogActivityLog;
       'api::announcement.announcement': ApiAnnouncementAnnouncement;
       'api::article.article': ApiArticleArticle;
-      'api::blog.blog': ApiBlogBlog;
       'api::fund.fund': ApiFundFund;
       'api::notification.notification': ApiNotificationNotification;
       'api::package.package': ApiPackagePackage;

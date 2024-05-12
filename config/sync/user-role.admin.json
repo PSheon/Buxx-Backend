@@ -55,18 +55,6 @@
       "action": "api::article.article.update"
     },
     {
-      "action": "api::blog.blog.create"
-    },
-    {
-      "action": "api::blog.blog.find"
-    },
-    {
-      "action": "api::blog.blog.findOne"
-    },
-    {
-      "action": "api::blog.blog.update"
-    },
-    {
       "action": "api::fund.fund.create"
     },
     {

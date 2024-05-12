@@ -10,12 +10,6 @@
       "action": "api::article.article.findOne"
     },
     {
-      "action": "api::blog.blog.find"
-    },
-    {
-      "action": "api::blog.blog.findOne"
-    },
-    {
       "action": "plugin::users-permissions.auth.callback"
     },
     {

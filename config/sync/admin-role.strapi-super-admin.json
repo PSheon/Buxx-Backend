@@ -253,67 +253,6 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
-      "subject": "api::blog.blog",
-      "properties": {
-        "fields": [
-          "cover",
-          "category",
-          "displayName",
-          "description",
-          "content",
-          "author",
-          "status",
-          "isHighlighted"
-        ]
-      },
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.delete",
-      "actionParameters": {},
-      "subject": "api::blog.blog",
-      "properties": {},
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.read",
-      "actionParameters": {},
-      "subject": "api::blog.blog",
-      "properties": {
-        "fields": [
-          "cover",
-          "category",
-          "displayName",
-          "description",
-          "content",
-          "author",
-          "status",
-          "isHighlighted"
-        ]
-      },
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.update",
-      "actionParameters": {},
-      "subject": "api::blog.blog",
-      "properties": {
-        "fields": [
-          "cover",
-          "category",
-          "displayName",
-          "description",
-          "content",
-          "author",
-          "status",
-          "isHighlighted"
-        ]
-      },
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.create",
-      "actionParameters": {},
       "subject": "api::fund.fund",
       "properties": {
         "fields": [

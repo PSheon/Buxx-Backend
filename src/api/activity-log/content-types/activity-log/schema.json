@@ -14,29 +14,17 @@
   "attributes": {
     "status": {
       "type": "enumeration",
-      "enum": [
-        "Pending",
-        "Fulfilled",
-        "Rejected"
-      ],
+      "enum": ["Pending", "Fulfilled", "Rejected"],
       "required": true
     },
     "action": {
       "type": "enumeration",
-      "enum": [
-        "Create",
-        "Update",
-        "Delete"
-      ],
+      "enum": ["Create", "Update", "Delete"],
       "required": true
     },
     "refContentType": {
       "type": "enumeration",
-      "enum": [
-        "Fund",
-        "Announcement",
-        "Wallet"
-      ],
+      "enum": ["Fund", "Article", "Wallet"],
       "required": true
     },
     "refId": {

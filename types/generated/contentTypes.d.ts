@@ -859,7 +859,7 @@ export interface ApiActivityLogActivityLog extends Schema.CollectionType {
       Attribute.Required;
     action: Attribute.Enumeration<['Create', 'Update', 'Delete']> &
       Attribute.Required;
-    refContentType: Attribute.Enumeration<['Fund', 'Announcement', 'Wallet']> &
+    refContentType: Attribute.Enumeration<['Fund', 'Article', 'Wallet']> &
       Attribute.Required;
     refId: Attribute.Integer & Attribute.Required;
     message: Attribute.String;
@@ -933,6 +933,57 @@ export interface ApiAnnouncementAnnouncement extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::announcement.announcement',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiArticleArticle extends Schema.CollectionType {
+  collectionName: 'articles';
+  info: {
+    singularName: 'article';
+    pluralName: 'articles';
+    displayName: 'Article';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    cover: Attribute.Media;
+    category: Attribute.Enumeration<
+      [
+        'Engineering',
+        'Community',
+        'Company News',
+        'Customer Stories',
+        'Changelog',
+        'Press'
+      ]
+    > &
+      Attribute.Required &
+      Attribute.DefaultTo<'Changelog'>;
+    displayName: Attribute.String;
+    content: Attribute.JSON;
+    author: Attribute.Relation<
+      'api::article.article',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    status: Attribute.Enumeration<['Draft', 'Published', 'Archived']> &
+      Attribute.DefaultTo<'Draft'>;
+    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::article.article',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::article.article',
       'oneToOne',
       'admin::user'
     > &
@@ -1250,6 +1301,7 @@ declare module '@strapi/types' {
       'api::access-log.access-log': ApiAccessLogAccessLog;
       'api::activity-log.activity-log': ApiActivityLogActivityLog;
       'api::announcement.announcement': ApiAnnouncementAnnouncement;
+      'api::article.article': ApiArticleArticle;
       'api::blog.blog': ApiBlogBlog;
       'api::fund.fund': ApiFundFund;
       'api::notification.notification': ApiNotificationNotification;

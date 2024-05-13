@@ -69,7 +69,6 @@ export default ({ strapi }) => {
 
     const advancedSettings = await strapi
       .store({ type: "plugin", name: "users-permissions", key: "advanced" })
-
       .get();
 
     const user = _.find(users, { provider });
@@ -102,7 +101,7 @@ export default ({ strapi }) => {
 
     const createdUser = await strapi
       .query("plugin::users-permissions.user")
-      .create({ data: newUser });
+      .create({ data: newUser, populate: ["avatar", "role"] });
 
     return createdUser;
   };

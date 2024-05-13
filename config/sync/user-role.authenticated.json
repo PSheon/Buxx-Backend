@@ -1,0 +1,94 @@
+{
+  "name": "User",
+  "description": "Default role given to authenticated user.",
+  "type": "authenticated",
+  "permissions": [
+    {
+      "action": "api::access-log.access-log.findMe"
+    },
+    {
+      "action": "api::activity-log.activity-log.findMe"
+    },
+    {
+      "action": "api::activity-log.activity-log.findOne"
+    },
+    {
+      "action": "api::activity-log.activity-log.update"
+    },
+    {
+      "action": "api::article.article.find"
+    },
+    {
+      "action": "api::article.article.findOne"
+    },
+    {
+      "action": "api::fund.fund.find"
+    },
+    {
+      "action": "api::fund.fund.findOne"
+    },
+    {
+      "action": "api::notification.notification.findMe"
+    },
+    {
+      "action": "api::notification.notification.findMeOne"
+    },
+    {
+      "action": "api::notification.notification.updateMeOne"
+    },
+    {
+      "action": "api::package.package.find"
+    },
+    {
+      "action": "api::package.package.findOne"
+    },
+    {
+      "action": "api::token.token.find"
+    },
+    {
+      "action": "api::token.token.findOne"
+    },
+    {
+      "action": "api::wallet.wallet.findMe"
+    },
+    {
+      "action": "api::wallet.wallet.getNonce"
+    },
+    {
+      "action": "api::wallet.wallet.verifyWallet"
+    },
+    {
+      "action": "plugin::upload.content-api.find"
+    },
+    {
+      "action": "plugin::upload.content-api.findOne"
+    },
+    {
+      "action": "plugin::upload.content-api.upload"
+    },
+    {
+      "action": "plugin::users-permissions.auth.changePassword"
+    },
+    {
+      "action": "plugin::users-permissions.auth.emailConfirmation"
+    },
+    {
+      "action": "plugin::users-permissions.auth.resetPassword"
+    },
+    {
+      "action": "plugin::users-permissions.auth.sendEmailConfirmation"
+    },
+    {
+      "action": "plugin::users-permissions.role.find"
+    },
+    {
+      "action": "plugin::users-permissions.user.find"
+    },
+    {
+      "action": "plugin::users-permissions.user.me"
+    },
+    {
+      "action": "plugin::users-permissions.user.updateMe"
+    }
+  ]
+}

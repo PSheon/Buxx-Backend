@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_token_properties",
+  "info": {
+    "displayName": "Property",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "propertyType": {
+      "type": "enumeration",
+      "enum": [
+        "DisplayName",
+        "Period"
+      ],
+      "required": true
+    },
+    "value": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

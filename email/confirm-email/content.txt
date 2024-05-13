@@ -1,0 +1,21 @@
+<%= content.title %>
+
+<%= metadata.productName %> ( https://example.com )
+
+******************
+<%= content.title %>
+******************
+
+<%= content.greeting %>
+<%= content.welcomeAboard %>
+<%= content.clickButtonBelowToVerify %>
+
+<%= confirmButton.text %> ( <%= confirmButton.link %> )
+
+<%= content.orVerifyUsingThisLink %>
+<%= confirmButton.link %>
+
+<%= content.needHelp %>
+<%= content.pleaseFeedbackTo %> <%= metadata.replyTo %>
+
+<%= metadata.productName %>

@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "packages",
+  "info": {
+    "singularName": "package",
+    "pluralName": "packages",
+    "displayName": "Package",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "displayName": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "packageId": {
+      "type": "biginteger",
+      "required": true,
+      "unique": false
+    },
+    "skin": {
+      "type": "enumeration",
+      "enum": [
+        "Green",
+        "Purple",
+        "Orange"
+      ],
+      "required": true
+    },
+    "priceInUnit": {
+      "type": "decimal",
+      "default": 0,
+      "required": true
+    },
+    "slot": {
+      "type": "component",
+      "repeatable": true,
+      "component": "token.property"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Draft",
+        "Published",
+        "Archived"
+      ],
+      "default": "Draft",
+      "required": true
+    }
+  }
+}

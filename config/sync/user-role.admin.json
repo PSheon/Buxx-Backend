@@ -1,0 +1,163 @@
+{
+  "name": "Admin",
+  "description": "Who manages system",
+  "type": "admin",
+  "permissions": [
+    {
+      "action": "api::access-log.access-log.find"
+    },
+    {
+      "action": "api::access-log.access-log.findMe"
+    },
+    {
+      "action": "api::access-log.access-log.update"
+    },
+    {
+      "action": "api::activity-log.activity-log.find"
+    },
+    {
+      "action": "api::activity-log.activity-log.findMe"
+    },
+    {
+      "action": "api::activity-log.activity-log.findOne"
+    },
+    {
+      "action": "api::activity-log.activity-log.update"
+    },
+    {
+      "action": "api::article.article.create"
+    },
+    {
+      "action": "api::article.article.delete"
+    },
+    {
+      "action": "api::article.article.find"
+    },
+    {
+      "action": "api::article.article.findOne"
+    },
+    {
+      "action": "api::article.article.update"
+    },
+    {
+      "action": "api::fund.fund.create"
+    },
+    {
+      "action": "api::fund.fund.delete"
+    },
+    {
+      "action": "api::fund.fund.find"
+    },
+    {
+      "action": "api::fund.fund.findOne"
+    },
+    {
+      "action": "api::fund.fund.update"
+    },
+    {
+      "action": "api::notification.notification.delete"
+    },
+    {
+      "action": "api::notification.notification.find"
+    },
+    {
+      "action": "api::notification.notification.findMe"
+    },
+    {
+      "action": "api::notification.notification.findMeOne"
+    },
+    {
+      "action": "api::notification.notification.findOne"
+    },
+    {
+      "action": "api::notification.notification.update"
+    },
+    {
+      "action": "api::notification.notification.updateMeOne"
+    },
+    {
+      "action": "api::package.package.create"
+    },
+    {
+      "action": "api::package.package.delete"
+    },
+    {
+      "action": "api::package.package.find"
+    },
+    {
+      "action": "api::package.package.findOne"
+    },
+    {
+      "action": "api::package.package.update"
+    },
+    {
+      "action": "api::token.token.create"
+    },
+    {
+      "action": "api::token.token.delete"
+    },
+    {
+      "action": "api::token.token.find"
+    },
+    {
+      "action": "api::token.token.findOne"
+    },
+    {
+      "action": "api::token.token.update"
+    },
+    {
+      "action": "api::wallet.wallet.find"
+    },
+    {
+      "action": "api::wallet.wallet.findMe"
+    },
+    {
+      "action": "api::wallet.wallet.getNonce"
+    },
+    {
+      "action": "api::wallet.wallet.verifyWallet"
+    },
+    {
+      "action": "plugin::upload.content-api.destroy"
+    },
+    {
+      "action": "plugin::upload.content-api.find"
+    },
+    {
+      "action": "plugin::upload.content-api.findOne"
+    },
+    {
+      "action": "plugin::upload.content-api.upload"
+    },
+    {
+      "action": "plugin::users-permissions.auth.changePassword"
+    },
+    {
+      "action": "plugin::users-permissions.auth.emailConfirmation"
+    },
+    {
+      "action": "plugin::users-permissions.auth.resetPassword"
+    },
+    {
+      "action": "plugin::users-permissions.auth.sendEmailConfirmation"
+    },
+    {
+      "action": "plugin::users-permissions.role.find"
+    },
+    {
+      "action": "plugin::users-permissions.user.find"
+    },
+    {
+      "action": "plugin::users-permissions.user.findOne"
+    },
+    {
+      "action": "plugin::users-permissions.user.me"
+    },
+    {
+      "action": "plugin::users-permissions.user.update"
+    },
+    {
+      "action": "plugin::users-permissions.user.updateMe"
+    }
+  ]
+}

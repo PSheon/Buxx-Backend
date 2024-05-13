@@ -32,9 +32,6 @@
     },
     {
       "action": "plugin::users-permissions.role.find"
-    },
-    {
-      "action": "plugin::users-permissions.user.find"
     }
   ]
 }

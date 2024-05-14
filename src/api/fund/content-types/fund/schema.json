@@ -24,6 +24,7 @@
       "type": "enumeration",
       "enum": [
         "Ethereum",
+        "Ethereum Sepolia",
         "Blast"
       ],
       "default": "Ethereum"
@@ -34,7 +35,8 @@
         "ETH",
         "DAI",
         "USDC",
-        "USDT"
+        "USDT",
+        "BLT"
       ],
       "default": "USDT"
     },

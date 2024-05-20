@@ -981,6 +981,7 @@ export interface ApiFundFund extends Schema.CollectionType {
     displayName: Attribute.String & Attribute.Required;
     description: Attribute.String;
     fundSFTContractAddress: Attribute.String;
+    fundSFTContractAbi: Attribute.JSON;
     detail: Attribute.JSON;
     genesisDate: Attribute.DateTime;
     saleStartTime: Attribute.DateTime;
@@ -1005,6 +1006,8 @@ export interface ApiFundFund extends Schema.CollectionType {
       'oneToMany',
       'api::token.token'
     >;
+    twitterUrl: Attribute.String;
+    discordUrl: Attribute.String;
     isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
     status: Attribute.Enumeration<['Draft', 'Published', 'Archived']> &
       Attribute.DefaultTo<'Draft'>;

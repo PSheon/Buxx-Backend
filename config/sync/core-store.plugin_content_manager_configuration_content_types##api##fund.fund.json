@@ -231,6 +231,20 @@
           "sortable": false
         }
       },
+      "isHighlighted": {
+        "edit": {
+          "label": "isHighlighted",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "isHighlighted",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "status": {
         "edit": {
           "label": "status",
@@ -245,18 +259,46 @@
           "sortable": true
         }
       },
-      "isHighlighted": {
+      "twitterUrl": {
         "edit": {
-          "label": "isHighlighted",
+          "label": "twitterUrl",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "isHighlighted",
+          "label": "twitterUrl",
           "searchable": true,
           "sortable": true
+        }
+      },
+      "discordUrl": {
+        "edit": {
+          "label": "discordUrl",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "discordUrl",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "fundSFTContractAbi": {
+        "edit": {
+          "label": "fundSFTContractAbi",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "fundSFTContractAbi",
+          "searchable": false,
+          "sortable": false
         }
       },
       "createdAt": {
@@ -400,11 +442,27 @@
         ],
         [
           {
-            "name": "status",
+            "name": "twitterUrl",
             "size": 6
           },
           {
+            "name": "discordUrl",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "fundSFTContractAbi",
+            "size": 12
+          }
+        ],
+        [
+          {
             "name": "isHighlighted",
+            "size": 6
+          },
+          {
+            "name": "status",
             "size": 6
           }
         ]

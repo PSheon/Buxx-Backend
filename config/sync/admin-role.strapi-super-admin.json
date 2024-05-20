@@ -205,6 +205,7 @@
           "displayName",
           "description",
           "fundSFTContractAddress",
+          "fundSFTContractAbi",
           "detail",
           "genesisDate",
           "saleStartTime",
@@ -213,6 +214,8 @@
           "redemptionFrequencyInDays",
           "defaultPackages",
           "tokens",
+          "twitterUrl",
+          "discordUrl",
           "isHighlighted",
           "status"
         ]
@@ -239,6 +242,7 @@
           "displayName",
           "description",
           "fundSFTContractAddress",
+          "fundSFTContractAbi",
           "detail",
           "genesisDate",
           "saleStartTime",
@@ -247,6 +251,8 @@
           "redemptionFrequencyInDays",
           "defaultPackages",
           "tokens",
+          "twitterUrl",
+          "discordUrl",
           "isHighlighted",
           "status"
         ]
@@ -266,6 +272,7 @@
           "displayName",
           "description",
           "fundSFTContractAddress",
+          "fundSFTContractAbi",
           "detail",
           "genesisDate",
           "saleStartTime",
@@ -274,6 +281,8 @@
           "redemptionFrequencyInDays",
           "defaultPackages",
           "tokens",
+          "twitterUrl",
+          "discordUrl",
           "isHighlighted",
           "status"
         ]

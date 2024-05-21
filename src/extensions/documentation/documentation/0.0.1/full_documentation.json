@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-05-12T05:33:45.377Z"
+    "x-generation-date": "2024-05-20T15:54:39.629Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -3592,6 +3592,7 @@
                 "type": "string",
                 "enum": [
                   "Ethereum",
+                  "Ethereum Sepolia",
                   "Blast"
                 ]
               },
@@ -3601,7 +3602,8 @@
                   "ETH",
                   "DAI",
                   "USDC",
-                  "USDT"
+                  "USDT",
+                  "BLT"
                 ]
               },
               "category": {
@@ -3631,6 +3633,7 @@
               "fundSFTContractAddress": {
                 "type": "string"
               },
+              "fundSFTContractAbi": {},
               "detail": {},
               "genesisDate": {
                 "type": "string",
@@ -3677,6 +3680,12 @@
                   ],
                   "example": "string or id"
                 }
+              },
+              "twitterUrl": {
+                "type": "string"
+              },
+              "discordUrl": {
+                "type": "string"
               },
               "isHighlighted": {
                 "type": "boolean"
@@ -4377,6 +4386,7 @@
             "type": "string",
             "enum": [
               "Ethereum",
+              "Ethereum Sepolia",
               "Blast"
             ]
           },
@@ -4386,7 +4396,8 @@
               "ETH",
               "DAI",
               "USDC",
-              "USDT"
+              "USDT",
+              "BLT"
             ]
           },
           "category": {
@@ -4416,6 +4427,7 @@
           "fundSFTContractAddress": {
             "type": "string"
           },
+          "fundSFTContractAbi": {},
           "detail": {},
           "genesisDate": {
             "type": "string",
@@ -4670,6 +4682,12 @@
                 }
               }
             }
+          },
+          "twitterUrl": {
+            "type": "string"
+          },
+          "discordUrl": {
+            "type": "string"
           },
           "isHighlighted": {
             "type": "boolean"

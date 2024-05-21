@@ -16,26 +16,16 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "allowedTypes": ["images"]
     },
     "chain": {
       "type": "enumeration",
-      "enum": [
-        "Ethereum",
-        "Blast"
-      ],
+      "enum": ["Ethereum", "Ethereum Sepolia", "Blast"],
       "default": "Ethereum"
     },
     "baseCurrency": {
       "type": "enumeration",
-      "enum": [
-        "ETH",
-        "DAI",
-        "USDC",
-        "USDT"
-      ],
+      "enum": ["ETH", "DAI", "USDC", "USDT", "BLT"],
       "default": "USDT"
     },
     "category": {
@@ -67,6 +57,9 @@
     "fundSFTContractAddress": {
       "type": "string",
       "regex": "^0x[a-fA-F0-9]{40}$"
+    },
+    "fundSFTContractAbi": {
+      "type": "json"
     },
     "detail": {
       "type": "json"
@@ -100,6 +93,12 @@
       "relation": "oneToMany",
       "target": "api::token.token"
     },
+    "twitterUrl": {
+      "type": "string"
+    },
+    "discordUrl": {
+      "type": "string"
+    },
     "isHighlighted": {
       "type": "boolean",
       "default": false,
@@ -107,11 +106,7 @@
     },
     "status": {
       "type": "enumeration",
-      "enum": [
-        "Draft",
-        "Published",
-        "Archived"
-      ],
+      "enum": ["Draft", "Published", "Archived"],
       "default": "Draft"
     }
   }

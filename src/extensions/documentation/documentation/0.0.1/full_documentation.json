@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-05-20T15:54:39.629Z"
+    "x-generation-date": "2024-05-21T06:45:23.122Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -3588,23 +3588,8 @@
                 ],
                 "example": "string or id"
               },
-              "chain": {
-                "type": "string",
-                "enum": [
-                  "Ethereum",
-                  "Ethereum Sepolia",
-                  "Blast"
-                ]
-              },
-              "baseCurrency": {
-                "type": "string",
-                "enum": [
-                  "ETH",
-                  "DAI",
-                  "USDC",
-                  "USDT",
-                  "BLT"
-                ]
+              "displayName": {
+                "type": "string"
               },
               "category": {
                 "type": "string",
@@ -3624,17 +3609,27 @@
                   "Web3.0 and Blockchain"
                 ]
               },
-              "displayName": {
-                "type": "string"
-              },
               "description": {
                 "type": "string"
               },
-              "fundSFTContractAddress": {
-                "type": "string"
+              "chain": {
+                "type": "string",
+                "enum": [
+                  "Ethereum",
+                  "Ethereum Sepolia",
+                  "Blast"
+                ]
               },
-              "fundSFTContractAbi": {},
-              "detail": {},
+              "baseCurrency": {
+                "type": "string",
+                "enum": [
+                  "ETH",
+                  "DAI",
+                  "USDC",
+                  "USDT",
+                  "BLT"
+                ]
+              },
               "genesisDate": {
                 "type": "string",
                 "format": "date-time"
@@ -3653,6 +3648,7 @@
               "redemptionFrequencyInDays": {
                 "type": "integer"
               },
+              "detail": {},
               "defaultPackages": {
                 "type": "array",
                 "items": {
@@ -3681,6 +3677,19 @@
                   "example": "string or id"
                 }
               },
+              "fundSFTContractName": {
+                "type": "string"
+              },
+              "fundSFTContractAddress": {
+                "type": "string"
+              },
+              "fundSFTContractRootSignerAddress": {
+                "type": "string"
+              },
+              "fundSFTContractRootSignerPrivateKey": {
+                "type": "string"
+              },
+              "fundSFTContractAbi": {},
               "twitterUrl": {
                 "type": "string"
               },
@@ -4382,23 +4391,8 @@
               }
             }
           },
-          "chain": {
-            "type": "string",
-            "enum": [
-              "Ethereum",
-              "Ethereum Sepolia",
-              "Blast"
-            ]
-          },
-          "baseCurrency": {
-            "type": "string",
-            "enum": [
-              "ETH",
-              "DAI",
-              "USDC",
-              "USDT",
-              "BLT"
-            ]
+          "displayName": {
+            "type": "string"
           },
           "category": {
             "type": "string",
@@ -4418,17 +4412,27 @@
               "Web3.0 and Blockchain"
             ]
           },
-          "displayName": {
-            "type": "string"
-          },
           "description": {
             "type": "string"
           },
-          "fundSFTContractAddress": {
-            "type": "string"
+          "chain": {
+            "type": "string",
+            "enum": [
+              "Ethereum",
+              "Ethereum Sepolia",
+              "Blast"
+            ]
           },
-          "fundSFTContractAbi": {},
-          "detail": {},
+          "baseCurrency": {
+            "type": "string",
+            "enum": [
+              "ETH",
+              "DAI",
+              "USDC",
+              "USDT",
+              "BLT"
+            ]
+          },
           "genesisDate": {
             "type": "string",
             "format": "date-time"
@@ -4447,6 +4451,7 @@
           "redemptionFrequencyInDays": {
             "type": "integer"
           },
+          "detail": {},
           "defaultPackages": {
             "type": "object",
             "properties": {
@@ -4683,6 +4688,19 @@
               }
             }
           },
+          "fundSFTContractName": {
+            "type": "string"
+          },
+          "fundSFTContractAddress": {
+            "type": "string"
+          },
+          "fundSFTContractRootSignerAddress": {
+            "type": "string"
+          },
+          "fundSFTContractRootSignerPrivateKey": {
+            "type": "string"
+          },
+          "fundSFTContractAbi": {},
           "twitterUrl": {
             "type": "string"
           },
@@ -9848,6 +9866,98 @@
           }
         ],
         "operationId": "delete/articles/{id}"
+      }
+    },
+    "/funds/sign-hash/{id}": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Fund"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "operationId": "post/funds/sign-hash/{id}",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FundRequest"
+              }
+            }
+          }
+        }
       }
     },
     "/funds": {

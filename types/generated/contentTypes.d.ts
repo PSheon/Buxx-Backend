@@ -956,10 +956,7 @@ export interface ApiFundFund extends Schema.CollectionType {
   };
   attributes: {
     banner: Attribute.Media;
-    chain: Attribute.Enumeration<['Ethereum', 'Ethereum Sepolia', 'Blast']> &
-      Attribute.DefaultTo<'Ethereum'>;
-    baseCurrency: Attribute.Enumeration<['ETH', 'DAI', 'USDC', 'USDT', 'BLT']> &
-      Attribute.DefaultTo<'USDT'>;
+    displayName: Attribute.String & Attribute.Required;
     category: Attribute.Enumeration<
       [
         'Health and Medical',
@@ -978,11 +975,11 @@ export interface ApiFundFund extends Schema.CollectionType {
       ]
     > &
       Attribute.DefaultTo<'Web3.0 and Blockchain'>;
-    displayName: Attribute.String & Attribute.Required;
     description: Attribute.String;
-    fundSFTContractAddress: Attribute.String;
-    fundSFTContractAbi: Attribute.JSON;
-    detail: Attribute.JSON;
+    chain: Attribute.Enumeration<['Ethereum', 'Ethereum Sepolia', 'Blast']> &
+      Attribute.DefaultTo<'Ethereum'>;
+    baseCurrency: Attribute.Enumeration<['ETH', 'DAI', 'USDC', 'USDT', 'BLT']> &
+      Attribute.DefaultTo<'USDT'>;
     genesisDate: Attribute.DateTime;
     saleStartTime: Attribute.DateTime;
     maturityDate: Attribute.DateTime;
@@ -996,6 +993,7 @@ export interface ApiFundFund extends Schema.CollectionType {
       > &
       Attribute.DefaultTo<10>;
     redemptionFrequencyInDays: Attribute.Integer & Attribute.DefaultTo<14>;
+    detail: Attribute.JSON;
     defaultPackages: Attribute.Relation<
       'api::fund.fund',
       'oneToMany',
@@ -1006,6 +1004,11 @@ export interface ApiFundFund extends Schema.CollectionType {
       'oneToMany',
       'api::token.token'
     >;
+    fundSFTContractName: Attribute.String;
+    fundSFTContractAddress: Attribute.String;
+    fundSFTContractRootSignerAddress: Attribute.String & Attribute.Private;
+    fundSFTContractRootSignerPrivateKey: Attribute.String & Attribute.Private;
+    fundSFTContractAbi: Attribute.JSON;
     twitterUrl: Attribute.String;
     discordUrl: Attribute.String;
     isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;

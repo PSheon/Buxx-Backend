@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "metadatas",
+  "info": {
+    "singularName": "metadata",
+    "pluralName": "metadatas",
+    "displayName": "Metadata"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "contractFallbackContent": {
+      "type": "json"
+    },
+    "slotFallbackContent": {
+      "type": "json"
+    },
+    "tokenFallbackContent": {
+      "type": "json"
+    }
+  }
+}

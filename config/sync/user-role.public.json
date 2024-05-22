@@ -10,6 +10,18 @@
       "action": "api::article.article.findOne"
     },
     {
+      "action": "api::metadata.metadata.find"
+    },
+    {
+      "action": "api::metadata.metadata.getContractMetadata"
+    },
+    {
+      "action": "api::metadata.metadata.getSlotMetadata"
+    },
+    {
+      "action": "api::metadata.metadata.getTokenMetadata"
+    },
+    {
       "action": "plugin::users-permissions.auth.callback"
     },
     {

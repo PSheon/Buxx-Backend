@@ -301,6 +301,52 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::metadata.metadata",
+      "properties": {
+        "fields": [
+          "contractFallbackContent",
+          "slotFallbackContent",
+          "tokenFallbackContent"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::metadata.metadata",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::metadata.metadata",
+      "properties": {
+        "fields": [
+          "contractFallbackContent",
+          "slotFallbackContent",
+          "tokenFallbackContent"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::metadata.metadata",
+      "properties": {
+        "fields": [
+          "contractFallbackContent",
+          "slotFallbackContent",
+          "tokenFallbackContent"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::notification.notification",
       "properties": {
         "fields": [

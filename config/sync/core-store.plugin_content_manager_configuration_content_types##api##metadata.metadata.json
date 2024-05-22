@@ -1,0 +1,156 @@
+{
+  "key": "plugin_content_manager_configuration_content_types::api::metadata.metadata",
+  "value": {
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "id",
+      "defaultSortBy": "id",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "contractFallbackContent": {
+        "edit": {
+          "label": "contractFallbackContent",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "contractFallbackContent",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "slotFallbackContent": {
+        "edit": {
+          "label": "slotFallbackContent",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "slotFallbackContent",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "tokenFallbackContent": {
+        "edit": {
+          "label": "tokenFallbackContent",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "tokenFallbackContent",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "createdAt": {
+        "edit": {
+          "label": "createdAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "createdAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedAt": {
+        "edit": {
+          "label": "updatedAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "updatedAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdBy": {
+        "edit": {
+          "label": "createdBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "createdBy",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedBy": {
+        "edit": {
+          "label": "updatedBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "updatedBy",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "createdAt",
+        "updatedAt",
+        "createdBy"
+      ],
+      "edit": [
+        [
+          {
+            "name": "contractFallbackContent",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "slotFallbackContent",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "tokenFallbackContent",
+            "size": 12
+          }
+        ]
+      ]
+    },
+    "uid": "api::metadata.metadata"
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

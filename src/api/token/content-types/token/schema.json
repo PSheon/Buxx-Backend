@@ -12,6 +12,14 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "contractAddress": {
+      "type": "string",
+      "regex": "^0x[a-fA-F0-9]{40}$"
+    },
+    "ownerAddress": {
+      "type": "string",
+      "regex": "^0x[a-fA-F0-9]{40}$"
+    },
     "tokenId": {
       "type": "integer"
     },
@@ -20,14 +28,6 @@
     },
     "description": {
       "type": "string"
-    },
-    "tokenAddress": {
-      "type": "string",
-      "regex": "^0x[a-fA-F0-9]{40}$"
-    },
-    "contractAddress": {
-      "type": "string",
-      "regex": "^0x[a-fA-F0-9]{40}$"
     },
     "attributes": {
       "type": "component",
@@ -41,12 +41,7 @@
     },
     "status": {
       "type": "enumeration",
-      "enum": [
-        "Draft",
-        "Generating",
-        "Published",
-        "Archived"
-      ],
+      "enum": ["Draft", "Generating", "Published", "Archived"],
       "default": "Draft"
     }
   }

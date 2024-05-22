@@ -1023,6 +1023,37 @@ export interface ApiFundFund extends Schema.CollectionType {
   };
 }
 
+export interface ApiMetadataMetadata extends Schema.SingleType {
+  collectionName: 'metadatas';
+  info: {
+    singularName: 'metadata';
+    pluralName: 'metadatas';
+    displayName: 'Metadata';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    contractFallbackContent: Attribute.JSON;
+    slotFallbackContent: Attribute.JSON;
+    tokenFallbackContent: Attribute.JSON;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::metadata.metadata',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::metadata.metadata',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiNotificationNotification extends Schema.CollectionType {
   collectionName: 'notifications';
   info: {
@@ -1212,6 +1243,7 @@ declare module '@strapi/types' {
       'api::activity-log.activity-log': ApiActivityLogActivityLog;
       'api::article.article': ApiArticleArticle;
       'api::fund.fund': ApiFundFund;
+      'api::metadata.metadata': ApiMetadataMetadata;
       'api::notification.notification': ApiNotificationNotification;
       'api::package.package': ApiPackagePackage;
       'api::token.token': ApiTokenToken;

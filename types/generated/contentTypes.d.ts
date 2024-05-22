@@ -1118,11 +1118,11 @@ export interface ApiTokenToken extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
+    contractAddress: Attribute.String;
+    ownerAddress: Attribute.String;
     tokenId: Attribute.Integer;
     displayName: Attribute.String;
     description: Attribute.String;
-    tokenAddress: Attribute.String;
-    contractAddress: Attribute.String;
     attributes: Attribute.Component<'token.attribute', true>;
     package: Attribute.Relation<
       'api::token.token',

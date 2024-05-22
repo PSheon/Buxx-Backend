@@ -9,14 +9,14 @@ import { isObject } from "lodash/fp";
 
 import { parseBody } from "../utils";
 
-const { ValidationError } = utils.errors;
-
 import type Koa from "koa";
+
+const { ValidationError } = utils.errors;
 
 export default factories.createCoreController(
   "api::article.article",
   ({ strapi }) => ({
-    async create(ctx) {
+    async create(ctx: Koa.Context) {
       await this.validateQuery(ctx);
       const sanitizedQuery = await this.sanitizeQuery(ctx);
 

@@ -4,10 +4,12 @@
 
 import { factories } from "@strapi/strapi";
 
+import type Koa from "koa";
+
 export default factories.createCoreController(
   "api::access-log.access-log",
   ({ strapi }) => ({
-    async findMe(ctx) {
+    async findMe(ctx: Koa.Context) {
       await this.validateQuery(ctx);
       const sanitizedQuery = await this.sanitizeQuery(ctx);
 

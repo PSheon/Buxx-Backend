@@ -20,7 +20,7 @@ const { ValidationError, NotFoundError } = utils.errors;
 export default factories.createCoreController(
   "api::fund.fund",
   ({ strapi }) => ({
-    async create(ctx) {
+    async create(ctx: Koa.Context) {
       await this.validateQuery(ctx);
       const sanitizedQuery = await this.sanitizeQuery(ctx);
 

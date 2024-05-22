@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-05-21T06:45:23.122Z"
+    "x-generation-date": "2024-05-22T15:36:03.542Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -4581,6 +4581,12 @@
                     "attributes": {
                       "type": "object",
                       "properties": {
+                        "contractAddress": {
+                          "type": "string"
+                        },
+                        "ownerAddress": {
+                          "type": "string"
+                        },
                         "tokenId": {
                           "type": "integer"
                         },
@@ -4588,12 +4594,6 @@
                           "type": "string"
                         },
                         "description": {
-                          "type": "string"
-                        },
-                        "tokenAddress": {
-                          "type": "string"
-                        },
-                        "contractAddress": {
                           "type": "string"
                         },
                         "attributes": {
@@ -6363,6 +6363,12 @@
           "data": {
             "type": "object",
             "properties": {
+              "contractAddress": {
+                "type": "string"
+              },
+              "ownerAddress": {
+                "type": "string"
+              },
               "tokenId": {
                 "type": "integer"
               },
@@ -6370,12 +6376,6 @@
                 "type": "string"
               },
               "description": {
-                "type": "string"
-              },
-              "tokenAddress": {
-                "type": "string"
-              },
-              "contractAddress": {
                 "type": "string"
               },
               "attributes": {
@@ -6457,6 +6457,12 @@
       "Token": {
         "type": "object",
         "properties": {
+          "contractAddress": {
+            "type": "string"
+          },
+          "ownerAddress": {
+            "type": "string"
+          },
           "tokenId": {
             "type": "integer"
           },
@@ -6464,12 +6470,6 @@
             "type": "string"
           },
           "description": {
-            "type": "string"
-          },
-          "tokenAddress": {
-            "type": "string"
-          },
-          "contractAddress": {
             "type": "string"
           },
           "attributes": {

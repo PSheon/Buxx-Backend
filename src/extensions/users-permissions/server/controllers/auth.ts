@@ -28,6 +28,8 @@ import {
 
 import { IAdvancedSettings } from "../../../../../types/strapiServerTypes";
 
+import type Koa from "koa";
+
 const { sanitize } = utils;
 const {
   ApplicationError,
@@ -45,7 +47,7 @@ const sanitizeUser = (user, ctx) => {
   return sanitize.contentAPI.output(user, userSchema, { auth });
 };
 
-export const callback = async (ctx) => {
+export const callback = async (ctx: Koa.Context) => {
   const provider = ctx.params.provider || "local";
   const params = ctx.request.body;
 
@@ -177,7 +179,7 @@ export const callback = async (ctx) => {
   }
 };
 
-export const changePassword = async (ctx) => {
+export const changePassword = async (ctx: Koa.Context) => {
   if (!ctx.state.user) {
     throw new ApplicationError(
       "You must be authenticated to reset your password"
@@ -239,7 +241,7 @@ export const changePassword = async (ctx) => {
   });
 };
 
-export const resetPassword = async (ctx) => {
+export const resetPassword = async (ctx: Koa.Context) => {
   const { password, passwordConfirmation, resetPasswordToken } =
     await validateResetPasswordBody(ctx.request.body);
 
@@ -275,7 +277,7 @@ export const resetPassword = async (ctx) => {
   });
 };
 
-export const forgotPassword = async (ctx) => {
+export const forgotPassword = async (ctx: Koa.Context) => {
   const { email } = await validateForgotPasswordBody(ctx.request.body);
 
   // Find the user by email.
@@ -391,7 +393,7 @@ export const forgotPassword = async (ctx) => {
   });
 };
 
-export const register = async (ctx) => {
+export const register = async (ctx: Koa.Context) => {
   const pluginStore = await strapi.store({
     type: "plugin",
     name: "users-permissions",
@@ -484,7 +486,7 @@ export const register = async (ctx) => {
   });
 };
 
-export const emailConfirmation = async (ctx, next, returnUser) => {
+export const emailConfirmation = async (ctx: Koa.Context, next, returnUser) => {
   const { confirmation: confirmationToken } =
     await validateEmailConfirmationBody(ctx.query);
 

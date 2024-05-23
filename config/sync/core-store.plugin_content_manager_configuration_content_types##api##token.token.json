@@ -61,20 +61,6 @@
           "sortable": true
         }
       },
-      "tokenAddress": {
-        "edit": {
-          "label": "tokenAddress",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "tokenAddress",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "contractAddress": {
         "edit": {
           "label": "contractAddress",
@@ -103,6 +89,21 @@
           "sortable": false
         }
       },
+      "package": {
+        "edit": {
+          "label": "package",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "displayName"
+        },
+        "list": {
+          "label": "package",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "status": {
         "edit": {
           "label": "status",
@@ -117,17 +118,16 @@
           "sortable": true
         }
       },
-      "package": {
+      "ownerAddress": {
         "edit": {
-          "label": "package",
+          "label": "ownerAddress",
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
-          "mainField": "displayName"
+          "editable": true
         },
         "list": {
-          "label": "package",
+          "label": "ownerAddress",
           "searchable": true,
           "sortable": true
         }
@@ -192,17 +192,21 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "displayName",
-        "tokenId",
-        "createdAt"
-      ],
       "edit": [
         [
           {
-            "name": "displayName",
+            "name": "contractAddress",
             "size": 6
+          },
+          {
+            "name": "ownerAddress",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "displayName",
+            "size": 8
           },
           {
             "name": "tokenId",
@@ -211,8 +215,8 @@
         ],
         [
           {
-            "name": "status",
-            "size": 6
+            "name": "description",
+            "size": 12
           }
         ],
         [
@@ -223,24 +227,22 @@
         ],
         [
           {
-            "name": "description",
-            "size": 6
-          },
-          {
-            "name": "tokenAddress",
+            "name": "package",
             "size": 6
           }
         ],
         [
           {
-            "name": "contractAddress",
-            "size": 6
-          },
-          {
-            "name": "package",
+            "name": "status",
             "size": 6
           }
         ]
+      ],
+      "list": [
+        "id",
+        "displayName",
+        "tokenId",
+        "createdAt"
       ]
     },
     "uid": "api::token.token"

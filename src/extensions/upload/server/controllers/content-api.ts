@@ -12,6 +12,8 @@ import { getService } from "../utils";
 import validateUploadBody from "./validation/content-api/upload";
 import { FILE_MODEL_UID } from "../constants";
 
+import type Koa from "koa";
+
 const { sanitize, validate } = utils;
 
 const sanitizeOutput = async (data, ctx) => {
@@ -36,7 +38,7 @@ const sanitizeQuery = async (data, ctx) => {
 };
 
 // ** NOTE: I modified pagination with some tricks, please make sure to update here after Strapi V5 is released.
-export const find = async (ctx) => {
+export const find = async (ctx: Koa.Context) => {
   await validateQuery(ctx.query, ctx);
   const sanitizedQuery = await sanitizeQuery(ctx.query, ctx);
   const { pagination = {}, ...restOfCtxQueries } = sanitizedQuery;
@@ -72,7 +74,7 @@ export const find = async (ctx) => {
   });
 };
 
-export const update = async (ctx) => {
+export const update = async (ctx: Koa.Context) => {
   const {
     params: { id },
     request: { body },

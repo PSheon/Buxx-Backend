@@ -7,12 +7,14 @@ import utils from "@strapi/utils";
 
 import { validateUpdateMeOneBody } from "./validation/notification";
 
+import type Koa from "koa";
+
 const { NotFoundError, UnauthorizedError } = utils.errors;
 
 export default factories.createCoreController(
   "api::notification.notification",
   ({ strapi }) => ({
-    async findMeOne(ctx) {
+    async findMeOne(ctx: Koa.Context) {
       const { id } = ctx.params;
       await this.validateQuery(ctx);
       const sanitizedQuery = await this.sanitizeQuery(ctx);
@@ -58,7 +60,7 @@ export default factories.createCoreController(
       ctx.send(response);
     },
 
-    async updateMeOne(ctx) {
+    async updateMeOne(ctx: Koa.Context) {
       const { id } = ctx.params;
       await this.validateQuery(ctx);
       const sanitizedQuery = await this.sanitizeQuery(ctx);

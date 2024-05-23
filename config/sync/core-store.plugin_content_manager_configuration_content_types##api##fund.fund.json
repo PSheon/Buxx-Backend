@@ -117,6 +117,62 @@
           "sortable": true
         }
       },
+      "fundSFTContractName": {
+        "edit": {
+          "label": "fundSFTContractName",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "fundSFTContractName",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "fundSFTContractRootSignerAddress": {
+        "edit": {
+          "label": "fundSFTContractRootSignerAddress",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "fundSFTContractRootSignerAddress",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "fundSFTContractRootSignerPrivateKey": {
+        "edit": {
+          "label": "fundSFTContractRootSignerPrivateKey",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "fundSFTContractRootSignerPrivateKey",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "fundSFTContractAbi": {
+        "edit": {
+          "label": "fundSFTContractAbi",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "fundSFTContractAbi",
+          "searchable": false,
+          "sortable": false
+        }
+      },
       "detail": {
         "edit": {
           "label": "detail",
@@ -231,34 +287,6 @@
           "sortable": false
         }
       },
-      "isHighlighted": {
-        "edit": {
-          "label": "isHighlighted",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "isHighlighted",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "status": {
-        "edit": {
-          "label": "status",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "status",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "twitterUrl": {
         "edit": {
           "label": "twitterUrl",
@@ -287,18 +315,32 @@
           "sortable": true
         }
       },
-      "fundSFTContractAbi": {
+      "isHighlighted": {
         "edit": {
-          "label": "fundSFTContractAbi",
+          "label": "isHighlighted",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "fundSFTContractAbi",
-          "searchable": false,
-          "sortable": false
+          "label": "isHighlighted",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "status": {
+        "edit": {
+          "label": "status",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "status",
+          "searchable": true,
+          "sortable": true
         }
       },
       "createdAt": {
@@ -374,8 +416,14 @@
             "size": 6
           },
           {
-            "name": "fundSFTContractAddress",
+            "name": "category",
             "size": 6
+          }
+        ],
+        [
+          {
+            "name": "description",
+            "size": 12
           }
         ],
         [
@@ -386,18 +434,6 @@
           {
             "name": "baseCurrency",
             "size": 6
-          }
-        ],
-        [
-          {
-            "name": "category",
-            "size": 6
-          }
-        ],
-        [
-          {
-            "name": "description",
-            "size": 12
           }
         ],
         [
@@ -442,18 +478,38 @@
         ],
         [
           {
-            "name": "twitterUrl",
+            "name": "fundSFTContractName",
             "size": 6
           },
           {
-            "name": "discordUrl",
+            "name": "fundSFTContractAddress",
             "size": 6
+          }
+        ],
+        [
+          {
+            "name": "fundSFTContractRootSignerAddress",
+            "size": 8
+          },
+          {
+            "name": "fundSFTContractRootSignerPrivateKey",
+            "size": 4
           }
         ],
         [
           {
             "name": "fundSFTContractAbi",
             "size": 12
+          }
+        ],
+        [
+          {
+            "name": "twitterUrl",
+            "size": 6
+          },
+          {
+            "name": "discordUrl",
+            "size": 6
           }
         ],
         [

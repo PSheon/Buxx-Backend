@@ -1,13 +1,13 @@
 {
-  "/funds/sign-hash/{id}": {
-    "post": {
+  "/metadata/{contractAddress}/contract/{contractAddressConfirm}": {
+    "get": {
       "responses": {
         "200": {
           "description": "OK",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FundResponse"
+                "$ref": "#/components/schemas/MetadataResponse"
               }
             }
           }
@@ -64,11 +64,21 @@
         }
       },
       "tags": [
-        "Fund"
+        "Metadata"
       ],
       "parameters": [
         {
-          "name": "id",
+          "name": "contractAddress",
+          "in": "path",
+          "description": "",
+          "deprecated": false,
+          "required": true,
+          "schema": {
+            "type": "number"
+          }
+        },
+        {
+          "name": "contractAddressConfirm",
           "in": "path",
           "description": "",
           "deprecated": false,
@@ -78,20 +88,10 @@
           }
         }
       ],
-      "operationId": "post/funds/sign-hash/{id}",
-      "requestBody": {
-        "required": true,
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/FundRequest"
-            }
-          }
-        }
-      }
+      "operationId": "get/metadata/{contractAddress}/contract/{contractAddressConfirm}"
     }
   },
-  "/funds": {
+  "/metadata/{contractAddress}/slot/{slotId}": {
     "get": {
       "responses": {
         "200": {
@@ -99,7 +99,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FundListResponse"
+                "$ref": "#/components/schemas/MetadataResponse"
               }
             }
           }
@@ -156,7 +156,191 @@
         }
       },
       "tags": [
-        "Fund"
+        "Metadata"
+      ],
+      "parameters": [
+        {
+          "name": "contractAddress",
+          "in": "path",
+          "description": "",
+          "deprecated": false,
+          "required": true,
+          "schema": {
+            "type": "number"
+          }
+        },
+        {
+          "name": "slotId",
+          "in": "path",
+          "description": "",
+          "deprecated": false,
+          "required": true,
+          "schema": {
+            "type": "number"
+          }
+        }
+      ],
+      "operationId": "get/metadata/{contractAddress}/slot/{slotId}"
+    }
+  },
+  "/metadata/{contractAddress}/{tokenId}": {
+    "get": {
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MetadataResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Bad Request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Unauthorized",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "Forbidden",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "Not Found",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Internal Server Error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "Metadata"
+      ],
+      "parameters": [
+        {
+          "name": "contractAddress",
+          "in": "path",
+          "description": "",
+          "deprecated": false,
+          "required": true,
+          "schema": {
+            "type": "number"
+          }
+        },
+        {
+          "name": "tokenId",
+          "in": "path",
+          "description": "",
+          "deprecated": false,
+          "required": true,
+          "schema": {
+            "type": "number"
+          }
+        }
+      ],
+      "operationId": "get/metadata/{contractAddress}/{tokenId}"
+    }
+  },
+  "/metadata": {
+    "get": {
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MetadataResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Bad Request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Unauthorized",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        },
+        "403": {
+          "description": "Forbidden",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "Not Found",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Internal Server Error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        }
+      },
+      "tags": [
+        "Metadata"
       ],
       "parameters": [
         {
@@ -261,168 +445,7 @@
           }
         }
       ],
-      "operationId": "get/funds"
-    },
-    "post": {
-      "responses": {
-        "200": {
-          "description": "OK",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FundResponse"
-              }
-            }
-          }
-        },
-        "400": {
-          "description": "Bad Request",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Error"
-              }
-            }
-          }
-        },
-        "401": {
-          "description": "Unauthorized",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Error"
-              }
-            }
-          }
-        },
-        "403": {
-          "description": "Forbidden",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Error"
-              }
-            }
-          }
-        },
-        "404": {
-          "description": "Not Found",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Error"
-              }
-            }
-          }
-        },
-        "500": {
-          "description": "Internal Server Error",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Error"
-              }
-            }
-          }
-        }
-      },
-      "tags": [
-        "Fund"
-      ],
-      "parameters": [],
-      "operationId": "post/funds",
-      "requestBody": {
-        "required": true,
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/FundRequest"
-            }
-          }
-        }
-      }
-    }
-  },
-  "/funds/{id}": {
-    "get": {
-      "responses": {
-        "200": {
-          "description": "OK",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FundResponse"
-              }
-            }
-          }
-        },
-        "400": {
-          "description": "Bad Request",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Error"
-              }
-            }
-          }
-        },
-        "401": {
-          "description": "Unauthorized",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Error"
-              }
-            }
-          }
-        },
-        "403": {
-          "description": "Forbidden",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Error"
-              }
-            }
-          }
-        },
-        "404": {
-          "description": "Not Found",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Error"
-              }
-            }
-          }
-        },
-        "500": {
-          "description": "Internal Server Error",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Error"
-              }
-            }
-          }
-        }
-      },
-      "tags": [
-        "Fund"
-      ],
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "description": "",
-          "deprecated": false,
-          "required": true,
-          "schema": {
-            "type": "number"
-          }
-        }
-      ],
-      "operationId": "get/funds/{id}"
+      "operationId": "get/metadata"
     },
     "put": {
       "responses": {
@@ -431,7 +454,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FundResponse"
+                "$ref": "#/components/schemas/MetadataResponse"
               }
             }
           }
@@ -488,27 +511,16 @@
         }
       },
       "tags": [
-        "Fund"
+        "Metadata"
       ],
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "description": "",
-          "deprecated": false,
-          "required": true,
-          "schema": {
-            "type": "number"
-          }
-        }
-      ],
-      "operationId": "put/funds/{id}",
+      "parameters": [],
+      "operationId": "put/metadata",
       "requestBody": {
         "required": true,
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/FundRequest"
+              "$ref": "#/components/schemas/MetadataRequest"
             }
           }
         }
@@ -579,21 +591,10 @@
         }
       },
       "tags": [
-        "Fund"
+        "Metadata"
       ],
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "description": "",
-          "deprecated": false,
-          "required": true,
-          "schema": {
-            "type": "number"
-          }
-        }
-      ],
-      "operationId": "delete/funds/{id}"
+      "parameters": [],
+      "operationId": "delete/metadata"
     }
   }
 }

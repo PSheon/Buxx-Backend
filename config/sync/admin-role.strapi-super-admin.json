@@ -199,21 +199,24 @@
       "properties": {
         "fields": [
           "banner",
+          "displayName",
+          "category",
+          "description",
           "chain",
           "baseCurrency",
-          "category",
-          "displayName",
-          "description",
-          "fundSFTContractAddress",
-          "fundSFTContractAbi",
-          "detail",
           "genesisDate",
           "saleStartTime",
           "maturityDate",
           "performanceFeePercentage",
           "redemptionFrequencyInDays",
+          "detail",
           "defaultPackages",
           "tokens",
+          "fundSFTContractName",
+          "fundSFTContractAddress",
+          "fundSFTContractRootSignerAddress",
+          "fundSFTContractRootSignerPrivateKey",
+          "fundSFTContractAbi",
           "twitterUrl",
           "discordUrl",
           "isHighlighted",
@@ -236,21 +239,24 @@
       "properties": {
         "fields": [
           "banner",
+          "displayName",
+          "category",
+          "description",
           "chain",
           "baseCurrency",
-          "category",
-          "displayName",
-          "description",
-          "fundSFTContractAddress",
-          "fundSFTContractAbi",
-          "detail",
           "genesisDate",
           "saleStartTime",
           "maturityDate",
           "performanceFeePercentage",
           "redemptionFrequencyInDays",
+          "detail",
           "defaultPackages",
           "tokens",
+          "fundSFTContractName",
+          "fundSFTContractAddress",
+          "fundSFTContractRootSignerAddress",
+          "fundSFTContractRootSignerPrivateKey",
+          "fundSFTContractAbi",
           "twitterUrl",
           "discordUrl",
           "isHighlighted",
@@ -266,21 +272,24 @@
       "properties": {
         "fields": [
           "banner",
+          "displayName",
+          "category",
+          "description",
           "chain",
           "baseCurrency",
-          "category",
-          "displayName",
-          "description",
-          "fundSFTContractAddress",
-          "fundSFTContractAbi",
-          "detail",
           "genesisDate",
           "saleStartTime",
           "maturityDate",
           "performanceFeePercentage",
           "redemptionFrequencyInDays",
+          "detail",
           "defaultPackages",
           "tokens",
+          "fundSFTContractName",
+          "fundSFTContractAddress",
+          "fundSFTContractRootSignerAddress",
+          "fundSFTContractRootSignerPrivateKey",
+          "fundSFTContractAbi",
           "twitterUrl",
           "discordUrl",
           "isHighlighted",
@@ -292,6 +301,52 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::metadata.metadata",
+      "properties": {
+        "fields": [
+          "contractFallbackContent",
+          "slotFallbackContent",
+          "tokenFallbackContent"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::metadata.metadata",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::metadata.metadata",
+      "properties": {
+        "fields": [
+          "contractFallbackContent",
+          "slotFallbackContent",
+          "tokenFallbackContent"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::metadata.metadata",
+      "properties": {
+        "fields": [
+          "contractFallbackContent",
+          "slotFallbackContent",
+          "tokenFallbackContent"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::notification.notification",
       "properties": {
         "fields": [
@@ -414,11 +469,11 @@
       "subject": "api::token.token",
       "properties": {
         "fields": [
+          "contractAddress",
+          "ownerAddress",
           "tokenId",
           "displayName",
           "description",
-          "tokenAddress",
-          "contractAddress",
           "attributes.traitType",
           "attributes.value",
           "package",
@@ -440,11 +495,11 @@
       "subject": "api::token.token",
       "properties": {
         "fields": [
+          "contractAddress",
+          "ownerAddress",
           "tokenId",
           "displayName",
           "description",
-          "tokenAddress",
-          "contractAddress",
           "attributes.traitType",
           "attributes.value",
           "package",
@@ -459,11 +514,11 @@
       "subject": "api::token.token",
       "properties": {
         "fields": [
+          "contractAddress",
+          "ownerAddress",
           "tokenId",
           "displayName",
           "description",
-          "tokenAddress",
-          "contractAddress",
           "attributes.traitType",
           "attributes.value",
           "package",

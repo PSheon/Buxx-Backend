@@ -52,6 +52,9 @@
       "action": "api::fund.fund.findOne"
     },
     {
+      "action": "api::fund.fund.signHash"
+    },
+    {
       "action": "api::fund.fund.update"
     },
     {

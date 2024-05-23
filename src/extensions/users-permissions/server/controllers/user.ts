@@ -16,6 +16,8 @@ import {
 
 import { IAdvancedSettings } from "../../../../../types/strapiServerTypes";
 
+import type Koa from "koa";
+
 const { sanitize, validate } = utils;
 const { ApplicationError, ValidationError, NotFoundError } = utils.errors;
 
@@ -40,7 +42,7 @@ const validateQuery = async (query, ctx) => {
   return validate.contentAPI.query(query, schema, { auth });
 };
 
-export const update = async (ctx) => {
+export const update = async (ctx: Koa.Context) => {
   const advancedConfigs = (await strapi
     .store({ type: "plugin", name: "users-permissions" })
     .get({
@@ -103,7 +105,7 @@ export const update = async (ctx) => {
 };
 
 // ** NOTE: I modified pagination with some tricks, please make sure to update here after Strapi V5 is released.
-export const find = async (ctx) => {
+export const find = async (ctx: Koa.Context) => {
   const sanitizedQuery = await sanitizeQuery(ctx.query, ctx);
   const { pagination = {}, ...restOfCtxQueries } = sanitizedQuery;
 
@@ -138,7 +140,7 @@ export const find = async (ctx) => {
   });
 };
 
-export const findOne = async (ctx) => {
+export const findOne = async (ctx: Koa.Context) => {
   const { id } = ctx.params;
 
   await validateQuery(ctx.query, ctx);
@@ -155,7 +157,7 @@ export const findOne = async (ctx) => {
   ctx.body = sanitizedData;
 };
 
-export const updateMe = async (ctx) => {
+export const updateMe = async (ctx: Koa.Context) => {
   const user = await getService("user").fetch(ctx.state.user.id);
   if (!user) {
     throw new NotFoundError(`User not found`);

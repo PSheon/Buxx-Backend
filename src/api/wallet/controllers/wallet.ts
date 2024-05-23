@@ -6,10 +6,12 @@ import { factories } from "@strapi/strapi";
 
 import { generateNonce, SiweMessage } from "siwe";
 
+import type Koa from "koa";
+
 export default factories.createCoreController(
   "api::wallet.wallet",
   ({ strapi }) => ({
-    async findMe(ctx) {
+    async findMe(ctx: Koa.Context) {
       await this.validateQuery(ctx);
       const sanitizedQuery = await this.sanitizeQuery(ctx);
 
@@ -30,7 +32,8 @@ export default factories.createCoreController(
 
       ctx.send({ nonce });
     },
-    async verifyWallet(ctx) {
+
+    async verifyWallet(ctx: Koa.Context) {
       const {
         data: { message, signature, address, connector },
       } = ctx.request.body;

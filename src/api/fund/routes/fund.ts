@@ -19,6 +19,12 @@ const customRouter = (defaultRouter, customRoutes = []) => {
   };
 };
 
-const customRoutes = [];
+const customRoutes = [
+  {
+    method: "POST",
+    path: "/funds/sign-hash/:id",
+    handler: "fund.signHash",
+  },
+];
 
 export default customRouter(defaultRouter, customRoutes);

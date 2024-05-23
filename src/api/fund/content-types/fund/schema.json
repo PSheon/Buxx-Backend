@@ -18,15 +18,9 @@
       "required": false,
       "allowedTypes": ["images"]
     },
-    "chain": {
-      "type": "enumeration",
-      "enum": ["Ethereum", "Ethereum Sepolia", "Blast"],
-      "default": "Ethereum"
-    },
-    "baseCurrency": {
-      "type": "enumeration",
-      "enum": ["ETH", "DAI", "USDC", "USDT", "BLT"],
-      "default": "USDT"
+    "displayName": {
+      "type": "string",
+      "required": true
     },
     "category": {
       "type": "enumeration",
@@ -47,22 +41,18 @@
       ],
       "default": "Web3.0 and Blockchain"
     },
-    "displayName": {
-      "type": "string",
-      "required": true
-    },
     "description": {
       "type": "string"
     },
-    "fundSFTContractAddress": {
-      "type": "string",
-      "regex": "^0x[a-fA-F0-9]{40}$"
+    "chain": {
+      "type": "enumeration",
+      "enum": ["Ethereum", "Ethereum Sepolia", "Blast"],
+      "default": "Ethereum"
     },
-    "fundSFTContractAbi": {
-      "type": "json"
-    },
-    "detail": {
-      "type": "json"
+    "baseCurrency": {
+      "type": "enumeration",
+      "enum": ["ETH", "DAI", "USDC", "USDT", "BLT"],
+      "default": "USDT"
     },
     "genesisDate": {
       "type": "datetime"
@@ -83,6 +73,9 @@
       "type": "integer",
       "default": 14
     },
+    "detail": {
+      "type": "json"
+    },
     "defaultPackages": {
       "type": "relation",
       "relation": "oneToMany",
@@ -92,6 +85,26 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::token.token"
+    },
+    "fundSFTContractName": {
+      "type": "string"
+    },
+    "fundSFTContractAddress": {
+      "type": "string",
+      "regex": "^0x[a-fA-F0-9]{40}$"
+    },
+    "fundSFTContractRootSignerAddress": {
+      "type": "string",
+      "regex": "^0x[a-fA-F0-9]{40}$",
+      "private": true
+    },
+    "fundSFTContractRootSignerPrivateKey": {
+      "type": "string",
+      "private": true,
+      "regex": "^0x[0-9a-fA-F]{64}$"
+    },
+    "fundSFTContractAbi": {
+      "type": "json"
     },
     "twitterUrl": {
       "type": "string"

@@ -1004,11 +1004,8 @@ export interface ApiFundFund extends Schema.CollectionType {
       'oneToMany',
       'api::token.token'
     >;
-    fundSFTContractName: Attribute.String;
-    fundSFTContractAddress: Attribute.String;
-    fundSFTContractRootSignerAddress: Attribute.String & Attribute.Private;
-    fundSFTContractRootSignerPrivateKey: Attribute.String & Attribute.Private;
-    fundSFTContractAbi: Attribute.JSON;
+    sft: Attribute.Component<'contract.sft'>;
+    vault: Attribute.Component<'contract.vault'>;
     twitterUrl: Attribute.String;
     discordUrl: Attribute.String;
     isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;

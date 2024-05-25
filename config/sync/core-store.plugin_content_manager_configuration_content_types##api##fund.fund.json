@@ -33,6 +33,48 @@
           "sortable": false
         }
       },
+      "displayName": {
+        "edit": {
+          "label": "displayName",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "displayName",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "category": {
+        "edit": {
+          "label": "category",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "category",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "description": {
+        "edit": {
+          "label": "description",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "description",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "chain": {
         "edit": {
           "label": "chain",
@@ -59,132 +101,6 @@
           "label": "baseCurrency",
           "searchable": true,
           "sortable": true
-        }
-      },
-      "category": {
-        "edit": {
-          "label": "category",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "category",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "displayName": {
-        "edit": {
-          "label": "displayName",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "displayName",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "description": {
-        "edit": {
-          "label": "description",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "description",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "fundSFTContractAddress": {
-        "edit": {
-          "label": "fundSFTContractAddress",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "fundSFTContractAddress",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "fundSFTContractName": {
-        "edit": {
-          "label": "fundSFTContractName",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "fundSFTContractName",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "fundSFTContractRootSignerAddress": {
-        "edit": {
-          "label": "fundSFTContractRootSignerAddress",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "fundSFTContractRootSignerAddress",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "fundSFTContractRootSignerPrivateKey": {
-        "edit": {
-          "label": "fundSFTContractRootSignerPrivateKey",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "fundSFTContractRootSignerPrivateKey",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "fundSFTContractAbi": {
-        "edit": {
-          "label": "fundSFTContractAbi",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "fundSFTContractAbi",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "detail": {
-        "edit": {
-          "label": "detail",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "detail",
-          "searchable": false,
-          "sortable": false
         }
       },
       "genesisDate": {
@@ -257,6 +173,20 @@
           "sortable": true
         }
       },
+      "detail": {
+        "edit": {
+          "label": "detail",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "detail",
+          "searchable": false,
+          "sortable": false
+        }
+      },
       "defaultPackages": {
         "edit": {
           "label": "defaultPackages",
@@ -283,6 +213,34 @@
         },
         "list": {
           "label": "tokens",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "sft": {
+        "edit": {
+          "label": "sft",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "sft",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "vault": {
+        "edit": {
+          "label": "vault",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "vault",
           "searchable": false,
           "sortable": false
         }
@@ -413,11 +371,11 @@
         [
           {
             "name": "displayName",
-            "size": 6
+            "size": 8
           },
           {
             "name": "category",
-            "size": 6
+            "size": 4
           }
         ],
         [
@@ -478,27 +436,13 @@
         ],
         [
           {
-            "name": "fundSFTContractName",
-            "size": 6
-          },
-          {
-            "name": "fundSFTContractAddress",
-            "size": 6
+            "name": "sft",
+            "size": 12
           }
         ],
         [
           {
-            "name": "fundSFTContractRootSignerAddress",
-            "size": 8
-          },
-          {
-            "name": "fundSFTContractRootSignerPrivateKey",
-            "size": 4
-          }
-        ],
-        [
-          {
-            "name": "fundSFTContractAbi",
+            "name": "vault",
             "size": 12
           }
         ],

@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-05-22T18:31:33.155Z"
+    "x-generation-date": "2024-05-25T01:21:02.616Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -3677,19 +3677,12 @@
                   "example": "string or id"
                 }
               },
-              "fundSFTContractName": {
-                "type": "string"
+              "sft": {
+                "$ref": "#/components/schemas/ContractSftComponent"
               },
-              "fundSFTContractAddress": {
-                "type": "string"
+              "vault": {
+                "$ref": "#/components/schemas/ContractVaultComponent"
               },
-              "fundSFTContractRootSignerAddress": {
-                "type": "string"
-              },
-              "fundSFTContractRootSignerPrivateKey": {
-                "type": "string"
-              },
-              "fundSFTContractAbi": {},
               "twitterUrl": {
                 "type": "string"
               },
@@ -4688,19 +4681,12 @@
               }
             }
           },
-          "fundSFTContractName": {
-            "type": "string"
+          "sft": {
+            "$ref": "#/components/schemas/ContractSftComponent"
           },
-          "fundSFTContractAddress": {
-            "type": "string"
+          "vault": {
+            "$ref": "#/components/schemas/ContractVaultComponent"
           },
-          "fundSFTContractRootSignerAddress": {
-            "type": "string"
-          },
-          "fundSFTContractRootSignerPrivateKey": {
-            "type": "string"
-          },
-          "fundSFTContractAbi": {},
           "twitterUrl": {
             "type": "string"
           },
@@ -4781,6 +4767,54 @@
           },
           "meta": {
             "type": "object"
+          }
+        }
+      },
+      "ContractSftComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "contractName": {
+            "type": "string"
+          },
+          "contractAddress": {
+            "type": "string"
+          },
+          "contractRootSignerAddress": {
+            "type": "string"
+          },
+          "contractRootSignerPrivateKey": {
+            "type": "string"
+          },
+          "contractAbi": {},
+          "version": {
+            "type": "string"
+          }
+        }
+      },
+      "ContractVaultComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "contractName": {
+            "type": "string"
+          },
+          "contractAddress": {
+            "type": "string"
+          },
+          "contractRootSignerAddress": {
+            "type": "string"
+          },
+          "contractRootSignerPrivateKey": {
+            "type": "string"
+          },
+          "contractAbi": {},
+          "version": {
+            "type": "string"
           }
         }
       },

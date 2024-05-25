@@ -86,25 +86,17 @@
       "relation": "oneToMany",
       "target": "api::token.token"
     },
-    "fundSFTContractName": {
-      "type": "string"
+    "sft": {
+      "displayName": "Sft",
+      "type": "component",
+      "repeatable": false,
+      "component": "contract.sft"
     },
-    "fundSFTContractAddress": {
-      "type": "string",
-      "regex": "^0x[a-fA-F0-9]{40}$"
-    },
-    "fundSFTContractRootSignerAddress": {
-      "type": "string",
-      "regex": "^0x[a-fA-F0-9]{40}$",
-      "private": true
-    },
-    "fundSFTContractRootSignerPrivateKey": {
-      "type": "string",
-      "private": true,
-      "regex": "^0x[0-9a-fA-F]{64}$"
-    },
-    "fundSFTContractAbi": {
-      "type": "json"
+    "vault": {
+      "displayName": "Vault",
+      "type": "component",
+      "repeatable": false,
+      "component": "contract.vault"
     },
     "twitterUrl": {
       "type": "string"

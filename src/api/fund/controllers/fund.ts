@@ -116,15 +116,14 @@ export default factories.createCoreController(
 
       await validateSignHashBody(sanitizedInputData, ctx);
 
-      const entity = await strapi.service("api::fund.fund").findOne(id);
+      const entity = await strapi
+        .service("api::fund.fund")
+        .findOne(id, { populate: ["sft"] });
 
       if (!entity) {
         throw new NotFoundError("Fund entity not found");
       }
-      if (
-        !entity.fundSFTContractRootSignerAddress ||
-        !entity.fundSFTContractRootSignerPrivateKey
-      ) {
+      if (!entity.sft || !entity.sft.contractRootSignerPrivateKey) {
         throw new NotFoundError("Fund settings are not completed");
       }
 
@@ -135,7 +134,7 @@ export default factories.createCoreController(
         { type: "uint256", value: sanitizedInputData.value }
       ) as string;
       const signature = EthCrypto.sign(
-        entity.fundSFTContractRootSignerPrivateKey,
+        entity.sft.contractRootSignerPrivateKey,
         messageHash
       );
 

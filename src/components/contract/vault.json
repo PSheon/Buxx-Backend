@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_contract_vaults",
+  "info": {
+    "displayName": "Vault",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "contractName": {
+      "type": "string",
+      "required": true
+    },
+    "contractAddress": {
+      "type": "string",
+      "regex": "^0x[a-fA-F0-9]{40}$"
+    },
+    "contractRootSignerAddress": {
+      "type": "string",
+      "regex": "^0x[a-fA-F0-9]{40}$",
+      "private": true
+    },
+    "contractRootSignerPrivateKey": {
+      "type": "string",
+      "private": true,
+      "regex": "^0x[0-9a-fA-F]{64}$"
+    },
+    "contractAbi": {
+      "type": "json"
+    },
+    "version": {
+      "type": "string",
+      "regex": "^v(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+    }
+  }
+}

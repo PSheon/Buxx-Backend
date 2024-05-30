@@ -52,10 +52,13 @@
       "action": "api::fund.fund.findOne"
     },
     {
-      "action": "api::fund.fund.signHash"
+      "action": "api::fund.fund.sftSignHash"
     },
     {
       "action": "api::fund.fund.update"
+    },
+    {
+      "action": "api::fund.fund.vaultSignHash"
     },
     {
       "action": "api::notification.notification.delete"

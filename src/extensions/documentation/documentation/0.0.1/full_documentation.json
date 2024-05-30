@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-05-25T01:21:02.616Z"
+    "x-generation-date": "2024-05-29T19:22:56.080Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -10288,7 +10288,7 @@
         "operationId": "delete/articles/{id}"
       }
     },
-    "/funds/sign-hash/{id}": {
+    "/funds/sft/sign-hash/{id}": {
       "post": {
         "responses": {
           "200": {
@@ -10367,7 +10367,99 @@
             }
           }
         ],
-        "operationId": "post/funds/sign-hash/{id}",
+        "operationId": "post/funds/sft/sign-hash/{id}",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FundRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/funds/vault/sign-hash/{id}": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Fund"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "operationId": "post/funds/vault/sign-hash/{id}",
         "requestBody": {
           "required": true,
           "content": {

@@ -22,8 +22,13 @@ const customRouter = (defaultRouter, customRoutes = []) => {
 const customRoutes = [
   {
     method: "POST",
-    path: "/funds/sign-hash/:id",
-    handler: "fund.signHash",
+    path: "/funds/sft/sign-hash/:id",
+    handler: "fund.sftSignHash",
+  },
+  {
+    method: "POST",
+    path: "/funds/vault/sign-hash/:id",
+    handler: "fund.vaultSignHash",
   },
 ];
 

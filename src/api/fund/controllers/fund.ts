@@ -8,14 +8,33 @@ import utils from "@strapi/utils";
 import { isObject } from "lodash/fp";
 import EthCrypto from "eth-crypto";
 import Web3 from "web3";
+import { addDays, getUnixTime } from "date-fns";
 
-import { validateSignHashBody } from "./validation/fund";
+import {
+  validateSFTSignHashBody,
+  validateVaultSignHashBody,
+} from "./validation/fund";
 
-import { parseBody } from "../utils";
+import { parseBody, getExpectInterestBalance } from "../utils";
 
 import type Koa from "koa";
 
 const { ValidationError, NotFoundError } = utils.errors;
+
+type SFTSignHashInput = {
+  contractName: string;
+  minterAddress: string;
+  slotId: string;
+  value: string;
+};
+type VaultSignHashInput = {
+  contractName: string;
+  stakerAddress: string;
+  tokenId: string;
+  balance: string;
+  periodInDays: number;
+  apy: number;
+};
 
 export default factories.createCoreController(
   "api::fund.fund",
@@ -97,7 +116,7 @@ export default factories.createCoreController(
       return this.transformResponse(sanitizedEntity);
     },
 
-    async signHash(ctx: Koa.Context) {
+    async sftSignHash(ctx: Koa.Context) {
       const { id } = ctx.params;
       await this.validateQuery(ctx);
 
@@ -107,14 +126,12 @@ export default factories.createCoreController(
         throw new ValidationError('Missing "data" payload in the request body');
       }
 
-      const sanitizedInputData = (await this.sanitizeInput(body.data, ctx)) as {
-        contractName: string;
-        minterAddress: string;
-        slotId: string;
-        value: string;
-      };
+      const sanitizedInputData = (await this.sanitizeInput(
+        body.data,
+        ctx
+      )) as SFTSignHashInput;
 
-      await validateSignHashBody(sanitizedInputData, ctx);
+      await validateSFTSignHashBody(sanitizedInputData, ctx);
 
       const entity = await strapi
         .service("api::fund.fund")
@@ -139,6 +156,62 @@ export default factories.createCoreController(
       );
 
       ctx.send({ hash: signature });
+    },
+
+    async vaultSignHash(ctx: Koa.Context) {
+      const { id } = ctx.params;
+      await this.validateQuery(ctx);
+
+      const body = parseBody(ctx);
+
+      if (!isObject(body.data)) {
+        throw new ValidationError('Missing "data" payload in the request body');
+      }
+
+      const sanitizedInputData = (await this.sanitizeInput(
+        body.data,
+        ctx
+      )) as VaultSignHashInput;
+      await validateVaultSignHashBody(sanitizedInputData, ctx);
+
+      const entity = await strapi
+        .service("api::fund.fund")
+        .findOne(id, { populate: ["vault"] });
+
+      if (!entity) {
+        throw new NotFoundError("Vault entity not found");
+      }
+      if (!entity.vault || !entity.vault.contractRootSignerPrivateKey) {
+        throw new NotFoundError("Vault settings are not completed");
+      }
+
+      const unlockDateUnixTime = getUnixTime(
+        addDays(new Date(), sanitizedInputData.periodInDays)
+      );
+      const expectInterest = getExpectInterestBalance(
+        BigInt(sanitizedInputData.balance),
+        sanitizedInputData.apy,
+        sanitizedInputData.periodInDays
+      );
+
+      const messageHash = Web3.utils.soliditySha3(
+        { type: "string", value: sanitizedInputData.contractName },
+        { type: "address", value: sanitizedInputData.stakerAddress },
+        { type: "uint256", value: sanitizedInputData.tokenId },
+        { type: "uint256", value: sanitizedInputData.balance },
+        { type: "uint48", value: unlockDateUnixTime },
+        { type: "uint256", value: expectInterest }
+      ) as string;
+      const signature = EthCrypto.sign(
+        entity.vault.contractRootSignerPrivateKey,
+        messageHash
+      );
+
+      ctx.send({
+        hash: signature,
+        unlockTime: unlockDateUnixTime,
+        interest: expectInterest,
+      });
     },
   })
 );

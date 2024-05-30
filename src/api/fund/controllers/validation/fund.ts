@@ -1,10 +1,27 @@
 import { yup, validateYupSchema } from "@strapi/utils";
 
-const signHashBodySchema = yup.object().shape({
+const signSFTHashBodySchema = yup.object().shape({
   contractName: yup.string().required(),
-  minterAddress: yup.string().required(),
+  minterAddress: yup
+    .string()
+    .matches(/^(0x)?[0-9a-fA-F]{40}$/, "Invalid address")
+    .required(),
   slotId: yup.number().required(),
   value: yup.string().required(),
 });
+export const validateSFTSignHashBody = validateYupSchema(signSFTHashBodySchema);
 
-export const validateSignHashBody = validateYupSchema(signHashBodySchema);
+const signVaultHashBodySchema = yup.object().shape({
+  contractName: yup.string().required(),
+  stakerAddress: yup
+    .string()
+    .matches(/^(0x)?[0-9a-fA-F]{40}$/, "Invalid contract address")
+    .required(),
+  tokenId: yup.string().required(),
+  balance: yup.string().required(),
+  periodInDays: yup.number().required(),
+  apy: yup.number().required(),
+});
+export const validateVaultSignHashBody = validateYupSchema(
+  signVaultHashBodySchema
+);

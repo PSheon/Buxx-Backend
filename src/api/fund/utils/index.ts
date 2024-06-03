@@ -171,7 +171,7 @@ function transformEntry(
 }
 
 function getExpectInterestBalance(
-  balance: bigint,
+  balance: number,
   apy: number,
   periodInDays: number
 ): number {

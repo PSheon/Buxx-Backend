@@ -189,9 +189,15 @@ export default factories.createCoreController(
         addDays(new Date(), sanitizedInputData.periodInDays)
       );
       const expectInterest = getExpectInterestBalance(
-        BigInt(sanitizedInputData.balance),
+        parseFloat(sanitizedInputData.balance),
         sanitizedInputData.apy,
         sanitizedInputData.periodInDays
+      );
+      const formattedExpectInterest = BigInt(expectInterest).toLocaleString(
+        "fullwide",
+        {
+          useGrouping: false,
+        }
       );
 
       const messageHash = Web3.utils.soliditySha3(
@@ -200,7 +206,10 @@ export default factories.createCoreController(
         { type: "uint256", value: sanitizedInputData.tokenId },
         { type: "uint256", value: sanitizedInputData.balance },
         { type: "uint48", value: unlockDateUnixTime },
-        { type: "uint256", value: expectInterest }
+        {
+          type: "uint256",
+          value: formattedExpectInterest,
+        }
       ) as string;
       const signature = EthCrypto.sign(
         entity.vault.contractRootSignerPrivateKey,
@@ -210,7 +219,7 @@ export default factories.createCoreController(
       ctx.send({
         hash: signature,
         unlockTime: unlockDateUnixTime,
-        interest: expectInterest,
+        interest: formattedExpectInterest,
       });
     },
   })

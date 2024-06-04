@@ -6,7 +6,7 @@ const signSFTHashBodySchema = yup.object().shape({
     .string()
     .matches(/^(0x)?[0-9a-fA-F]{40}$/, "Invalid address")
     .required(),
-  slotId: yup.number().required(),
+  slotId: yup.string().required(),
   value: yup.string().required(),
 });
 export const validateSFTSignHashBody = validateYupSchema(signSFTHashBodySchema);

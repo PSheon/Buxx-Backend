@@ -1,3 +1,4 @@
+import { ExactNumber as N } from "exactnumber";
 import { isNil, isPlainObject } from "lodash/fp";
 import { parseMultipartData } from "@strapi/utils";
 import type Koa from "koa";
@@ -170,16 +171,18 @@ function transformEntry(
   };
 }
 
-function getExpectInterestBalance(
-  balance: number,
+function getExpectInterestBalanceString(
+  balance: bigint,
   apy: number,
   periodInDays: number
-): number {
+): string {
   const formattedApy = 1 + Math.min(Math.max(apy, 1), 24) / 100;
   const interestRatePerDay = Math.pow(formattedApy, 1 / 365);
   const multiplier = Math.pow(interestRatePerDay, periodInDays);
 
-  return Number(balance) * (multiplier - 1);
+  return N(balance)
+    .mul(N(multiplier.toFixed(6)).sub(1))
+    .toString();
 }
 
-export { parseBody, transformResponse, getExpectInterestBalance };
+export { parseBody, transformResponse, getExpectInterestBalanceString };

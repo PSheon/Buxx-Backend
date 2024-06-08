@@ -12,37 +12,41 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "contractAddress": {
-      "type": "string",
-      "regex": "^0x[a-fA-F0-9]{40}$"
-    },
-    "ownerAddress": {
-      "type": "string",
-      "regex": "^0x[a-fA-F0-9]{40}$"
-    },
-    "tokenId": {
-      "type": "integer"
-    },
-    "displayName": {
-      "type": "string"
-    },
-    "description": {
-      "type": "string"
-    },
-    "attributes": {
-      "type": "component",
-      "repeatable": true,
-      "component": "token.attribute"
+    "belongToFund": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::fund.fund"
     },
     "package": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::package.package"
     },
+    "contractAddress": {
+      "type": "string",
+      "regex": "^0x[a-fA-F0-9]{40}$"
+    },
+    "owner": {
+      "type": "string",
+      "regex": "^0x[a-fA-F0-9]{40}$"
+    },
+    "tokenId": {
+      "type": "string",
+      "regex": "^0x[a-fA-F0-9]{64}$"
+    },
+    "tokenValue": {
+      "type": "string",
+      "default": "0"
+    },
+    "attributes": {
+      "type": "component",
+      "repeatable": true,
+      "component": "token.attribute"
+    },
     "status": {
       "type": "enumeration",
-      "enum": ["Draft", "Generating", "Published", "Archived"],
-      "default": "Draft"
+      "enum": ["Holding", "Staking", "Burned"],
+      "default": "Holding"
     }
   }
 }

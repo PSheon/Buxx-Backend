@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "event_logs",
+  "info": {
+    "singularName": "event-log",
+    "pluralName": "event-logs",
+    "displayName": "EventLog"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "action": {
+      "type": "enumeration",
+      "enum": [
+        "MintPackage",
+        "TransferToken",
+        "TransferValue",
+        "ChangeSlot",
+        "Stake",
+        "Unstake",
+        "Burn"
+      ],
+      "required": true
+    },
+    "sftAddress": {
+      "type": "string",
+      "regex": "^0x[a-fA-F0-9]{40}$",
+      "required": true
+    },
+    "blockNumber": {
+      "type": "integer",
+      "required": true
+    },
+    "blockHash": {
+      "type": "string"
+    },
+    "transactionIndex": {
+      "type": "integer"
+    },
+    "data": {
+      "type": "string"
+    },
+    "transactionHash": {
+      "type": "string"
+    },
+    "logIndex": {
+      "type": "integer"
+    },
+    "topics": {
+      "type": "json"
+    }
+  }
+}

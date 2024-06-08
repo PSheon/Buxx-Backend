@@ -22,6 +22,7 @@
     "@strapi/provider-email-mailgun": "^4.24.3",
     "@strapi/provider-upload-aws-s3": "^4.24.3",
     "@strapi/strapi": "4.24.3",
+    "alchemy-sdk": "^3.3.1",
     "better-sqlite3": "10.0.0",
     "eth-crypto": "^2.6.0",
     "ethers": "^5.7.2",

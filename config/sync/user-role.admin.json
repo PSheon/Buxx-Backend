@@ -40,6 +40,9 @@
       "action": "api::article.article.update"
     },
     {
+      "action": "api::event-log.event-log.find"
+    },
+    {
       "action": "api::fund.fund.create"
     },
     {

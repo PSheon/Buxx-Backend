@@ -202,21 +202,6 @@
           "sortable": false
         }
       },
-      "tokens": {
-        "edit": {
-          "label": "tokens",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "displayName"
-        },
-        "list": {
-          "label": "tokens",
-          "searchable": false,
-          "sortable": false
-        }
-      },
       "sft": {
         "edit": {
           "label": "sft",
@@ -361,6 +346,12 @@
       }
     },
     "layouts": {
+      "list": [
+        "id",
+        "displayName",
+        "createdAt",
+        "updatedAt"
+      ],
       "edit": [
         [
           {
@@ -428,10 +419,6 @@
           {
             "name": "defaultPackages",
             "size": 6
-          },
-          {
-            "name": "tokens",
-            "size": 6
           }
         ],
         [
@@ -466,12 +453,6 @@
             "size": 6
           }
         ]
-      ],
-      "list": [
-        "id",
-        "displayName",
-        "createdAt",
-        "updatedAt"
       ]
     },
     "uid": "api::fund.fund"

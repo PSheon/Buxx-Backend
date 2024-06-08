@@ -195,6 +195,70 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::event-log.event-log",
+      "properties": {
+        "fields": [
+          "action",
+          "sftAddress",
+          "blockNumber",
+          "blockHash",
+          "transactionIndex",
+          "data",
+          "transactionHash",
+          "logIndex",
+          "topics"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::event-log.event-log",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::event-log.event-log",
+      "properties": {
+        "fields": [
+          "action",
+          "sftAddress",
+          "blockNumber",
+          "blockHash",
+          "transactionIndex",
+          "data",
+          "transactionHash",
+          "logIndex",
+          "topics"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::event-log.event-log",
+      "properties": {
+        "fields": [
+          "action",
+          "sftAddress",
+          "blockNumber",
+          "blockHash",
+          "transactionIndex",
+          "data",
+          "transactionHash",
+          "logIndex",
+          "topics"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::fund.fund",
       "properties": {
         "fields": [
@@ -211,7 +275,6 @@
           "redemptionFrequencyInDays",
           "detail",
           "defaultPackages",
-          "tokens",
           "sft.contractName",
           "sft.contractAddress",
           "sft.contractRootSignerAddress",
@@ -258,7 +321,6 @@
           "redemptionFrequencyInDays",
           "detail",
           "defaultPackages",
-          "tokens",
           "sft.contractName",
           "sft.contractAddress",
           "sft.contractRootSignerAddress",
@@ -298,7 +360,6 @@
           "redemptionFrequencyInDays",
           "detail",
           "defaultPackages",
-          "tokens",
           "sft.contractName",
           "sft.contractAddress",
           "sft.contractRootSignerAddress",
@@ -490,14 +551,14 @@
       "subject": "api::token.token",
       "properties": {
         "fields": [
+          "belongToFund",
+          "package",
           "contractAddress",
-          "ownerAddress",
+          "owner",
           "tokenId",
-          "displayName",
-          "description",
+          "tokenValue",
           "attributes.traitType",
           "attributes.value",
-          "package",
           "status"
         ]
       },
@@ -516,14 +577,14 @@
       "subject": "api::token.token",
       "properties": {
         "fields": [
+          "belongToFund",
+          "package",
           "contractAddress",
-          "ownerAddress",
+          "owner",
           "tokenId",
-          "displayName",
-          "description",
+          "tokenValue",
           "attributes.traitType",
           "attributes.value",
-          "package",
           "status"
         ]
       },
@@ -535,14 +596,14 @@
       "subject": "api::token.token",
       "properties": {
         "fields": [
+          "belongToFund",
+          "package",
           "contractAddress",
-          "ownerAddress",
+          "owner",
           "tokenId",
-          "displayName",
-          "description",
+          "tokenValue",
           "attributes.traitType",
           "attributes.value",
-          "package",
           "status"
         ]
       },

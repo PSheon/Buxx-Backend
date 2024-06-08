@@ -1,13 +1,13 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::token.token",
+  "key": "plugin_content_manager_configuration_content_types::api::event-log.event-log",
   "value": {
     "settings": {
       "bulkable": true,
       "filterable": true,
       "searchable": true,
       "pageSize": 10,
-      "mainField": "contractAddress",
-      "defaultSortBy": "contractAddress",
+      "mainField": "blockHash",
+      "defaultSortBy": "blockHash",
       "defaultSortOrder": "ASC"
     },
     "metadatas": {
@@ -19,116 +19,128 @@
           "sortable": true
         }
       },
-      "belongToFund": {
+      "action": {
         "edit": {
-          "label": "belongToFund",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "displayName"
-        },
-        "list": {
-          "label": "belongToFund",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "contractAddress": {
-        "edit": {
-          "label": "contractAddress",
+          "label": "action",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "contractAddress",
+          "label": "action",
           "searchable": true,
           "sortable": true
         }
       },
-      "tokenId": {
+      "blockNumber": {
         "edit": {
-          "label": "tokenId",
+          "label": "blockNumber",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "tokenId",
+          "label": "blockNumber",
           "searchable": true,
           "sortable": true
         }
       },
-      "tokenValue": {
+      "blockHash": {
         "edit": {
-          "label": "tokenValue",
+          "label": "blockHash",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "tokenValue",
+          "label": "blockHash",
           "searchable": true,
           "sortable": true
         }
       },
-      "owner": {
+      "transactionIndex": {
         "edit": {
-          "label": "owner",
+          "label": "transactionIndex",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "owner",
+          "label": "transactionIndex",
           "searchable": true,
           "sortable": true
         }
       },
-      "attributes": {
+      "sftAddress": {
         "edit": {
-          "label": "attributes",
+          "label": "sftAddress",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "attributes",
+          "label": "sftAddress",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "data": {
+        "edit": {
+          "label": "data",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "data",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "topics": {
+        "edit": {
+          "label": "topics",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "topics",
           "searchable": false,
           "sortable": false
         }
       },
-      "package": {
+      "transactionHash": {
         "edit": {
-          "label": "package",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "displayName"
-        },
-        "list": {
-          "label": "package",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "status": {
-        "edit": {
-          "label": "status",
+          "label": "transactionHash",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "status",
+          "label": "transactionHash",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "logIndex": {
+        "edit": {
+          "label": "logIndex",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "logIndex",
           "searchable": true,
           "sortable": true
         }
@@ -196,55 +208,59 @@
       "edit": [
         [
           {
-            "name": "belongToFund",
+            "name": "action",
             "size": 6
           },
           {
-            "name": "package",
+            "name": "sftAddress",
             "size": 6
           }
         ],
         [
           {
-            "name": "contractAddress",
-            "size": 6
+            "name": "blockNumber",
+            "size": 4
           },
           {
-            "name": "owner",
-            "size": 6
+            "name": "blockHash",
+            "size": 8
           }
         ],
         [
           {
-            "name": "tokenId",
+            "name": "transactionIndex",
+            "size": 4
+          },
+          {
+            "name": "data",
+            "size": 8
+          }
+        ],
+        [
+          {
+            "name": "transactionHash",
             "size": 8
           },
           {
-            "name": "tokenValue",
+            "name": "logIndex",
             "size": 4
           }
         ],
         [
           {
-            "name": "attributes",
+            "name": "topics",
             "size": 12
-          }
-        ],
-        [
-          {
-            "name": "status",
-            "size": 6
           }
         ]
       ],
       "list": [
         "id",
-        "tokenId",
-        "createdAt",
-        "tokenValue"
+        "action",
+        "blockNumber",
+        "sftAddress"
       ]
     },
-    "uid": "api::token.token"
+    "uid": "api::event-log.event-log"
   },
   "type": "object",
   "environment": null,

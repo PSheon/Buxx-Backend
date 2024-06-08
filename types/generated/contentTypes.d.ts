@@ -943,6 +943,54 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   };
 }
 
+export interface ApiEventLogEventLog extends Schema.CollectionType {
+  collectionName: 'event_logs';
+  info: {
+    singularName: 'event-log';
+    pluralName: 'event-logs';
+    displayName: 'EventLog';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    action: Attribute.Enumeration<
+      [
+        'MintPackage',
+        'TransferToken',
+        'TransferValue',
+        'ChangeSlot',
+        'Stake',
+        'Unstake',
+        'Burn'
+      ]
+    > &
+      Attribute.Required;
+    sftAddress: Attribute.String & Attribute.Required;
+    blockNumber: Attribute.Integer & Attribute.Required;
+    blockHash: Attribute.String;
+    transactionIndex: Attribute.Integer;
+    data: Attribute.String;
+    transactionHash: Attribute.String;
+    logIndex: Attribute.Integer;
+    topics: Attribute.JSON;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::event-log.event-log',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::event-log.event-log',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiFundFund extends Schema.CollectionType {
   collectionName: 'funds';
   info: {
@@ -998,11 +1046,6 @@ export interface ApiFundFund extends Schema.CollectionType {
       'api::fund.fund',
       'oneToMany',
       'api::package.package'
-    >;
-    tokens: Attribute.Relation<
-      'api::fund.fund',
-      'oneToMany',
-      'api::token.token'
     >;
     sft: Attribute.Component<'contract.sft'>;
     vault: Attribute.Component<'contract.vault'>;
@@ -1146,21 +1189,23 @@ export interface ApiTokenToken extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    contractAddress: Attribute.String;
-    ownerAddress: Attribute.String;
-    tokenId: Attribute.Integer;
-    displayName: Attribute.String;
-    description: Attribute.String;
-    attributes: Attribute.Component<'token.attribute', true>;
+    belongToFund: Attribute.Relation<
+      'api::token.token',
+      'oneToOne',
+      'api::fund.fund'
+    >;
     package: Attribute.Relation<
       'api::token.token',
       'oneToOne',
       'api::package.package'
     >;
-    status: Attribute.Enumeration<
-      ['Draft', 'Generating', 'Published', 'Archived']
-    > &
-      Attribute.DefaultTo<'Draft'>;
+    contractAddress: Attribute.String;
+    owner: Attribute.String;
+    tokenId: Attribute.String;
+    tokenValue: Attribute.String & Attribute.DefaultTo<'0'>;
+    attributes: Attribute.Component<'token.attribute', true>;
+    status: Attribute.Enumeration<['Holding', 'Staking', 'Burned']> &
+      Attribute.DefaultTo<'Holding'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1239,6 +1284,7 @@ declare module '@strapi/types' {
       'api::access-log.access-log': ApiAccessLogAccessLog;
       'api::activity-log.activity-log': ApiActivityLogActivityLog;
       'api::article.article': ApiArticleArticle;
+      'api::event-log.event-log': ApiEventLogEventLog;
       'api::fund.fund': ApiFundFund;
       'api::metadata.metadata': ApiMetadataMetadata;
       'api::notification.notification': ApiNotificationNotification;

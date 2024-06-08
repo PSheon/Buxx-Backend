@@ -81,11 +81,6 @@
       "relation": "oneToMany",
       "target": "api::package.package"
     },
-    "tokens": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::token.token"
-    },
     "sft": {
       "displayName": "Sft",
       "type": "component",

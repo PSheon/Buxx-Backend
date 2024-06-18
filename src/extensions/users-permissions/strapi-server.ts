@@ -9,6 +9,7 @@ import {
 import { update, find, findOne, updateMe } from "./server/controllers/user";
 import userService from "./server/services/user";
 import providersService from "./server/services/providers";
+import providersRegistryService from "./server/services/providers-registry";
 
 export default (plugin) => {
   /* Controllers */
@@ -18,6 +19,7 @@ export default (plugin) => {
   plugin.controllers.auth.forgotPassword = forgotPassword;
   plugin.controllers.auth.register = register;
   plugin.controllers.auth.emailConfirmation = emailConfirmation;
+  plugin.services["providers-registry"] = providersRegistryService;
 
   plugin.controllers.user.update = update;
   plugin.controllers.user.find = find;

@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-06-08T20:25:14.210Z"
+    "x-generation-date": "2024-06-21T00:10:04.454Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -4926,7 +4926,7 @@
                           "type": "number",
                           "format": "float"
                         },
-                        "slot": {
+                        "slots": {
                           "type": "array",
                           "items": {
                             "type": "object",
@@ -4934,15 +4934,32 @@
                               "id": {
                                 "type": "number"
                               },
-                              "propertyType": {
+                              "propertyName": {
                                 "type": "string",
                                 "enum": [
                                   "DisplayName",
-                                  "Period"
+                                  "APY",
+                                  "MinimumStakingPeriod"
                                 ]
+                              },
+                              "description": {
+                                "type": "string"
                               },
                               "value": {
                                 "type": "string"
+                              },
+                              "isIntrinsic": {
+                                "type": "boolean"
+                              },
+                              "order": {
+                                "type": "integer"
+                              },
+                              "displayType": {
+                                "type": "string",
+                                "enum": [
+                                  "string",
+                                  "number"
+                                ]
                               }
                             }
                           }
@@ -6650,7 +6667,7 @@
                 "type": "number",
                 "format": "float"
               },
-              "slot": {
+              "slots": {
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/TokenPropertyComponent"
@@ -6747,7 +6764,7 @@
             "type": "number",
             "format": "float"
           },
-          "slot": {
+          "slots": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TokenPropertyComponent"
@@ -7085,15 +7102,32 @@
           "id": {
             "type": "number"
           },
-          "propertyType": {
+          "propertyName": {
             "type": "string",
             "enum": [
               "DisplayName",
-              "Period"
+              "APY",
+              "MinimumStakingPeriod"
             ]
+          },
+          "description": {
+            "type": "string"
           },
           "value": {
             "type": "string"
+          },
+          "isIntrinsic": {
+            "type": "boolean"
+          },
+          "order": {
+            "type": "integer"
+          },
+          "displayType": {
+            "type": "string",
+            "enum": [
+              "string",
+              "number"
+            ]
           }
         }
       },
@@ -7945,7 +7979,7 @@
                                       "type": "number",
                                       "format": "float"
                                     },
-                                    "slot": {
+                                    "slots": {
                                       "type": "array",
                                       "items": {
                                         "type": "object",
@@ -7953,15 +7987,32 @@
                                           "id": {
                                             "type": "number"
                                           },
-                                          "propertyType": {
+                                          "propertyName": {
                                             "type": "string",
                                             "enum": [
                                               "DisplayName",
-                                              "Period"
+                                              "APY",
+                                              "MinimumStakingPeriod"
                                             ]
+                                          },
+                                          "description": {
+                                            "type": "string"
                                           },
                                           "value": {
                                             "type": "string"
+                                          },
+                                          "isIntrinsic": {
+                                            "type": "boolean"
+                                          },
+                                          "order": {
+                                            "type": "integer"
+                                          },
+                                          "displayType": {
+                                            "type": "string",
+                                            "enum": [
+                                              "string",
+                                              "number"
+                                            ]
                                           }
                                         }
                                       }

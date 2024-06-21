@@ -6,7 +6,7 @@
       "filterable": true,
       "searchable": true,
       "pageSize": 10,
-      "mainField": "value",
+      "mainField": "propertyName",
       "defaultSortBy": "id",
       "defaultSortOrder": "ASC"
     },
@@ -114,34 +114,34 @@
       "edit": [
         [
           {
-            "name": "value",
-            "size": 6
-          }
-        ],
-        [
-          {
-            "name": "isIntrinsic",
-            "size": 4
-          },
-          {
             "name": "order",
             "size": 4
-          }
-        ],
-        [
-          {
-            "name": "displayType",
-            "size": 6
           },
           {
-            "name": "description",
-            "size": 6
+            "name": "displayType",
+            "size": 8
           }
         ],
         [
           {
             "name": "propertyName",
             "size": 6
+          },
+          {
+            "name": "value",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "description",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "isIntrinsic",
+            "size": 4
           }
         ]
       ]

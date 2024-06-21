@@ -772,7 +772,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    avatar: Attribute.Media;
+    avatar: Attribute.Media<'images'>;
     title: Attribute.String;
     phone: Attribute.String;
     isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
@@ -899,7 +899,7 @@ export interface ApiArticleArticle extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    cover: Attribute.Media;
+    cover: Attribute.Media<'images'>;
     category: Attribute.Enumeration<
       [
         'Engineering',
@@ -1003,7 +1003,7 @@ export interface ApiFundFund extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    banner: Attribute.Media;
+    banner: Attribute.Media<'images'>;
     displayName: Attribute.String & Attribute.Required;
     category: Attribute.Enumeration<
       [
@@ -1156,7 +1156,7 @@ export interface ApiPackagePackage extends Schema.CollectionType {
     priceInUnit: Attribute.Decimal &
       Attribute.Required &
       Attribute.DefaultTo<0>;
-    slot: Attribute.Component<'token.property', true>;
+    slots: Attribute.Component<'token.property', true>;
     status: Attribute.Enumeration<['Draft', 'Published', 'Archived']> &
       Attribute.Required &
       Attribute.DefaultTo<'Draft'>;

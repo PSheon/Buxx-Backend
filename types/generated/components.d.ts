@@ -51,9 +51,19 @@ export interface TokenProperty extends Schema.Component {
     description: '';
   };
   attributes: {
-    propertyType: Attribute.Enumeration<['DisplayName', 'Period']> &
+    propertyName: Attribute.Enumeration<
+      ['DisplayName', 'APY', 'MinimumStakingPeriod']
+    > &
       Attribute.Required;
+    description: Attribute.String;
     value: Attribute.String & Attribute.Required;
+    isIntrinsic: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<false>;
+    order: Attribute.Integer & Attribute.Required & Attribute.DefaultTo<1>;
+    displayType: Attribute.Enumeration<['string', 'number']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'string'>;
   };
 }
 

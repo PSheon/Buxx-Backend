@@ -6,16 +6,32 @@
   },
   "options": {},
   "attributes": {
-    "propertyType": {
+    "propertyName": {
       "type": "enumeration",
-      "enum": [
-        "DisplayName",
-        "Period"
-      ],
+      "enum": ["DisplayName", "APY", "MinimumStakingPeriod"],
       "required": true
+    },
+    "description": {
+      "type": "string"
     },
     "value": {
       "type": "string",
+      "required": true
+    },
+    "isIntrinsic": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "order": {
+      "type": "integer",
+      "default": 1,
+      "required": true
+    },
+    "displayType": {
+      "type": "enumeration",
+      "enum": ["string", "number"],
+      "default": "string",
       "required": true
     }
   }

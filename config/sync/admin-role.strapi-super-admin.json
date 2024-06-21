@@ -495,8 +495,12 @@
           "packageId",
           "skin",
           "priceInUnit",
-          "slot.propertyType",
-          "slot.value",
+          "slots.propertyName",
+          "slots.description",
+          "slots.value",
+          "slots.isIntrinsic",
+          "slots.order",
+          "slots.displayType",
           "status"
         ]
       },
@@ -520,8 +524,12 @@
           "packageId",
           "skin",
           "priceInUnit",
-          "slot.propertyType",
-          "slot.value",
+          "slots.propertyName",
+          "slots.description",
+          "slots.value",
+          "slots.isIntrinsic",
+          "slots.order",
+          "slots.displayType",
           "status"
         ]
       },
@@ -538,8 +546,12 @@
           "packageId",
           "skin",
           "priceInUnit",
-          "slot.propertyType",
-          "slot.value",
+          "slots.propertyName",
+          "slots.description",
+          "slots.value",
+          "slots.isIntrinsic",
+          "slots.order",
+          "slots.displayType",
           "status"
         ]
       },

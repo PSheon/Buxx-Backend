@@ -75,16 +75,30 @@
           "sortable": true
         }
       },
-      "slot": {
+      "priceInUnit": {
         "edit": {
-          "label": "slot",
+          "label": "priceInUnit",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "slot",
+          "label": "priceInUnit",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "slots": {
+        "edit": {
+          "label": "slots",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "slots",
           "searchable": false,
           "sortable": false
         }
@@ -99,20 +113,6 @@
         },
         "list": {
           "label": "status",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "priceInUnit": {
-        "edit": {
-          "label": "priceInUnit",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "priceInUnit",
           "searchable": true,
           "sortable": true
         }
@@ -206,7 +206,7 @@
         ],
         [
           {
-            "name": "slot",
+            "name": "slots",
             "size": 12
           }
         ],

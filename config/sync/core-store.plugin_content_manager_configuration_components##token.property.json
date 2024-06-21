@@ -19,16 +19,30 @@
           "sortable": false
         }
       },
-      "propertyType": {
+      "propertyName": {
         "edit": {
-          "label": "propertyType",
+          "label": "propertyName",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "propertyType",
+          "label": "propertyName",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "description": {
+        "edit": {
+          "label": "description",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "description",
           "searchable": true,
           "sortable": true
         }
@@ -46,22 +60,87 @@
           "searchable": true,
           "sortable": true
         }
+      },
+      "isIntrinsic": {
+        "edit": {
+          "label": "isIntrinsic",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "isIntrinsic",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "order": {
+        "edit": {
+          "label": "order",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "order",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "displayType": {
+        "edit": {
+          "label": "displayType",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "displayType",
+          "searchable": true,
+          "sortable": true
+        }
       }
     },
     "layouts": {
       "list": [
         "id",
         "value",
-        "propertyType"
+        "isIntrinsic",
+        "propertyName"
       ],
       "edit": [
         [
           {
-            "name": "propertyType",
+            "name": "value",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "isIntrinsic",
+            "size": 4
+          },
+          {
+            "name": "order",
+            "size": 4
+          }
+        ],
+        [
+          {
+            "name": "displayType",
             "size": 6
           },
           {
-            "name": "value",
+            "name": "description",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "propertyName",
             "size": 6
           }
         ]

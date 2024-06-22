@@ -50,7 +50,7 @@ export default factories.createCoreController(
       }
       const referrer = referrerEntities[0];
 
-      const existedReferralEntities = await strapi.entityService.findMany(
+      const existedMeReferralEntities = await strapi.entityService.findMany(
         "api::referral.referral",
         {
           filters: {
@@ -58,7 +58,7 @@ export default factories.createCoreController(
           },
         }
       );
-      if (existedReferralEntities.length) {
+      if (existedMeReferralEntities.length) {
         throw new NotFoundError("You already joined a referral");
       }
 
@@ -70,9 +70,30 @@ export default factories.createCoreController(
           },
         });
 
-        await strapi.service("api::referral.referral").logReferral({
-          referrer,
-          referredId: ctx.state.user.id,
+        await strapi.service("api::point-record.point-record").logPointRecord({
+          type: "Referral",
+          user: referrer,
+          earningExp: 500,
+          earningPoints: 0,
+          receipt: {
+            referrerId: referrer.id,
+            userId: ctx.state.user.id,
+            exp: 500,
+            points: 0,
+          },
+        });
+
+        await strapi.service("api::point-record.point-record").logPointRecord({
+          type: "CompleteTask",
+          user: ctx.state.user,
+          earningExp: 50,
+          earningPoints: 0,
+          receipt: {
+            task: "Join Referral",
+            userId: ctx.state.user.id,
+            exp: 50,
+            points: 0,
+          },
         });
 
         ctx.send({ ok: true, message: "Join referral successfully" });

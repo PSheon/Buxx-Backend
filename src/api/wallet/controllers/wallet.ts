@@ -3,10 +3,13 @@
  */
 
 import { factories } from "@strapi/strapi";
+import utils from "@strapi/utils";
 
 import { generateNonce, SiweMessage } from "siwe";
 
 import type Koa from "koa";
+
+const { ApplicationError } = utils.errors;
 
 export default factories.createCoreController(
   "api::wallet.wallet",
@@ -87,7 +90,7 @@ export default factories.createCoreController(
 
         ctx.send({ ok: true, message: "Wallet verified" });
       } catch (error) {
-        ctx.send({ ok: false, message: error.message });
+        throw new ApplicationError(`Verify wallet failed. [${error.message}]`);
       }
     },
   })

@@ -3,6 +3,8 @@ export type UserType = {
   provider: string;
   email: string;
   username: string;
+  points: number;
+  referralId: string;
   blocked: boolean;
   confirmed: boolean;
   createdAt: string;

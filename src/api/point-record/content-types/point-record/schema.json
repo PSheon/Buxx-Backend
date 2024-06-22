@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "point_records",
+  "info": {
+    "singularName": "point-record",
+    "pluralName": "point-records",
+    "displayName": "PointRecord",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "StakeShare",
+        "TeamBonus",
+        "DailyCheck",
+        "CompleteTask",
+        "Referral"
+      ]
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "earningPoints": {
+      "type": "integer",
+      "default": 0,
+      "required": true,
+      "min": 0
+    },
+    "receipt": {
+      "type": "json"
+    },
+    "isHighlighted": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

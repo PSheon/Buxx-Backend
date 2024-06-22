@@ -560,6 +560,55 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::referral.referral",
+      "properties": {
+        "fields": [
+          "user",
+          "referrer",
+          "isActive",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::referral.referral",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::referral.referral",
+      "properties": {
+        "fields": [
+          "user",
+          "referrer",
+          "isActive",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::referral.referral",
+      "properties": {
+        "fields": [
+          "user",
+          "referrer",
+          "isActive",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::token.token",
       "properties": {
         "fields": [
@@ -909,6 +958,8 @@
           "avatar",
           "title",
           "phone",
+          "referralId",
+          "points",
           "isHighlighted"
         ]
       },
@@ -940,6 +991,8 @@
           "avatar",
           "title",
           "phone",
+          "referralId",
+          "points",
           "isHighlighted"
         ]
       },
@@ -964,6 +1017,8 @@
           "avatar",
           "title",
           "phone",
+          "referralId",
+          "points",
           "isHighlighted"
         ]
       },

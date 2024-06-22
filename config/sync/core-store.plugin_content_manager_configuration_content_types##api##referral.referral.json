@@ -1,0 +1,174 @@
+{
+  "key": "plugin_content_manager_configuration_content_types::api::referral.referral",
+  "value": {
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "id",
+      "defaultSortBy": "id",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "user": {
+        "edit": {
+          "label": "user",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "username"
+        },
+        "list": {
+          "label": "user",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "referrer": {
+        "edit": {
+          "label": "referrer",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "username"
+        },
+        "list": {
+          "label": "referrer",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "isHighlighted": {
+        "edit": {
+          "label": "isHighlighted",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "isHighlighted",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "isActive": {
+        "edit": {
+          "label": "isActive",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "isActive",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdAt": {
+        "edit": {
+          "label": "createdAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "createdAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedAt": {
+        "edit": {
+          "label": "updatedAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "updatedAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdBy": {
+        "edit": {
+          "label": "createdBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "createdBy",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedBy": {
+        "edit": {
+          "label": "updatedBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "updatedBy",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "edit": [
+        [
+          {
+            "name": "user",
+            "size": 6
+          },
+          {
+            "name": "referrer",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "isActive",
+            "size": 4
+          },
+          {
+            "name": "isHighlighted",
+            "size": 4
+          }
+        ]
+      ],
+      "list": [
+        "id",
+        "user",
+        "referrer",
+        "isHighlighted"
+      ]
+    },
+    "uid": "api::referral.referral"
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

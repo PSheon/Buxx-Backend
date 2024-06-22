@@ -100,6 +100,18 @@
       "action": "api::package.package.update"
     },
     {
+      "action": "api::referral.referral.find"
+    },
+    {
+      "action": "api::referral.referral.findMe"
+    },
+    {
+      "action": "api::referral.referral.join"
+    },
+    {
+      "action": "api::referral.referral.update"
+    },
+    {
       "action": "api::token.token.create"
     },
     {

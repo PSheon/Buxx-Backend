@@ -43,6 +43,12 @@
       "action": "api::package.package.findOne"
     },
     {
+      "action": "api::referral.referral.findMe"
+    },
+    {
+      "action": "api::referral.referral.join"
+    },
+    {
       "action": "api::token.token.find"
     },
     {

@@ -40,6 +40,15 @@
       "action": "api::article.article.update"
     },
     {
+      "action": "api::daily-check-record.daily-check-record.check"
+    },
+    {
+      "action": "api::daily-check-record.daily-check-record.find"
+    },
+    {
+      "action": "api::daily-check-record.daily-check-record.findMe"
+    },
+    {
       "action": "api::event-log.event-log.find"
     },
     {

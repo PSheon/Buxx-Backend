@@ -22,6 +22,12 @@
       "action": "api::article.article.findOne"
     },
     {
+      "action": "api::daily-check-record.daily-check-record.check"
+    },
+    {
+      "action": "api::daily-check-record.daily-check-record.findMe"
+    },
+    {
       "action": "api::fund.fund.find"
     },
     {

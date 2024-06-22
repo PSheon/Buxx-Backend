@@ -195,6 +195,52 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::daily-check-record.daily-check-record",
+      "properties": {
+        "fields": [
+          "user",
+          "date",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::daily-check-record.daily-check-record",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::daily-check-record.daily-check-record",
+      "properties": {
+        "fields": [
+          "user",
+          "date",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::daily-check-record.daily-check-record",
+      "properties": {
+        "fields": [
+          "user",
+          "date",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::event-log.event-log",
       "properties": {
         "fields": [

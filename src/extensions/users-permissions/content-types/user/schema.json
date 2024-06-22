@@ -85,6 +85,18 @@
     "phone": {
       "type": "string"
     },
+    "referralId": {
+      "type": "customField",
+      "options": {
+        "uuid-format": "^[23456789A-HJ-NP-Z]{6}$"
+      },
+      "customField": "plugin::strapi-advanced-uuid.uuid"
+    },
+    "points": {
+      "type": "biginteger",
+      "default": "0",
+      "min": "0"
+    },
     "isHighlighted": {
       "type": "boolean",
       "default": false

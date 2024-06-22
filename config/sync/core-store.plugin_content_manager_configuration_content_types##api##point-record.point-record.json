@@ -48,18 +48,18 @@
           "sortable": true
         }
       },
-      "receipt": {
+      "earningExp": {
         "edit": {
-          "label": "receipt",
+          "label": "earningExp",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "receipt",
-          "searchable": false,
-          "sortable": false
+          "label": "earningExp",
+          "searchable": true,
+          "sortable": true
         }
       },
       "earningPoints": {
@@ -74,6 +74,20 @@
           "label": "earningPoints",
           "searchable": true,
           "sortable": true
+        }
+      },
+      "receipt": {
+        "edit": {
+          "label": "receipt",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "receipt",
+          "searchable": false,
+          "sortable": false
         }
       },
       "isHighlighted": {
@@ -150,12 +164,6 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "type",
-        "user",
-        "earningPoints"
-      ],
       "edit": [
         [
           {
@@ -169,20 +177,32 @@
         ],
         [
           {
+            "name": "earningPoints",
+            "size": 6
+          },
+          {
+            "name": "earningExp",
+            "size": 6
+          }
+        ],
+        [
+          {
             "name": "receipt",
             "size": 12
           }
         ],
         [
           {
-            "name": "earningPoints",
-            "size": 4
-          },
-          {
             "name": "isHighlighted",
             "size": 4
           }
         ]
+      ],
+      "list": [
+        "id",
+        "type",
+        "user",
+        "earningPoints"
       ]
     },
     "uid": "api::point-record.point-record"

@@ -565,6 +565,7 @@
         "fields": [
           "type",
           "user",
+          "earningExp",
           "earningPoints",
           "receipt",
           "isHighlighted"
@@ -587,6 +588,7 @@
         "fields": [
           "type",
           "user",
+          "earningExp",
           "earningPoints",
           "receipt",
           "isHighlighted"
@@ -602,6 +604,7 @@
         "fields": [
           "type",
           "user",
+          "earningExp",
           "earningPoints",
           "receipt",
           "isHighlighted"
@@ -1011,6 +1014,7 @@
           "title",
           "phone",
           "referralId",
+          "exp",
           "points",
           "isHighlighted"
         ]
@@ -1044,6 +1048,7 @@
           "title",
           "phone",
           "referralId",
+          "exp",
           "points",
           "isHighlighted"
         ]
@@ -1070,6 +1075,7 @@
           "title",
           "phone",
           "referralId",
+          "exp",
           "points",
           "isHighlighted"
         ]

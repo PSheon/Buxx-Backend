@@ -216,6 +216,20 @@
           "sortable": true
         }
       },
+      "points": {
+        "edit": {
+          "label": "points",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "points",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "isHighlighted": {
         "edit": {
           "label": "isHighlighted",
@@ -230,16 +244,16 @@
           "sortable": true
         }
       },
-      "points": {
+      "exp": {
         "edit": {
-          "label": "points",
+          "label": "exp",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "points",
+          "label": "exp",
           "searchable": true,
           "sortable": true
         }
@@ -337,8 +351,12 @@
         ],
         [
           {
+            "name": "exp",
+            "size": 6
+          },
+          {
             "name": "points",
-            "size": 12
+            "size": 6
           }
         ],
         [

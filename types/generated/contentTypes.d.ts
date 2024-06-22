@@ -775,6 +775,27 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     avatar: Attribute.Media<'images'>;
     title: Attribute.String;
     phone: Attribute.String;
+    referralId: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'uuid-format': '^[23456789A-HJ-NP-Z]{6}$';
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^[23456789A-HJ-NP-Z]{6}$';
+        }
+      >;
+    points: Attribute.BigInteger &
+      Attribute.SetMinMax<
+        {
+          min: '0';
+        },
+        string
+      > &
+      Attribute.DefaultTo<'0'>;
     isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1177,6 +1198,47 @@ export interface ApiPackagePackage extends Schema.CollectionType {
   };
 }
 
+export interface ApiReferralReferral extends Schema.CollectionType {
+  collectionName: 'referrals';
+  info: {
+    singularName: 'referral';
+    pluralName: 'referrals';
+    displayName: 'Referral';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    user: Attribute.Relation<
+      'api::referral.referral',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    referrer: Attribute.Relation<
+      'api::referral.referral',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    isActive: Attribute.Boolean & Attribute.DefaultTo<true>;
+    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::referral.referral',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::referral.referral',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiTokenToken extends Schema.CollectionType {
   collectionName: 'tokens';
   info: {
@@ -1289,6 +1351,7 @@ declare module '@strapi/types' {
       'api::metadata.metadata': ApiMetadataMetadata;
       'api::notification.notification': ApiNotificationNotification;
       'api::package.package': ApiPackagePackage;
+      'api::referral.referral': ApiReferralReferral;
       'api::token.token': ApiTokenToken;
       'api::wallet.wallet': ApiWalletWallet;
     }

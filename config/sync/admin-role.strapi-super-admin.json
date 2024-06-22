@@ -560,6 +560,58 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::point-record.point-record",
+      "properties": {
+        "fields": [
+          "type",
+          "user",
+          "earningPoints",
+          "receipt",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::point-record.point-record",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::point-record.point-record",
+      "properties": {
+        "fields": [
+          "type",
+          "user",
+          "earningPoints",
+          "receipt",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::point-record.point-record",
+      "properties": {
+        "fields": [
+          "type",
+          "user",
+          "earningPoints",
+          "receipt",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::referral.referral",
       "properties": {
         "fields": [

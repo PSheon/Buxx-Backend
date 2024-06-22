@@ -43,6 +43,9 @@
       "action": "api::package.package.findOne"
     },
     {
+      "action": "api::point-record.point-record.findMe"
+    },
+    {
       "action": "api::referral.referral.findMe"
     },
     {

@@ -299,7 +299,7 @@ export const forgotPassword = async (ctx: Koa.Context) => {
   } else if (
     user.lastForgotPasswordAt !== null &&
     isBefore(
-      new Date(new Date()),
+      new Date(),
       new Date(addMinutes(new Date(user.lastForgotPasswordAt), 3))
     )
   ) {

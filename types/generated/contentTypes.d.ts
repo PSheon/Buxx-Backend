@@ -972,6 +972,43 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   };
 }
 
+export interface ApiDailyCheckRecordDailyCheckRecord
+  extends Schema.CollectionType {
+  collectionName: 'daily_check_records';
+  info: {
+    singularName: 'daily-check-record';
+    pluralName: 'daily-check-records';
+    displayName: 'DailyCheckRecord';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    user: Attribute.Relation<
+      'api::daily-check-record.daily-check-record',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    date: Attribute.DateTime & Attribute.Required;
+    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::daily-check-record.daily-check-record',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::daily-check-record.daily-check-record',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiEventLogEventLog extends Schema.CollectionType {
   collectionName: 'event_logs';
   info: {
@@ -1411,6 +1448,7 @@ declare module '@strapi/types' {
       'api::access-log.access-log': ApiAccessLogAccessLog;
       'api::activity-log.activity-log': ApiActivityLogActivityLog;
       'api::article.article': ApiArticleArticle;
+      'api::daily-check-record.daily-check-record': ApiDailyCheckRecordDailyCheckRecord;
       'api::event-log.event-log': ApiEventLogEventLog;
       'api::fund.fund': ApiFundFund;
       'api::metadata.metadata': ApiMetadataMetadata;

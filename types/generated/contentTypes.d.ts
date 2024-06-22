@@ -788,14 +788,14 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
           'uuid-format': '^[23456789A-HJ-NP-Z]{6}$';
         }
       >;
-    points: Attribute.BigInteger &
+    points: Attribute.Integer &
       Attribute.SetMinMax<
         {
-          min: '0';
+          min: 0;
         },
-        string
+        number
       > &
-      Attribute.DefaultTo<'0'>;
+      Attribute.DefaultTo<0>;
     isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1198,6 +1198,54 @@ export interface ApiPackagePackage extends Schema.CollectionType {
   };
 }
 
+export interface ApiPointRecordPointRecord extends Schema.CollectionType {
+  collectionName: 'point_records';
+  info: {
+    singularName: 'point-record';
+    pluralName: 'point-records';
+    displayName: 'PointRecord';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    type: Attribute.Enumeration<
+      ['StakeShare', 'TeamBonus', 'DailyCheck', 'CompleteTask', 'Referral']
+    >;
+    user: Attribute.Relation<
+      'api::point-record.point-record',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    earningPoints: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Attribute.DefaultTo<0>;
+    receipt: Attribute.JSON;
+    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::point-record.point-record',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::point-record.point-record',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiReferralReferral extends Schema.CollectionType {
   collectionName: 'referrals';
   info: {
@@ -1351,6 +1399,7 @@ declare module '@strapi/types' {
       'api::metadata.metadata': ApiMetadataMetadata;
       'api::notification.notification': ApiNotificationNotification;
       'api::package.package': ApiPackagePackage;
+      'api::point-record.point-record': ApiPointRecordPointRecord;
       'api::referral.referral': ApiReferralReferral;
       'api::token.token': ApiTokenToken;
       'api::wallet.wallet': ApiWalletWallet;

@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "daily_check_records",
+  "info": {
+    "singularName": "daily-check-record",
+    "pluralName": "daily-check-records",
+    "displayName": "DailyCheckRecord",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "date": {
+      "type": "datetime",
+      "required": true,
+      "unique": false
+    },
+    "isHighlighted": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

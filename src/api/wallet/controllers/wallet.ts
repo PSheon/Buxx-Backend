@@ -9,7 +9,7 @@ import { generateNonce, SiweMessage } from "siwe";
 
 import type Koa from "koa";
 
-const { ApplicationError } = utils.errors;
+const { ApplicationError, ValidationError } = utils.errors;
 
 export default factories.createCoreController(
   "api::wallet.wallet",
@@ -44,19 +44,29 @@ export default factories.createCoreController(
       const savedWallets = await strapi.entityService.findMany(
         "api::wallet.wallet",
         {
+          filters: { address },
+        }
+      );
+      if (savedWallets.length > 0) {
+        throw new ValidationError("Wallet already verified");
+      }
+
+      const meSavedWallets = await strapi.entityService.findMany(
+        "api::wallet.wallet",
+        {
           filters: { user: ctx.state.user.id },
         }
       );
 
       if (
-        savedWallets.find(
+        meSavedWallets.find(
           (wallet) => wallet.address.toLowerCase() === address.toLowerCase()
         )
       ) {
         return ctx.send({ ok: false, message: "Wallet already exists" });
       }
-      if (savedWallets.length >= 5) {
-        return ctx.send({ ok: false, message: "You can only add 5 wallets" });
+      if (meSavedWallets.length >= 3) {
+        return ctx.send({ ok: false, message: "You can only add 3 wallets" });
       }
 
       try {
@@ -86,6 +96,19 @@ export default factories.createCoreController(
           payload: { message },
           status: "Fulfilled",
           user: ctx.state.user,
+        });
+
+        await strapi.service("api::point-record.point-record").logPointRecord({
+          type: "CompleteTask",
+          user: ctx.state.user,
+          earningExp: 300,
+          earningPoints: 0,
+          receipt: {
+            task: "Verify Wallet",
+            userId: ctx.state.user.id,
+            exp: 300,
+            points: 0,
+          },
         });
 
         ctx.send({ ok: true, message: "Wallet verified" });

@@ -27,6 +27,12 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
+    "earningExp": {
+      "type": "integer",
+      "default": 0,
+      "required": true,
+      "min": 0
+    },
     "earningPoints": {
       "type": "integer",
       "default": 0,

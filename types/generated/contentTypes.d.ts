@@ -788,6 +788,14 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
           'uuid-format': '^[23456789A-HJ-NP-Z]{6}$';
         }
       >;
+    exp: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Attribute.DefaultTo<0>;
     points: Attribute.Integer &
       Attribute.SetMinMax<
         {
@@ -1218,6 +1226,15 @@ export interface ApiPointRecordPointRecord extends Schema.CollectionType {
       'oneToOne',
       'plugin::users-permissions.user'
     >;
+    earningExp: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Attribute.DefaultTo<0>;
     earningPoints: Attribute.Integer &
       Attribute.Required &
       Attribute.SetMinMax<

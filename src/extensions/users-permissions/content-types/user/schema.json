@@ -92,6 +92,11 @@
       },
       "customField": "plugin::strapi-advanced-uuid.uuid"
     },
+    "exp": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
+    },
     "points": {
       "type": "integer",
       "default": 0,

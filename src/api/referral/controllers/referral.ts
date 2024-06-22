@@ -37,19 +37,20 @@ export default factories.createCoreController(
 
       await validateJoinReferralBody(ctx.request.body);
 
-      const referrer = await strapi.entityService.findMany(
+      const referrerEntities = await strapi.entityService.findMany(
         "plugin::users-permissions.user",
         {
           filters: { referralId },
         }
       );
-      if (!referrer.length) {
+      if (!referrerEntities.length) {
         throw new NotFoundError("Referral not found");
-      } else if (referrer[0].id === ctx.state.user.id) {
+      } else if (referrerEntities[0].id === ctx.state.user.id) {
         throw new NotFoundError("You can't join your own referral");
       }
+      const referrer = referrerEntities[0];
 
-      const existedReferral = await strapi.entityService.findMany(
+      const existedReferralEntities = await strapi.entityService.findMany(
         "api::referral.referral",
         {
           filters: {
@@ -57,7 +58,7 @@ export default factories.createCoreController(
           },
         }
       );
-      if (existedReferral.length) {
+      if (existedReferralEntities.length) {
         throw new NotFoundError("You already joined a referral");
       }
 
@@ -65,8 +66,13 @@ export default factories.createCoreController(
         await strapi.entityService.create("api::referral.referral", {
           data: {
             user: ctx.state.user.id,
-            referrer: referrer[0].id,
+            referrer: referrer.id,
           },
+        });
+
+        await strapi.service("api::referral.referral").logReferral({
+          referrer,
+          referredId: ctx.state.user.id,
         });
 
         ctx.send({ ok: true, message: "Join referral successfully" });

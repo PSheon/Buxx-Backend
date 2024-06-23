@@ -102,6 +102,20 @@
           "searchable": true,
           "sortable": true
         }
+      },
+      "displayValue": {
+        "edit": {
+          "label": "displayValue",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "displayValue",
+          "searchable": true,
+          "sortable": true
+        }
       }
     },
     "layouts": {
@@ -128,8 +142,14 @@
             "size": 6
           },
           {
-            "name": "value",
+            "name": "displayValue",
             "size": 6
+          }
+        ],
+        [
+          {
+            "name": "value",
+            "size": 12
           }
         ],
         [

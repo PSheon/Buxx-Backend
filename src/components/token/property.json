@@ -8,7 +8,11 @@
   "attributes": {
     "propertyName": {
       "type": "enumeration",
-      "enum": ["DisplayName", "APY", "MinimumStakingPeriod"],
+      "enum": [
+        "DisplayName",
+        "APY",
+        "MinimumStakingPeriod"
+      ],
       "required": true
     },
     "description": {
@@ -17,6 +21,9 @@
     "value": {
       "type": "string",
       "required": true
+    },
+    "displayValue": {
+      "type": "string"
     },
     "isIntrinsic": {
       "type": "boolean",
@@ -30,7 +37,10 @@
     },
     "displayType": {
       "type": "enumeration",
-      "enum": ["string", "number"],
+      "enum": [
+        "string",
+        "number"
+      ],
       "default": "string",
       "required": true
     }

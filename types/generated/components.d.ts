@@ -57,6 +57,7 @@ export interface TokenProperty extends Schema.Component {
       Attribute.Required;
     description: Attribute.String;
     value: Attribute.String & Attribute.Required;
+    displayValue: Attribute.String;
     isIntrinsic: Attribute.Boolean &
       Attribute.Required &
       Attribute.DefaultTo<false>;

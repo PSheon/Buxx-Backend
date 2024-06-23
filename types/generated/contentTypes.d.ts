@@ -775,19 +775,12 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     avatar: Attribute.Media<'images'>;
     title: Attribute.String;
     phone: Attribute.String;
-    referralId: Attribute.UID<
-      undefined,
-      undefined,
-      {
-        'uuid-format': '^[23456789A-HJ-NP-Z]{6}$';
-      }
-    > &
-      Attribute.CustomField<
-        'plugin::strapi-advanced-uuid.uuid',
-        {
-          'uuid-format': '^[23456789A-HJ-NP-Z]{6}$';
-        }
-      >;
+    referralId: Attribute.String &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        minLength: 8;
+        maxLength: 8;
+      }>;
     exp: Attribute.Integer &
       Attribute.SetMinMax<
         {

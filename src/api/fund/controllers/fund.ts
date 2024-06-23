@@ -185,6 +185,8 @@ export default factories.createCoreController(
         throw new NotFoundError("Vault settings are not completed");
       }
 
+      /* TODO: fix here later */
+      /* NOTE: current apy loaded from frontend app */
       const unlockDateUnixTime = getUnixTime(
         addDays(new Date(), sanitizedInputData.periodInDays)
       );

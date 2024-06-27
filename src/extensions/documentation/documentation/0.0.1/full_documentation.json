@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-06-22T16:51:01.954Z"
+    "x-generation-date": "2024-06-27T10:02:13.106Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -6038,6 +6038,9 @@
                               "value": {
                                 "type": "string"
                               },
+                              "displayValue": {
+                                "type": "string"
+                              },
                               "isIntrinsic": {
                                 "type": "boolean"
                               },
@@ -8215,6 +8218,9 @@
           "value": {
             "type": "string"
           },
+          "displayValue": {
+            "type": "string"
+          },
           "isIntrinsic": {
             "type": "boolean"
           },
@@ -8248,6 +8254,8 @@
                 "enum": [
                   "StakeShare",
                   "TeamBonus",
+                  "JoinReferral",
+                  "VerifyWallet",
                   "DailyCheck",
                   "CompleteTask",
                   "Referral"
@@ -8336,6 +8344,8 @@
             "enum": [
               "StakeShare",
               "TeamBonus",
+              "JoinReferral",
+              "VerifyWallet",
               "DailyCheck",
               "CompleteTask",
               "Referral"
@@ -11272,6 +11282,9 @@
                                             "type": "string"
                                           },
                                           "value": {
+                                            "type": "string"
+                                          },
+                                          "displayValue": {
                                             "type": "string"
                                           },
                                           "isIntrinsic": {
@@ -18300,6 +18313,77 @@
         ],
         "parameters": [],
         "operationId": "get/point-records/me"
+      }
+    },
+    "/point-records/me/statistics": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PointRecordResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Point-record"
+        ],
+        "parameters": [],
+        "operationId": "get/point-records/me/statistics"
       }
     },
     "/point-records": {

@@ -1100,6 +1100,7 @@ export interface ApiFundFund extends Schema.CollectionType {
       > &
       Attribute.DefaultTo<10>;
     redemptionFrequencyInDays: Attribute.Integer & Attribute.DefaultTo<14>;
+    estimatedAPY: Attribute.Integer & Attribute.DefaultTo<6>;
     detail: Attribute.JSON;
     defaultPackages: Attribute.Relation<
       'api::fund.fund',

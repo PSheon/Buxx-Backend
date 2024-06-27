@@ -27,6 +27,11 @@ const customRoutes = [
     path: "/point-records/me",
     handler: "point-record.findMe",
   },
+  {
+    method: "GET",
+    path: "/point-records/me/statistics",
+    handler: "point-record.findMeStatistics",
+  },
 ];
 
 export default customRouter(defaultRouter, customRoutes);

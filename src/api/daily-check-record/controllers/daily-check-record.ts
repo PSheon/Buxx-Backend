@@ -55,7 +55,7 @@ export default factories.createCoreController(
         );
 
         await strapi.service("api::point-record.point-record").logPointRecord({
-          type: "CompleteTask",
+          type: "DailyCheck",
           user: ctx.state.user,
           earningExp: 60,
           earningPoints: 0,
@@ -86,7 +86,7 @@ export default factories.createCoreController(
           await strapi
             .service("api::point-record.point-record")
             .logPointRecord({
-              type: "CompleteTask",
+              type: "DailyCheck",
               user: ctx.state.user,
               earningExp: 60,
               earningPoints: 0,

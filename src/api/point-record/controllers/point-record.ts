@@ -27,5 +27,32 @@ export default factories.createCoreController(
 
       ctx.send(response);
     },
+
+    async findMeStatistics(ctx: Koa.Context) {
+      const meTotalReferrals = await strapi.entityService.count(
+        "api::referral.referral",
+        {
+          filters: {
+            referrer: ctx.state.user.id,
+            isActive: true,
+          },
+        }
+      );
+
+      const meTotalCompletedTasks = await strapi.entityService.count(
+        "api::point-record.point-record",
+        {
+          filters: {
+            user: ctx.state.user.id,
+            type: "CompleteTask",
+          },
+        }
+      );
+
+      ctx.send({
+        totalReferrals: meTotalReferrals,
+        totalCompletedTasks: meTotalCompletedTasks,
+      });
+    },
   })
 );

@@ -84,7 +84,7 @@ export default factories.createCoreController(
         });
 
         await strapi.service("api::point-record.point-record").logPointRecord({
-          type: "CompleteTask",
+          type: "JoinReferral",
           user: ctx.state.user,
           earningExp: 50,
           earningPoints: 0,

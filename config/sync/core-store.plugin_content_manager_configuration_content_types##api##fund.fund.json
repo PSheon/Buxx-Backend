@@ -173,6 +173,20 @@
           "sortable": true
         }
       },
+      "estimatedAPY": {
+        "edit": {
+          "label": "estimatedAPY",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "estimatedAPY",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "detail": {
         "edit": {
           "label": "detail",
@@ -346,12 +360,6 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "displayName",
-        "createdAt",
-        "updatedAt"
-      ],
       "edit": [
         [
           {
@@ -407,6 +415,10 @@
           {
             "name": "redemptionFrequencyInDays",
             "size": 4
+          },
+          {
+            "name": "estimatedAPY",
+            "size": 4
           }
         ],
         [
@@ -453,6 +465,12 @@
             "size": 6
           }
         ]
+      ],
+      "list": [
+        "id",
+        "displayName",
+        "createdAt",
+        "updatedAt"
       ]
     },
     "uid": "api::fund.fund"

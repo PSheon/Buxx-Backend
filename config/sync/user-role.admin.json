@@ -115,6 +115,9 @@
       "action": "api::point-record.point-record.findMe"
     },
     {
+      "action": "api::point-record.point-record.findMeStatistics"
+    },
+    {
       "action": "api::point-record.point-record.update"
     },
     {

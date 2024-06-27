@@ -1249,7 +1249,15 @@ export interface ApiPointRecordPointRecord extends Schema.CollectionType {
   };
   attributes: {
     type: Attribute.Enumeration<
-      ['StakeShare', 'TeamBonus', 'DailyCheck', 'CompleteTask', 'Referral']
+      [
+        'StakeShare',
+        'TeamBonus',
+        'JoinReferral',
+        'VerifyWallet',
+        'DailyCheck',
+        'CompleteTask',
+        'Referral'
+      ]
     >;
     user: Attribute.Relation<
       'api::point-record.point-record',

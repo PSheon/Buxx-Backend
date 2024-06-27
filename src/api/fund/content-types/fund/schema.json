@@ -73,6 +73,10 @@
       "type": "integer",
       "default": 14
     },
+    "estimatedAPY": {
+      "type": "integer",
+      "default": 6
+    },
     "detail": {
       "type": "json"
     },

@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-06-27T10:02:13.106Z"
+    "x-generation-date": "2024-06-27T10:57:42.173Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -5196,6 +5196,9 @@
               "redemptionFrequencyInDays": {
                 "type": "integer"
               },
+              "estimatedAPY": {
+                "type": "integer"
+              },
               "detail": {},
               "defaultPackages": {
                 "type": "array",
@@ -5976,6 +5979,9 @@
             "type": "integer"
           },
           "redemptionFrequencyInDays": {
+            "type": "integer"
+          },
+          "estimatedAPY": {
             "type": "integer"
           },
           "detail": {},
@@ -11222,6 +11228,9 @@
                         "type": "integer"
                       },
                       "redemptionFrequencyInDays": {
+                        "type": "integer"
+                      },
+                      "estimatedAPY": {
                         "type": "integer"
                       },
                       "detail": {},

@@ -40,7 +40,7 @@ export function getPeriodBonusAPY(periodInDays: number = 7) {
     return PERIOD_TABLE[0].apyBonus;
   } else if (periodInDays === PERIOD_TABLE[1].period) {
     return PERIOD_TABLE[1].apyBonus;
-  } else if (periodInDays <= PERIOD_TABLE[2].period) {
+  } else if (periodInDays === PERIOD_TABLE[2].period) {
     return PERIOD_TABLE[2].apyBonus;
   } else {
     return 0;

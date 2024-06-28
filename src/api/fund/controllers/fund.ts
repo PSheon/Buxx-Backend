@@ -204,7 +204,7 @@ export default factories.createCoreController(
           ?.value ?? 0;
       const periodBonusAPY = getPeriodBonusAPY(sanitizedInputData.periodInDays);
       const levelBonusAPY = getLevelBonusAPY(ctx.state.user.exp);
-      const totalAPY = baseAPY + periodBonusAPY + levelBonusAPY;
+      const totalAPY = Number(baseAPY) + periodBonusAPY + levelBonusAPY;
 
       if (totalAPY !== sanitizedInputData.apy) {
         throw new ValidationError("Invalid APY value");

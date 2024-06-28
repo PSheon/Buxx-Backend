@@ -20,6 +20,114 @@ type Entry = {
   [key: string]: Entry | Entry[] | string | number | null | boolean | Date;
 };
 
+export function getPeriodBonusAPY(periodInDays: number = 7) {
+  const PERIOD_TABLE = [
+    {
+      period: 7,
+      apyBonus: 0,
+    },
+    {
+      period: 30,
+      apyBonus: 0.8,
+    },
+    {
+      period: 60,
+      apyBonus: 2.4,
+    },
+  ];
+
+  if (periodInDays === PERIOD_TABLE[0].period) {
+    return PERIOD_TABLE[0].apyBonus;
+  } else if (periodInDays === PERIOD_TABLE[1].period) {
+    return PERIOD_TABLE[1].apyBonus;
+  } else if (periodInDays <= PERIOD_TABLE[2].period) {
+    return PERIOD_TABLE[2].apyBonus;
+  } else {
+    return 0;
+  }
+}
+
+export function getLevelBonusAPY(currentExp: number = 0) {
+  const LEVEL_TABLE = [
+    {
+      level: 1,
+      title: "Digital Star ⭐",
+      expCap: 300,
+      apyBonus: 0,
+    },
+    {
+      level: 2,
+      title: "Digital Star ⭐⭐",
+      expCap: 750,
+      apyBonus: 0.3,
+    },
+    {
+      level: 3,
+      title: "Decentralized Elite ⭐",
+      expCap: 1_250,
+      apyBonus: 0.8,
+    },
+    {
+      level: 4,
+      title: "Decentralized Elite ⭐⭐",
+      expCap: 1_800,
+      apyBonus: 1.25,
+    },
+    {
+      level: 5,
+      title: "Decentralized Elite ⭐⭐⭐",
+      expCap: 2_500,
+      apyBonus: 1.5,
+    },
+    {
+      level: 6,
+      title: "Crypto Navigator ⭐",
+      expCap: 3_500,
+      apyBonus: 2,
+    },
+    {
+      level: 7,
+      title: "Crypto Navigator ⭐⭐",
+      expCap: 3_500,
+      apyBonus: 2.2,
+    },
+    {
+      level: 8,
+      title: "Crypto Navigator ⭐⭐⭐",
+      expCap: 5_000,
+      apyBonus: 2.8,
+    },
+    {
+      level: 9,
+      title: "Blockchain Titan",
+      expCap: 8_000,
+      apyBonus: 5,
+    },
+  ];
+
+  if (0 <= currentExp && currentExp < LEVEL_TABLE[0].expCap) {
+    return LEVEL_TABLE[0].apyBonus;
+  } else if (currentExp <= LEVEL_TABLE[1].expCap) {
+    return LEVEL_TABLE[1].apyBonus;
+  } else if (currentExp <= LEVEL_TABLE[2].expCap) {
+    return LEVEL_TABLE[2].apyBonus;
+  } else if (currentExp <= LEVEL_TABLE[3].expCap) {
+    return LEVEL_TABLE[3].apyBonus;
+  } else if (currentExp <= LEVEL_TABLE[4].expCap) {
+    return LEVEL_TABLE[4].apyBonus;
+  } else if (currentExp <= LEVEL_TABLE[5].expCap) {
+    return LEVEL_TABLE[5].apyBonus;
+  } else if (currentExp <= LEVEL_TABLE[6].expCap) {
+    return LEVEL_TABLE[6].apyBonus;
+  } else if (currentExp <= LEVEL_TABLE[7].expCap) {
+    return LEVEL_TABLE[7].apyBonus;
+  } else if (currentExp <= LEVEL_TABLE[8].expCap) {
+    return LEVEL_TABLE[8].apyBonus;
+  } else {
+    return 5;
+  }
+}
+
 function isEntry(property: unknown): property is Entry | Entry[] {
   return (
     property === null || isPlainObject(property) || Array.isArray(property)

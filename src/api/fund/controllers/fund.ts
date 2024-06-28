@@ -15,7 +15,12 @@ import {
   validateVaultSignHashBody,
 } from "./validation/fund";
 
-import { parseBody, getExpectInterestBalanceString } from "../utils";
+import {
+  parseBody,
+  getExpectInterestBalanceString,
+  getPeriodBonusAPY,
+  getLevelBonusAPY,
+} from "../utils";
 
 import type Koa from "koa";
 
@@ -31,6 +36,7 @@ type VaultSignHashInput = {
   contractName: string;
   stakerAddress: string;
   tokenId: string;
+  packageId: string;
   balance: string;
   periodInDays: number;
   apy: number;
@@ -174,19 +180,36 @@ export default factories.createCoreController(
       )) as VaultSignHashInput;
       await validateVaultSignHashBody(sanitizedInputData, ctx);
 
-      const entity = await strapi
+      const fundEntity = await strapi
         .service("api::fund.fund")
         .findOne(id, { populate: ["vault"] });
 
-      if (!entity) {
+      if (!fundEntity) {
         throw new NotFoundError("Vault entity not found");
       }
-      if (!entity.vault || !entity.vault.contractRootSignerPrivateKey) {
+      if (!fundEntity.vault || !fundEntity.vault.contractRootSignerPrivateKey) {
         throw new NotFoundError("Vault settings are not completed");
       }
 
-      /* TODO: fix here later */
-      /* NOTE: current apy loaded from frontend app */
+      const packageEntity = await strapi
+        .service("api::package.package")
+        .findOne(sanitizedInputData.packageId, {
+          populate: ["slots"],
+        });
+      if (!packageEntity) {
+        throw new NotFoundError("Package entity not found");
+      }
+      const baseAPY =
+        packageEntity.slots.find((slot) => slot.propertyName === "APY")
+          ?.value ?? 0;
+      const periodBonusAPY = getPeriodBonusAPY(sanitizedInputData.periodInDays);
+      const levelBonusAPY = getLevelBonusAPY(ctx.state.user.exp);
+      const totalAPY = baseAPY + periodBonusAPY + levelBonusAPY;
+
+      if (totalAPY !== sanitizedInputData.apy) {
+        throw new ValidationError("Invalid APY value");
+      }
+
       const unlockDateUnixTime = getUnixTime(
         addDays(new Date(), sanitizedInputData.periodInDays)
       );
@@ -205,7 +228,7 @@ export default factories.createCoreController(
         { type: "uint256", value: expectInterestString }
       ) as string;
       const signature = EthCrypto.sign(
-        entity.vault.contractRootSignerPrivateKey,
+        fundEntity.vault.contractRootSignerPrivateKey,
         messageHash
       );
 

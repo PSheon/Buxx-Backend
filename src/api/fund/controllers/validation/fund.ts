@@ -18,6 +18,7 @@ const signVaultHashBodySchema = yup.object().shape({
     .matches(/^(0x)?[0-9a-fA-F]{40}$/, "Invalid contract address")
     .required(),
   tokenId: yup.string().required(),
+  packageId: yup.number().required(),
   balance: yup.string().required(),
   periodInDays: yup.number().required(),
   apy: yup.number().required(),

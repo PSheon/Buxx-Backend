@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "strapi build",
+    "db:init": "node ./commands/init-db",
     "dev": "strapi develop",
     "start": "strapi start",
     "strapi": "strapi"

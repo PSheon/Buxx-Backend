@@ -26,6 +26,13 @@ const initDB = async () => {
     },
   });
 
+  /* Delete access log */
+  await app.db.query("api::access-log.access-log").deleteMany();
+  /* Delete activity log */
+  await app.db.query("api::activity-log.activity-log").deleteMany();
+  /* Delete notification */
+  await app.db.query("api::notification.notification").deleteMany();
+
   /* Delete daily check record */
   await app.db.query("api::daily-check-record.daily-check-record").deleteMany();
   /* Delete point record */

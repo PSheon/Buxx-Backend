@@ -17,6 +17,7 @@
         "MintPackage",
         "TransferToken",
         "TransferValue",
+        "Claim",
         "ChangeSlot",
         "Stake",
         "Unstake",

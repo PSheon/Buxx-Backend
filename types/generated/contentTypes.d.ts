@@ -1018,6 +1018,7 @@ export interface ApiEventLogEventLog extends Schema.CollectionType {
         'MintPackage',
         'TransferToken',
         'TransferValue',
+        'Claim',
         'ChangeSlot',
         'Stake',
         'Unstake',

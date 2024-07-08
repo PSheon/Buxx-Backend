@@ -1,4 +1,4 @@
-const strapi = require("@strapi/strapi");
+import strapi from "@strapi/strapi";
 
 const initDB = async () => {
   const appContext = await strapi.compile();
@@ -46,7 +46,7 @@ const initDB = async () => {
   await app.db.query("api::token.token").deleteMany();
 
   /* Delete wallet */
-  await app.db.query("api::wallet.wallet").deleteMany();
+  // await app.db.query("api::wallet.wallet").deleteMany();
 
   app.server.destroy();
   app.stop(0);

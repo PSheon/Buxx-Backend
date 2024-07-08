@@ -66,3 +66,20 @@ export const SLOT_CHANGED_EVENT_ABI = [
     type: "uint256",
   },
 ];
+
+export const CLAIM_EVENT_HASH =
+  "0x47cee97cb7acd717b3c0aa1435d004cd5b3c8c57d70dbceb4e4458bbd60e39d4";
+export const CLAIM_EVENT_ABI = [
+  {
+    indexed: true,
+    internalType: "address",
+    name: "owner",
+    type: "address",
+  },
+  {
+    indexed: true,
+    internalType: "uint256",
+    name: "amount",
+    type: "uint256",
+  },
+];

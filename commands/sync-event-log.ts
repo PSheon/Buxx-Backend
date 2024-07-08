@@ -1,8 +1,4 @@
-/**
- * Fetch Token Transactions Task
- */
-
-import { Strapi } from "@strapi/strapi";
+import strapi from "@strapi/strapi";
 
 import { Alchemy, Network } from "alchemy-sdk";
 import Web3 from "web3";
@@ -17,31 +13,31 @@ import {
   SLOT_CHANGED_EVENT_ABI,
   CLAIM_EVENT_HASH,
   CLAIM_EVENT_ABI,
-} from "./abi";
+} from "../src/tasks/fetch-event-log/abi";
 
-const alchemy = new Alchemy({
-  apiKey: process.env.ALCHEMY_ETHEREUM_SEPOLIA_KEY,
-  network: Network.ETH_SEPOLIA,
-});
-const web3 = new Web3(Web3.givenProvider);
+const syncEventLog = async () => {
+  const appContext = await strapi.compile();
+  const app = await strapi(appContext).load();
 
-export const fetchTokenEventLogTask = async ({
-  strapi,
-}: {
-  strapi: Strapi;
-}) => {
+  /* Init Provider */
+  const alchemy = new Alchemy({
+    apiKey: process.env.ALCHEMY_ETHEREUM_SEPOLIA_KEY,
+    network: Network.ETH_SEPOLIA,
+  });
+  const web3 = new Web3(Web3.givenProvider);
+
+  /* Sync Event Log */
   let latestTokenEventLogBlockNumber = 0;
   let latestTokenEventLogIndex = 0;
 
   /* Step 01 - Check Fund exists */
-  const fundEntities = await strapi.entityService.findMany("api::fund.fund", {
+  const fundEntities = await app.entityService.findMany("api::fund.fund", {
     populate: ["sft", "defaultPackages", "vault"],
   });
   if (fundEntities.length === 0) {
     return;
   }
-
-  /* Step 02 - Find watch sft contract addresses */
+  /* Step 02 - Find watch sft and vault contract addresses */
   const watchSFTContracts = fundEntities
     .map((fundEntity) => {
       if (fundEntity?.sft?.contractAddress) {
@@ -66,9 +62,8 @@ export const fetchTokenEventLogTask = async ({
   if (watchVaultContracts.length === 0) {
     return;
   }
-
   /* Step 03 - Find latest event log entity */
-  const tokenEventLogEntities = await strapi.entityService.findMany(
+  const tokenEventLogEntities = await app.entityService.findMany(
     "api::event-log.event-log",
     {
       start: 0,
@@ -80,7 +75,6 @@ export const fetchTokenEventLogTask = async ({
     latestTokenEventLogBlockNumber = tokenEventLogEntities[0].blockNumber;
     latestTokenEventLogIndex = tokenEventLogEntities[0].logIndex;
   }
-
   /* Step 04 - Fetch logs from blockchain */
   const txLogsResponse = await alchemy.core.getLogs({
     fromBlock: latestTokenEventLogBlockNumber,
@@ -123,7 +117,7 @@ export const fetchTokenEventLogTask = async ({
       );
 
       /* ------------ TransferValue ------------ */
-      await strapi.entityService.create("api::event-log.event-log", {
+      await app.entityService.create("api::event-log.event-log", {
         data: {
           action: "TransferValue",
           blockNumber: txLog.blockNumber,
@@ -137,7 +131,7 @@ export const fetchTokenEventLogTask = async ({
         },
       });
 
-      const fromTokenEntities = await strapi.entityService.findMany(
+      const fromTokenEntities = await app.entityService.findMany(
         "api::token.token",
         {
           filters: {
@@ -155,7 +149,10 @@ export const fetchTokenEventLogTask = async ({
       );
       if (fromTokenEntities.length !== 0) {
         const tokenEntity = fromTokenEntities[0];
-        await strapi.entityService.update("api::token.token", tokenEntity.id, {
+        await app.db.query("api::token.token").update({
+          where: {
+            id: tokenEntity.id,
+          },
           data: {
             tokenValue: N(tokenEntity.tokenValue)
               .sub(_value as string)
@@ -164,7 +161,7 @@ export const fetchTokenEventLogTask = async ({
         });
       }
 
-      const toTokenEntities = await strapi.entityService.findMany(
+      const toTokenEntities = await app.entityService.findMany(
         "api::token.token",
         {
           filters: {
@@ -182,7 +179,10 @@ export const fetchTokenEventLogTask = async ({
       );
       if (toTokenEntities.length !== 0) {
         const tokenEntity = toTokenEntities[0];
-        await strapi.entityService.update("api::token.token", tokenEntity.id, {
+        await app.db.query("api::token.token").update({
+          where: {
+            id: tokenEntity.id,
+          },
           data: {
             tokenValue: N(tokenEntity.tokenValue)
               .add(_value as string)
@@ -200,7 +200,7 @@ export const fetchTokenEventLogTask = async ({
       );
 
       /* -------------- ChangeSlot ------------- */
-      await strapi.entityService.create("api::event-log.event-log", {
+      await app.entityService.create("api::event-log.event-log", {
         data: {
           action: "ChangeSlot",
           blockNumber: txLog.blockNumber,
@@ -214,28 +214,25 @@ export const fetchTokenEventLogTask = async ({
         },
       });
 
-      const tokenEntities = await strapi.entityService.findMany(
-        "api::token.token",
-        {
-          filters: {
-            contractAddress: {
-              $eqi: fundEntity.sft.contractAddress,
-            },
-            tokenId: {
-              $eqi: web3.utils.padLeft(
-                web3.utils.toHex(_tokenId as bigint),
-                64
-              ),
-            },
+      const tokenEntities = await app.db.query("api::token.token").findMany({
+        where: {
+          contractAddress: {
+            $eqi: fundEntity.sft.contractAddress,
           },
-        }
-      );
+          tokenId: {
+            $eqi: web3.utils.padLeft(web3.utils.toHex(_tokenId as bigint), 64),
+          },
+        },
+      });
       if (tokenEntities.length !== 0) {
         const tokenEntity = tokenEntities[0];
         const packageId = fundEntity.defaultPackages.find(
-          (pkg) => pkg.packageId === (_newSlot as bigint).toString()
+          (pkg) => pkg.packageId === _newSlot.toString()
         )?.id;
-        await strapi.entityService.update("api::token.token", tokenEntity.id, {
+        await app.db.query("api::token.token").update({
+          where: {
+            id: tokenEntity.id,
+          },
           data: {
             package: packageId || null,
           },
@@ -252,7 +249,7 @@ export const fetchTokenEventLogTask = async ({
 
       /* ------------- MintPackage; ------------ */
       if (_from === "0x0000000000000000000000000000000000000000") {
-        await strapi.entityService.create("api::event-log.event-log", {
+        await app.entityService.create("api::event-log.event-log", {
           data: {
             action: "MintPackage",
             blockNumber: txLog.blockNumber,
@@ -266,7 +263,7 @@ export const fetchTokenEventLogTask = async ({
           },
         });
 
-        await strapi.entityService.create("api::token.token", {
+        await app.entityService.create("api::token.token", {
           data: {
             belongToFund: fundEntity.id,
             contractAddress: fundEntity.sft.contractAddress,
@@ -283,7 +280,7 @@ export const fetchTokenEventLogTask = async ({
 
       /* ----------------- Burn ---------------- */
       if (_to === "0x0000000000000000000000000000000000000000") {
-        await strapi.entityService.create("api::event-log.event-log", {
+        await app.entityService.create("api::event-log.event-log", {
           data: {
             action: "Burn",
             blockNumber: txLog.blockNumber,
@@ -297,7 +294,7 @@ export const fetchTokenEventLogTask = async ({
           },
         });
 
-        const tokenEntities = await strapi.entityService.findMany(
+        const tokenEntities = await app.entityService.findMany(
           "api::token.token",
           {
             filters: {
@@ -315,15 +312,14 @@ export const fetchTokenEventLogTask = async ({
         );
         if (tokenEntities.length !== 0) {
           const tokenEntity = tokenEntities[0];
-          await strapi.entityService.update(
-            "api::token.token",
-            tokenEntity.id,
-            {
-              data: {
-                status: "Burned",
-              },
-            }
-          );
+          await app.db.query("api::token.token").update({
+            where: {
+              id: tokenEntity.id,
+            },
+            data: {
+              status: "Burned",
+            },
+          });
         }
 
         continue;
@@ -334,7 +330,7 @@ export const fetchTokenEventLogTask = async ({
         (_from as string).toLowerCase() ===
         fundEntity.vault.contractAddress.toLowerCase()
       ) {
-        await strapi.entityService.create("api::event-log.event-log", {
+        await app.entityService.create("api::event-log.event-log", {
           data: {
             action: "Unstake",
             blockNumber: txLog.blockNumber,
@@ -348,7 +344,7 @@ export const fetchTokenEventLogTask = async ({
           },
         });
 
-        const tokenEntities = await strapi.entityService.findMany(
+        const tokenEntities = await app.entityService.findMany(
           "api::token.token",
           {
             filters: {
@@ -366,15 +362,14 @@ export const fetchTokenEventLogTask = async ({
         );
         if (tokenEntities.length !== 0) {
           const tokenEntity = tokenEntities[0];
-          await strapi.entityService.update(
-            "api::token.token",
-            tokenEntity.id,
-            {
-              data: {
-                status: "Holding",
-              },
-            }
-          );
+          await app.db.query("api::token.token").update({
+            where: {
+              id: tokenEntity.id,
+            },
+            data: {
+              status: "Holding",
+            },
+          });
         }
 
         continue;
@@ -385,7 +380,7 @@ export const fetchTokenEventLogTask = async ({
         (_to as string).toLowerCase() ===
         fundEntity.vault.contractAddress.toLowerCase()
       ) {
-        await strapi.entityService.create("api::event-log.event-log", {
+        await app.entityService.create("api::event-log.event-log", {
           data: {
             action: "Stake",
             blockNumber: txLog.blockNumber,
@@ -399,7 +394,7 @@ export const fetchTokenEventLogTask = async ({
           },
         });
 
-        const tokenEntities = await strapi.entityService.findMany(
+        const tokenEntities = await app.entityService.findMany(
           "api::token.token",
           {
             filters: {
@@ -417,22 +412,21 @@ export const fetchTokenEventLogTask = async ({
         );
         if (tokenEntities.length !== 0) {
           const tokenEntity = tokenEntities[0];
-          await strapi.entityService.update(
-            "api::token.token",
-            tokenEntity.id,
-            {
-              data: {
-                status: "Staking",
-              },
-            }
-          );
+          await app.db.query("api::token.token").update({
+            where: {
+              id: tokenEntity.id,
+            },
+            data: {
+              status: "Staking",
+            },
+          });
         }
 
         continue;
       }
 
       /* ------------ TransferToken ------------ */
-      await strapi.entityService.create("api::event-log.event-log", {
+      await app.entityService.create("api::event-log.event-log", {
         data: {
           action: "TransferToken",
           blockNumber: txLog.blockNumber,
@@ -446,7 +440,7 @@ export const fetchTokenEventLogTask = async ({
         },
       });
 
-      const tokenEntities = await strapi.entityService.findMany(
+      const tokenEntities = await app.entityService.findMany(
         "api::token.token",
         {
           filters: {
@@ -464,7 +458,10 @@ export const fetchTokenEventLogTask = async ({
       );
       if (tokenEntities.length !== 0) {
         const tokenEntity = tokenEntities[0];
-        await strapi.entityService.update("api::token.token", tokenEntity.id, {
+        await app.db.query("api::token.token").update({
+          where: {
+            id: tokenEntity.id,
+          },
           data: {
             owner: _to as string,
           },
@@ -492,7 +489,7 @@ export const fetchTokenEventLogTask = async ({
         txLog.topics.slice(1)
       );
 
-      await strapi.entityService.create("api::event-log.event-log", {
+      await app.entityService.create("api::event-log.event-log", {
         data: {
           action: "Claim",
           blockNumber: txLog.blockNumber,
@@ -506,7 +503,7 @@ export const fetchTokenEventLogTask = async ({
         },
       });
 
-      const walletEntities = await strapi.entityService.findMany(
+      const walletEntities = await app.entityService.findMany(
         "api::wallet.wallet",
         {
           filters: {
@@ -518,7 +515,7 @@ export const fetchTokenEventLogTask = async ({
         }
       );
       if (walletEntities.length) {
-        await strapi.service("api::point-record.point-record").logPointRecord({
+        await app.service("api::point-record.point-record").logPointRecord({
           type: "StakeShare",
           user: walletEntities[0].user,
           earningExp: 0,
@@ -529,10 +526,15 @@ export const fetchTokenEventLogTask = async ({
           receipt: {
             userId: walletEntities[0].user.id,
             exp: 0,
-            points: N(amount as string).toString(),
+            points: amount.toString(),
           },
         });
       }
     }
   }
+
+  app.server.destroy();
+  app.stop(0);
 };
+
+syncEventLog();

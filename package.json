@@ -9,7 +9,8 @@
   },
   "scripts": {
     "build": "strapi build",
-    "db:init": "node ./commands/init-db",
+    "db:init": "ts-node ./commands/init-db",
+    "event-log:sync": "ts-node ./commands/sync-event-log",
     "dev": "strapi develop",
     "start": "strapi start",
     "strapi": "strapi"
@@ -51,7 +52,9 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@types/node-os-utils": "^1.3.4"
+    "@types/node-os-utils": "^1.3.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
   },
   "engines": {
     "node": ">=18.0.0 <=20.x.x",

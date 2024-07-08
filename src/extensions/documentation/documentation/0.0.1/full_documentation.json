@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-06-27T10:57:42.173Z"
+    "x-generation-date": "2024-07-08T11:47:27.732Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -4675,6 +4675,7 @@
                   "MintPackage",
                   "TransferToken",
                   "TransferValue",
+                  "Claim",
                   "ChangeSlot",
                   "Stake",
                   "Unstake",
@@ -4767,6 +4768,7 @@
               "MintPackage",
               "TransferToken",
               "TransferValue",
+              "Claim",
               "ChangeSlot",
               "Stake",
               "Unstake",

@@ -670,6 +670,8 @@
       "subject": "api::referral.referral",
       "properties": {
         "fields": [
+          "level",
+          "path",
           "user",
           "referrer",
           "isActive",
@@ -691,6 +693,8 @@
       "subject": "api::referral.referral",
       "properties": {
         "fields": [
+          "level",
+          "path",
           "user",
           "referrer",
           "isActive",
@@ -705,6 +709,8 @@
       "subject": "api::referral.referral",
       "properties": {
         "fields": [
+          "level",
+          "path",
           "user",
           "referrer",
           "isActive",
@@ -1065,7 +1071,9 @@
           "avatar",
           "title",
           "phone",
-          "referralId",
+          "referralLevel",
+          "referralPath",
+          "referralCode",
           "exp",
           "points",
           "isHighlighted"
@@ -1099,7 +1107,9 @@
           "avatar",
           "title",
           "phone",
-          "referralId",
+          "referralLevel",
+          "referralPath",
+          "referralCode",
           "exp",
           "points",
           "isHighlighted"
@@ -1126,7 +1136,9 @@
           "avatar",
           "title",
           "phone",
-          "referralId",
+          "referralLevel",
+          "referralPath",
+          "referralCode",
           "exp",
           "points",
           "isHighlighted"

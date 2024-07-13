@@ -202,16 +202,44 @@
           "sortable": true
         }
       },
-      "referralId": {
+      "referralLevel": {
         "edit": {
-          "label": "referralId",
+          "label": "referralLevel",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "referralId",
+          "label": "referralLevel",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "referralCode": {
+        "edit": {
+          "label": "referralCode",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "referralCode",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "exp": {
+        "edit": {
+          "label": "exp",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "exp",
           "searchable": true,
           "sortable": true
         }
@@ -244,16 +272,16 @@
           "sortable": true
         }
       },
-      "exp": {
+      "referralPath": {
         "edit": {
-          "label": "exp",
+          "label": "referralPath",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "exp",
+          "label": "referralPath",
           "searchable": true,
           "sortable": true
         }
@@ -323,10 +351,6 @@
           {
             "name": "avatar",
             "size": 8
-          },
-          {
-            "name": "referralId",
-            "size": 4
           }
         ],
         [
@@ -387,6 +411,22 @@
           {
             "name": "isHighlighted",
             "size": 4
+          }
+        ],
+        [
+          {
+            "name": "referralLevel",
+            "size": 4
+          },
+          {
+            "name": "referralCode",
+            "size": 8
+          }
+        ],
+        [
+          {
+            "name": "referralPath",
+            "size": 12
           }
         ]
       ],

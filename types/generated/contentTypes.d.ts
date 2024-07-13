@@ -775,6 +775,14 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     avatar: Attribute.Media<'images'>;
     title: Attribute.String;
     phone: Attribute.String;
+    referralLevel: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    referralPath: Attribute.String & Attribute.Unique;
     referralCode: Attribute.String &
       Attribute.Unique &
       Attribute.SetMinMaxLength<{
@@ -1307,6 +1315,15 @@ export interface ApiReferralReferral extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
+    level: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    path: Attribute.String & Attribute.Required & Attribute.Unique;
     user: Attribute.Relation<
       'api::referral.referral',
       'oneToOne',

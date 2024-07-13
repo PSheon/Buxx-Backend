@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-07-08T11:47:27.732Z"
+    "x-generation-date": "2024-07-13T04:54:02.921Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -1055,7 +1055,7 @@
                       "phone": {
                         "type": "string"
                       },
-                      "referralId": {
+                      "referralCode": {
                         "type": "string"
                       },
                       "exp": {
@@ -2197,7 +2197,7 @@
                       "phone": {
                         "type": "string"
                       },
-                      "referralId": {
+                      "referralCode": {
                         "type": "string"
                       },
                       "exp": {
@@ -3454,7 +3454,7 @@
                       "phone": {
                         "type": "string"
                       },
-                      "referralId": {
+                      "referralCode": {
                         "type": "string"
                       },
                       "exp": {
@@ -4522,7 +4522,7 @@
                       "phone": {
                         "type": "string"
                       },
-                      "referralId": {
+                      "referralCode": {
                         "type": "string"
                       },
                       "exp": {
@@ -7591,7 +7591,7 @@
                       "phone": {
                         "type": "string"
                       },
-                      "referralId": {
+                      "referralCode": {
                         "type": "string"
                       },
                       "exp": {
@@ -8263,9 +8263,7 @@
                   "StakeShare",
                   "TeamBonus",
                   "JoinReferral",
-                  "VerifyWallet",
                   "DailyCheck",
-                  "CompleteTask",
                   "Referral"
                 ]
               },
@@ -8353,9 +8351,7 @@
               "StakeShare",
               "TeamBonus",
               "JoinReferral",
-              "VerifyWallet",
               "DailyCheck",
-              "CompleteTask",
               "Referral"
             ]
           },
@@ -9203,7 +9199,7 @@
                       "phone": {
                         "type": "string"
                       },
-                      "referralId": {
+                      "referralCode": {
                         "type": "string"
                       },
                       "exp": {
@@ -10273,7 +10269,7 @@
                       "phone": {
                         "type": "string"
                       },
-                      "referralId": {
+                      "referralCode": {
                         "type": "string"
                       },
                       "exp": {
@@ -12547,7 +12543,7 @@
                       "phone": {
                         "type": "string"
                       },
-                      "referralId": {
+                      "referralCode": {
                         "type": "string"
                       },
                       "exp": {
@@ -13122,7 +13118,8 @@
             "deprecated": false,
             "required": false,
             "schema": {
-              "type": "object"
+              "type": "object",
+              "additionalProperties": true
             },
             "style": "deepObject"
           },
@@ -13698,7 +13695,8 @@
             "deprecated": false,
             "required": false,
             "schema": {
-              "type": "object"
+              "type": "object",
+              "additionalProperties": true
             },
             "style": "deepObject"
           },
@@ -14203,7 +14201,8 @@
             "deprecated": false,
             "required": false,
             "schema": {
-              "type": "object"
+              "type": "object",
+              "additionalProperties": true
             },
             "style": "deepObject"
           },
@@ -14860,7 +14859,8 @@
             "deprecated": false,
             "required": false,
             "schema": {
-              "type": "object"
+              "type": "object",
+              "additionalProperties": true
             },
             "style": "deepObject"
           },
@@ -15365,7 +15365,8 @@
             "deprecated": false,
             "required": false,
             "schema": {
-              "type": "object"
+              "type": "object",
+              "additionalProperties": true
             },
             "style": "deepObject"
           },
@@ -16054,7 +16055,8 @@
             "deprecated": false,
             "required": false,
             "schema": {
-              "type": "object"
+              "type": "object",
+              "additionalProperties": true
             },
             "style": "deepObject"
           },
@@ -16835,7 +16837,8 @@
             "deprecated": false,
             "required": false,
             "schema": {
-              "type": "object"
+              "type": "object",
+              "additionalProperties": true
             },
             "style": "deepObject"
           },
@@ -17400,7 +17403,8 @@
             "deprecated": false,
             "required": false,
             "schema": {
-              "type": "object"
+              "type": "object",
+              "additionalProperties": true
             },
             "style": "deepObject"
           },
@@ -17905,7 +17909,8 @@
             "deprecated": false,
             "required": false,
             "schema": {
-              "type": "object"
+              "type": "object",
+              "additionalProperties": true
             },
             "style": "deepObject"
           },
@@ -18552,7 +18557,8 @@
             "deprecated": false,
             "required": false,
             "schema": {
-              "type": "object"
+              "type": "object",
+              "additionalProperties": true
             },
             "style": "deepObject"
           },
@@ -19209,7 +19215,8 @@
             "deprecated": false,
             "required": false,
             "schema": {
-              "type": "object"
+              "type": "object",
+              "additionalProperties": true
             },
             "style": "deepObject"
           },
@@ -19714,7 +19721,8 @@
             "deprecated": false,
             "required": false,
             "schema": {
-              "type": "object"
+              "type": "object",
+              "additionalProperties": true
             },
             "style": "deepObject"
           },
@@ -20442,7 +20450,8 @@
             "deprecated": false,
             "required": false,
             "schema": {
-              "type": "object"
+              "type": "object",
+              "additionalProperties": true
             },
             "style": "deepObject"
           },

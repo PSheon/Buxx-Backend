@@ -98,19 +98,6 @@ export default factories.createCoreController(
           user: ctx.state.user,
         });
 
-        await strapi.service("api::point-record.point-record").logPointRecord({
-          type: "VerifyWallet",
-          user: ctx.state.user,
-          earningExp: 300,
-          earningPoints: 0,
-          receipt: {
-            task: "Verify Wallet",
-            userId: ctx.state.user.id,
-            exp: 300,
-            points: 0,
-          },
-        });
-
         ctx.send({ ok: true, message: "Wallet verified" });
       } catch (error) {
         throw new ApplicationError(`Verify wallet failed. [${error.message}]`);

@@ -40,7 +40,15 @@ export default factories.createCoreController(
       const referrerEntities = await strapi.entityService.findMany(
         "plugin::users-permissions.user",
         {
-          filters: { referralCode },
+          filters: {
+            referralLevel: {
+              $notNull: true,
+            },
+            referralPath: {
+              $notNull: true,
+            },
+            referralCode,
+          },
         }
       );
       if (!referrerEntities.length) {
@@ -63,8 +71,21 @@ export default factories.createCoreController(
       }
 
       try {
+        await strapi.entityService.update(
+          "plugin::users-permissions.user",
+          ctx.state.user.id,
+          {
+            data: {
+              referralLevel: referrer.referralLevel + 1,
+              referralPath: `${referrer.referralPath}${ctx.state.user.id}_`,
+            },
+          }
+        );
+
         await strapi.entityService.create("api::referral.referral", {
           data: {
+            level: referrer.referralLevel + 1,
+            path: `${referrer.referralPath}${ctx.state.user.id}_`,
             user: ctx.state.user.id,
             referrer: referrer.id,
           },

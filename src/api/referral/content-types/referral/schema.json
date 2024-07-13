@@ -12,6 +12,17 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "level": {
+      "type": "integer",
+      "required": true,
+      "min": 1
+    },
+    "path": {
+      "type": "string",
+      "regex": "^(_\\d+)+_$",
+      "unique": true,
+      "required": true
+    },
     "user": {
       "type": "relation",
       "relation": "oneToOne",

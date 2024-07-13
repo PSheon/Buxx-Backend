@@ -5,9 +5,7 @@ export interface ILogPointRecordType {
     | "StakeShare"
     | "TeamBonus"
     | "JoinReferral"
-    | "VerifyWallet"
     | "DailyCheck"
-    | "CompleteTask"
     | "Referral";
   user: UserType;
   earningExp: number;

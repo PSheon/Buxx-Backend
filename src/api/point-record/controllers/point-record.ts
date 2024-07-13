@@ -30,11 +30,26 @@ export default factories.createCoreController(
 
     /* NOTE: Fill function here,  */
     async findMeStatistics(ctx: Koa.Context) {
-      const meTotalReferrals = await strapi.entityService.count(
+      const meDirectReferrals = await strapi.entityService.count(
         "api::referral.referral",
         {
           filters: {
             referrer: ctx.state.user.id,
+            isActive: true,
+          },
+        }
+      );
+
+      const meTotalReferrals = await strapi.entityService.count(
+        "api::referral.referral",
+        {
+          filters: {
+            level: {
+              $gt: ctx.state.user.referralLevel,
+            },
+            path: {
+              $containsi: `_${ctx.state.user.id}_`,
+            },
             isActive: true,
           },
         }
@@ -45,6 +60,7 @@ export default factories.createCoreController(
       /* TODO: Second Generation Referral Staking statistics */
 
       ctx.send({
+        directReferrals: meDirectReferrals,
         totalReferrals: meTotalReferrals,
       });
     },

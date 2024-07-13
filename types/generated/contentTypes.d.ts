@@ -775,7 +775,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     avatar: Attribute.Media<'images'>;
     title: Attribute.String;
     phone: Attribute.String;
-    referralId: Attribute.String &
+    referralCode: Attribute.String &
       Attribute.Unique &
       Attribute.SetMinMaxLength<{
         minLength: 8;
@@ -1251,15 +1251,7 @@ export interface ApiPointRecordPointRecord extends Schema.CollectionType {
   };
   attributes: {
     type: Attribute.Enumeration<
-      [
-        'StakeShare',
-        'TeamBonus',
-        'JoinReferral',
-        'VerifyWallet',
-        'DailyCheck',
-        'CompleteTask',
-        'Referral'
-      ]
+      ['StakeShare', 'TeamBonus', 'JoinReferral', 'DailyCheck', 'Referral']
     >;
     user: Attribute.Relation<
       'api::point-record.point-record',

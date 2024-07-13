@@ -33,14 +33,14 @@ export default factories.createCoreController(
       ctx.send(response);
     },
     async join(ctx: Koa.Context) {
-      const { referralId } = ctx.request.body;
+      const { referralCode } = ctx.request.body;
 
       await validateJoinReferralBody(ctx.request.body);
 
       const referrerEntities = await strapi.entityService.findMany(
         "plugin::users-permissions.user",
         {
-          filters: { referralId },
+          filters: { referralCode },
         }
       );
       if (!referrerEntities.length) {

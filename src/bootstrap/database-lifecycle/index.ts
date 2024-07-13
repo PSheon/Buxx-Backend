@@ -8,8 +8,8 @@ import { errors } from "@strapi/utils";
 const { ApplicationError } = errors;
 
 export const databaseLifecycleBootstrap = (strapi) => {
-  // ** Generate referralId
-  const generateReferralId = () => {
+  // ** Generate referral code
+  const generateReferralCode = () => {
     const chars = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
     let result = "";
     for (let i = 0; i < 8; i++) {
@@ -24,7 +24,7 @@ export const databaseLifecycleBootstrap = (strapi) => {
     async beforeCreate(event) {
       const { params } = event;
 
-      params.data.referralId = generateReferralId();
+      params.data.referralCode = generateReferralCode();
     },
     async afterCreate(event) {
       const { result } = event;

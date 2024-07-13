@@ -5,7 +5,7 @@ export type UserType = {
   username: string;
   exp: number;
   points: number;
-  referralId: string;
+  referralCode: string;
   blocked: boolean;
   confirmed: boolean;
   createdAt: string;

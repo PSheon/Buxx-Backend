@@ -83,7 +83,7 @@
     "phone": {
       "type": "string"
     },
-    "referralLevel": {
+    "referralRank": {
       "type": "integer",
       "required": false,
       "min": 1

@@ -44,8 +44,8 @@ export default factories.createCoreController(
         "api::referral.referral",
         {
           filters: {
-            level: {
-              $gt: ctx.state.user.referralLevel,
+            rank: {
+              $gt: ctx.state.user.referralRank,
             },
             path: {
               $containsi: `_${ctx.state.user.id}_`,

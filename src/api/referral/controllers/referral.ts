@@ -41,7 +41,7 @@ export default factories.createCoreController(
         "plugin::users-permissions.user",
         {
           filters: {
-            referralLevel: {
+            referralRank: {
               $notNull: true,
             },
             referralPath: {
@@ -76,7 +76,7 @@ export default factories.createCoreController(
           ctx.state.user.id,
           {
             data: {
-              referralLevel: referrer.referralLevel + 1,
+              referralRank: referrer.referralRank + 1,
               referralPath: `${referrer.referralPath}${ctx.state.user.id}_`,
             },
           }
@@ -84,7 +84,7 @@ export default factories.createCoreController(
 
         await strapi.entityService.create("api::referral.referral", {
           data: {
-            level: referrer.referralLevel + 1,
+            rank: referrer.referralRank + 1,
             path: `${referrer.referralPath}${ctx.state.user.id}_`,
             user: ctx.state.user.id,
             referrer: referrer.id,

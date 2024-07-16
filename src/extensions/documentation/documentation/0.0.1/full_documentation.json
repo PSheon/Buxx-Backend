@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-07-13T06:40:13.872Z"
+    "x-generation-date": "2024-07-16T07:47:06.682Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -1055,7 +1055,7 @@
                       "phone": {
                         "type": "string"
                       },
-                      "referralLevel": {
+                      "referralRank": {
                         "type": "integer"
                       },
                       "referralPath": {
@@ -2203,7 +2203,7 @@
                       "phone": {
                         "type": "string"
                       },
-                      "referralLevel": {
+                      "referralRank": {
                         "type": "integer"
                       },
                       "referralPath": {
@@ -3466,7 +3466,7 @@
                       "phone": {
                         "type": "string"
                       },
-                      "referralLevel": {
+                      "referralRank": {
                         "type": "integer"
                       },
                       "referralPath": {
@@ -4540,7 +4540,7 @@
                       "phone": {
                         "type": "string"
                       },
-                      "referralLevel": {
+                      "referralRank": {
                         "type": "integer"
                       },
                       "referralPath": {
@@ -7615,7 +7615,7 @@
                       "phone": {
                         "type": "string"
                       },
-                      "referralLevel": {
+                      "referralRank": {
                         "type": "integer"
                       },
                       "referralPath": {
@@ -9229,7 +9229,7 @@
                       "phone": {
                         "type": "string"
                       },
-                      "referralLevel": {
+                      "referralRank": {
                         "type": "integer"
                       },
                       "referralPath": {
@@ -9379,12 +9379,12 @@
         "properties": {
           "data": {
             "required": [
-              "level",
+              "rank",
               "path"
             ],
             "type": "object",
             "properties": {
-              "level": {
+              "rank": {
                 "type": "integer"
               },
               "path": {
@@ -9471,11 +9471,11 @@
       "Referral": {
         "type": "object",
         "required": [
-          "level",
+          "rank",
           "path"
         ],
         "properties": {
-          "level": {
+          "rank": {
             "type": "integer"
           },
           "path": {
@@ -10325,7 +10325,7 @@
                       "phone": {
                         "type": "string"
                       },
-                      "referralLevel": {
+                      "referralRank": {
                         "type": "integer"
                       },
                       "referralPath": {
@@ -12605,7 +12605,7 @@
                       "phone": {
                         "type": "string"
                       },
-                      "referralLevel": {
+                      "referralRank": {
                         "type": "integer"
                       },
                       "referralPath": {

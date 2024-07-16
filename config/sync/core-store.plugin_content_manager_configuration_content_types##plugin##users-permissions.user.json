@@ -202,16 +202,30 @@
           "sortable": true
         }
       },
-      "referralLevel": {
+      "referralRank": {
         "edit": {
-          "label": "referralLevel",
+          "label": "referralRank",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "referralLevel",
+          "label": "referralRank",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "referralPath": {
+        "edit": {
+          "label": "referralPath",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "referralPath",
           "searchable": true,
           "sortable": true
         }
@@ -268,20 +282,6 @@
         },
         "list": {
           "label": "isHighlighted",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "referralPath": {
-        "edit": {
-          "label": "referralPath",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "referralPath",
           "searchable": true,
           "sortable": true
         }
@@ -415,12 +415,12 @@
         ],
         [
           {
-            "name": "referralLevel",
-            "size": 4
-          },
-          {
             "name": "referralCode",
             "size": 8
+          },
+          {
+            "name": "referralRank",
+            "size": 4
           }
         ],
         [

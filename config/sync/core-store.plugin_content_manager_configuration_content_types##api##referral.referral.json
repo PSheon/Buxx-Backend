@@ -19,16 +19,30 @@
           "sortable": true
         }
       },
-      "level": {
+      "rank": {
         "edit": {
-          "label": "level",
+          "label": "rank",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "level",
+          "label": "rank",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "path": {
+        "edit": {
+          "label": "path",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "path",
           "searchable": true,
           "sortable": true
         }
@@ -87,20 +101,6 @@
         },
         "list": {
           "label": "isHighlighted",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "path": {
-        "edit": {
-          "label": "path",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "path",
           "searchable": true,
           "sortable": true
         }
@@ -178,7 +178,7 @@
         ],
         [
           {
-            "name": "level",
+            "name": "rank",
             "size": 4
           },
           {

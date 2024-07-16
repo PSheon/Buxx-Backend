@@ -775,7 +775,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     avatar: Attribute.Media<'images'>;
     title: Attribute.String;
     phone: Attribute.String;
-    referralLevel: Attribute.Integer &
+    referralRank: Attribute.Integer &
       Attribute.SetMinMax<
         {
           min: 1;
@@ -1315,7 +1315,7 @@ export interface ApiReferralReferral extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    level: Attribute.Integer &
+    rank: Attribute.Integer &
       Attribute.Required &
       Attribute.SetMinMax<
         {

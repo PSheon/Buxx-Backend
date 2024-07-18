@@ -12,6 +12,21 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "referrer": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "stakedValue": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
+    },
     "rank": {
       "type": "integer",
       "required": true,
@@ -23,15 +38,16 @@
       "unique": true,
       "required": true
     },
-    "user": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+    "level": {
+      "type": "integer",
+      "default": 1,
+      "max": 9,
+      "min": 1
     },
-    "referrer": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+    "claimedRewards": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
     },
     "isActive": {
       "type": "boolean",

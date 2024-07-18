@@ -77,6 +77,34 @@
           "sortable": true
         }
       },
+      "level": {
+        "edit": {
+          "label": "level",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "level",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "claimedRewards": {
+        "edit": {
+          "label": "claimedRewards",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "claimedRewards",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "isActive": {
         "edit": {
           "label": "isActive",
@@ -101,6 +129,20 @@
         },
         "list": {
           "label": "isHighlighted",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "stakedValue": {
+        "edit": {
+          "label": "stakedValue",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "stakedValue",
           "searchable": true,
           "sortable": true
         }
@@ -178,11 +220,27 @@
         ],
         [
           {
+            "name": "stakedValue",
+            "size": 12
+          }
+        ],
+        [
+          {
             "name": "rank",
             "size": 4
           },
           {
             "name": "path",
+            "size": 8
+          }
+        ],
+        [
+          {
+            "name": "level",
+            "size": 4
+          },
+          {
+            "name": "claimedRewards",
             "size": 8
           }
         ],

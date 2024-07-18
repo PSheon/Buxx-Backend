@@ -674,8 +674,11 @@
           "path",
           "user",
           "referrer",
+          "level",
+          "claimedRewards",
           "isActive",
-          "isHighlighted"
+          "isHighlighted",
+          "stakedValue"
         ]
       },
       "conditions": []
@@ -697,8 +700,11 @@
           "path",
           "user",
           "referrer",
+          "level",
+          "claimedRewards",
           "isActive",
-          "isHighlighted"
+          "isHighlighted",
+          "stakedValue"
         ]
       },
       "conditions": []
@@ -713,8 +719,11 @@
           "path",
           "user",
           "referrer",
+          "level",
+          "claimedRewards",
           "isActive",
-          "isHighlighted"
+          "isHighlighted",
+          "stakedValue"
         ]
       },
       "conditions": []

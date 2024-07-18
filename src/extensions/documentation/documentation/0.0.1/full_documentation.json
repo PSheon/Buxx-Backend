@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-07-16T07:47:06.682Z"
+    "x-generation-date": "2024-07-18T09:59:04.391Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -9384,12 +9384,6 @@
             ],
             "type": "object",
             "properties": {
-              "rank": {
-                "type": "integer"
-              },
-              "path": {
-                "type": "string"
-              },
               "user": {
                 "oneOf": [
                   {
@@ -9411,6 +9405,21 @@
                   }
                 ],
                 "example": "string or id"
+              },
+              "stakedValue": {
+                "type": "integer"
+              },
+              "rank": {
+                "type": "integer"
+              },
+              "path": {
+                "type": "string"
+              },
+              "level": {
+                "type": "integer"
+              },
+              "claimedRewards": {
+                "type": "integer"
               },
               "isActive": {
                 "type": "boolean"
@@ -9475,12 +9484,6 @@
           "path"
         ],
         "properties": {
-          "rank": {
-            "type": "integer"
-          },
-          "path": {
-            "type": "string"
-          },
           "user": {
             "type": "object",
             "properties": {
@@ -10407,6 +10410,21 @@
                 }
               }
             }
+          },
+          "stakedValue": {
+            "type": "integer"
+          },
+          "rank": {
+            "type": "integer"
+          },
+          "path": {
+            "type": "string"
+          },
+          "level": {
+            "type": "integer"
+          },
+          "claimedRewards": {
+            "type": "integer"
           },
           "isActive": {
             "type": "boolean"

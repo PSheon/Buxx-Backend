@@ -1315,15 +1315,6 @@ export interface ApiReferralReferral extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    rank: Attribute.Integer &
-      Attribute.Required &
-      Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      >;
-    path: Attribute.String & Attribute.Required & Attribute.Unique;
     user: Attribute.Relation<
       'api::referral.referral',
       'oneToOne',
@@ -1334,6 +1325,40 @@ export interface ApiReferralReferral extends Schema.CollectionType {
       'oneToOne',
       'plugin::users-permissions.user'
     >;
+    stakedValue: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Attribute.DefaultTo<0>;
+    rank: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    path: Attribute.String & Attribute.Required & Attribute.Unique;
+    level: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+          max: 9;
+        },
+        number
+      > &
+      Attribute.DefaultTo<1>;
+    claimedRewards: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Attribute.DefaultTo<0>;
     isActive: Attribute.Boolean & Attribute.DefaultTo<true>;
     isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;

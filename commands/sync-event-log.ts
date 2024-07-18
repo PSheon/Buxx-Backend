@@ -370,6 +370,48 @@ const syncEventLog = async () => {
               status: "Holding",
             },
           });
+
+          const walletEntities = await app.entityService.findMany(
+            "api::wallet.wallet",
+            {
+              filters: {
+                address: {
+                  $eqi: _to as string,
+                },
+              },
+              populate: ["user"],
+            }
+          );
+          if (walletEntities.length !== 0) {
+            const userId = walletEntities[0].user.id;
+
+            const referralEntities = await app.entityService.findMany(
+              "api::referral.referral",
+              {
+                filters: {
+                  user: {
+                    id: userId,
+                  },
+                },
+              }
+            );
+            if (referralEntities.length !== 0) {
+              const referralEntity = referralEntities[0];
+              const tokenValue = N(tokenEntity.tokenValue).div(N(10).pow(18));
+
+              await app.db.query("api::referral.referral").update({
+                where: {
+                  id: referralEntity.id,
+                },
+                data: {
+                  stakedValue: N(referralEntity.stakedValue)
+                    .sub(tokenValue)
+                    .round()
+                    .toNumber(),
+                },
+              });
+            }
+          }
         }
 
         continue;
@@ -420,6 +462,48 @@ const syncEventLog = async () => {
               status: "Staking",
             },
           });
+
+          const walletEntities = await app.entityService.findMany(
+            "api::wallet.wallet",
+            {
+              filters: {
+                address: {
+                  $eqi: _from as string,
+                },
+              },
+              populate: ["user"],
+            }
+          );
+          if (walletEntities.length !== 0) {
+            const userId = walletEntities[0].user.id;
+
+            const referralEntities = await app.entityService.findMany(
+              "api::referral.referral",
+              {
+                filters: {
+                  user: {
+                    id: userId,
+                  },
+                },
+              }
+            );
+            if (referralEntities.length !== 0) {
+              const referralEntity = referralEntities[0];
+              const tokenValue = N(tokenEntity.tokenValue).div(N(10).pow(18));
+
+              await app.db.query("api::referral.referral").update({
+                where: {
+                  id: referralEntity.id,
+                },
+                data: {
+                  stakedValue: N(referralEntity.stakedValue)
+                    .add(tokenValue)
+                    .round()
+                    .toNumber(),
+                },
+              });
+            }
+          }
         }
 
         continue;

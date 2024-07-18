@@ -38,7 +38,13 @@ const initDB = async () => {
   /* Delete point record */
   await app.db.query("api::point-record.point-record").deleteMany();
   /* Delete referral */
-  await app.db.query("api::referral.referral").deleteMany();
+  // await app.db.query("api::referral.referral").deleteMany();
+  await app.db.query("api::referral.referral").updateMany({
+    where: {},
+    data: {
+      stakedValue: 0,
+    },
+  });
 
   /* Delete event log */
   await app.db.query("api::event-log.event-log").deleteMany();

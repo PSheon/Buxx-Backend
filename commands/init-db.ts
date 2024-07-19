@@ -43,6 +43,8 @@ const initDB = async () => {
     where: {},
     data: {
       stakedValue: 0,
+      level: 1,
+      claimedRewards: 0,
     },
   });
 

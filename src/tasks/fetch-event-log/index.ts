@@ -606,7 +606,7 @@ export const fetchTokenEventLogTask = async ({
           .div(N(10).pow(18))
           .round()
           .toNumber();
-        const earningExp = N(earningPoints).mul(5).round().toNumber();
+        const earningExp = N(earningPoints).mul(3).round().toNumber();
 
         await strapi.service("api::point-record.point-record").logPointRecord({
           type: "StakeShare",

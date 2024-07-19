@@ -599,17 +599,20 @@ const syncEventLog = async () => {
         }
       );
       if (walletEntities.length) {
+        const earningPoints = N(amount as string)
+          .div(N(10).pow(18))
+          .round()
+          .toNumber();
+        const earningExp = N(earningPoints).mul(3).round().toNumber();
+
         await app.service("api::point-record.point-record").logPointRecord({
           type: "StakeShare",
           user: walletEntities[0].user,
-          earningExp: 0,
-          earningPoints: N(amount as string)
-            .div(N(10).pow(18))
-            .round()
-            .toNumber(),
+          earningExp,
+          earningPoints,
           receipt: {
             userId: walletEntities[0].user.id,
-            exp: 0,
+            exp: earningExp,
             points: amount.toString(),
           },
         });

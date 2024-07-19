@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-07-18T09:59:04.391Z"
+    "x-generation-date": "2024-07-19T17:11:57.436Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -8293,6 +8293,7 @@
                   "StakeShare",
                   "TeamBonus",
                   "JoinReferral",
+                  "ReferralLevelUp",
                   "DailyCheck",
                   "Referral"
                 ]
@@ -8381,6 +8382,7 @@
               "StakeShare",
               "TeamBonus",
               "JoinReferral",
+              "ReferralLevelUp",
               "DailyCheck",
               "Referral"
             ]

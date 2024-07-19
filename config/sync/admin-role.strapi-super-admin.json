@@ -670,15 +670,15 @@
       "subject": "api::referral.referral",
       "properties": {
         "fields": [
-          "rank",
-          "path",
           "user",
           "referrer",
+          "stakedValue",
+          "rank",
+          "path",
           "level",
           "claimedRewards",
           "isActive",
-          "isHighlighted",
-          "stakedValue"
+          "isHighlighted"
         ]
       },
       "conditions": []
@@ -696,15 +696,15 @@
       "subject": "api::referral.referral",
       "properties": {
         "fields": [
-          "rank",
-          "path",
           "user",
           "referrer",
+          "stakedValue",
+          "rank",
+          "path",
           "level",
           "claimedRewards",
           "isActive",
-          "isHighlighted",
-          "stakedValue"
+          "isHighlighted"
         ]
       },
       "conditions": []
@@ -715,15 +715,15 @@
       "subject": "api::referral.referral",
       "properties": {
         "fields": [
-          "rank",
-          "path",
           "user",
           "referrer",
+          "stakedValue",
+          "rank",
+          "path",
           "level",
           "claimedRewards",
           "isActive",
-          "isHighlighted",
-          "stakedValue"
+          "isHighlighted"
         ]
       },
       "conditions": []

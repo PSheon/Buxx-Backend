@@ -199,11 +199,24 @@ export default factories.createCoreController(
       if (!packageEntity) {
         throw new NotFoundError("Package entity not found");
       }
+
+      const meReferralEntities = await strapi.entityService.findMany(
+        "api::referral.referral",
+        {
+          filters: {
+            user: ctx.state.user.id,
+          },
+        }
+      );
+      if (meReferralEntities.length === 0) {
+        throw new NotFoundError("Referral entity not found");
+      }
+
       const baseAPY =
         packageEntity.slots.find((slot) => slot.propertyName === "APY")
           ?.value ?? 0;
       const periodBonusAPY = getPeriodBonusAPY(sanitizedInputData.periodInDays);
-      const levelBonusAPY = getLevelBonusAPY(ctx.state.user.exp);
+      const levelBonusAPY = getLevelBonusAPY(meReferralEntities[0].level);
       const totalAPY = Number(baseAPY) + periodBonusAPY + levelBonusAPY;
 
       if (totalAPY !== sanitizedInputData.apy) {

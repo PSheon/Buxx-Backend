@@ -41,6 +41,7 @@ export default factories.createCoreController(
           filters: {
             user: ctx.state.user.id,
           },
+          sort: ["date:desc"],
         }
       );
       if (meDailyCheckRecordEntities.length === 0) {
@@ -100,6 +101,10 @@ export default factories.createCoreController(
         } else {
           throw new ValidationError("Not in the daily-check time");
         }
+
+        await strapi
+          .service("api::daily-check-record.daily-check-record")
+          .updateUserReferralLevel(ctx.state.user.id);
 
         return ctx.send({ ok: true });
       }

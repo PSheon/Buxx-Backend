@@ -1,8 +1,8 @@
 {
-  "name": "bloom-backend",
+  "name": "buxx-backend",
   "version": "0.0.5",
   "private": true,
-  "description": "Bloom Backend API",
+  "description": "Buxx Backend API",
   "license": "MIT",
   "author": {
     "name": "Paul web3.0"

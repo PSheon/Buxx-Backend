@@ -68,13 +68,13 @@ export const socketIOBootstrap = (strapi: Strapi) => {
     };
     const systemLogPath = path.resolve(
       __dirname,
-      `../../../../.log/bloom_rwa_${format(new Date(), "yyyy-MM-dd-HH")}.log`
+      `../../../../.log/buxx_rwa_${format(new Date(), "yyyy-MM-dd-HH")}.log`
     );
     const systemLog = fs.existsSync(systemLogPath)
       ? await getLastLines(
           path.resolve(
             __dirname,
-            `../../../../.log/bloom_rwa_${format(
+            `../../../../.log/buxx_rwa_${format(
               new Date(),
               "yyyy-MM-dd-HH"
             )}.log`
@@ -147,13 +147,13 @@ export const socketIOBootstrap = (strapi: Strapi) => {
     const processTotalCount = await proc.totalProcesses();
     const newSystemLogPath = path.resolve(
       __dirname,
-      `../../../../.log/bloom_rwa_${format(new Date(), "yyyy-MM-dd-HH")}.log`
+      `../../../../.log/buxx_rwa_${format(new Date(), "yyyy-MM-dd-HH")}.log`
     );
     const newSystemLog = fs.existsSync(newSystemLogPath)
       ? await getLastLines(
           path.resolve(
             __dirname,
-            `../../../../.log/bloom_rwa_${format(
+            `../../../../.log/buxx_rwa_${format(
               new Date(),
               "yyyy-MM-dd-HH"
             )}.log`
@@ -217,7 +217,7 @@ export const socketIOBootstrap = (strapi: Strapi) => {
       // async ({ keepLines = 20 }: { keepLines: number }) => {
       //   const logPath = path.resolve(
       //     __dirname,
-      //     `../../../../.log/bloom_rwa_${format(
+      //     `../../../../.log/buxx_rwa_${format(
       //       new Date(),
       //       "yyyy-MM-dd-HH"
       //     )}.log`

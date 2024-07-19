@@ -13,7 +13,7 @@ module.exports = {
     }),
     new DailyRotateFile({
       level: "http",
-      filename: "./.log/bloom_rwa_%DATE%.log",
+      filename: "./.log/buxx_rwa_%DATE%.log",
       datePattern: "YYYY-MM-DD-HH",
       zippedArchive: true,
       maxSize: "20m",

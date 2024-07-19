@@ -85,7 +85,7 @@ export default ({ env }) => ({
   "request-id": {
     enabled: true,
     config: {
-      correlationIdHeader: "X-Bloom-Trace-Id",
+      correlationIdHeader: "X-Buxx-Trace-Id",
     },
   },
 });

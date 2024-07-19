@@ -1,3 +1,3 @@
 # 🚀 Getting started
 
-## It's a project for bloom API
+## It's a project for buxx API

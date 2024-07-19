@@ -346,7 +346,7 @@ export const forgotPassword = async (ctx: Koa.Context) => {
           // }/uploads/favicon_32x32_0dc5a4933d.png`,
           logoImageUrl:
             "https://action-store.s3.ap-northeast-1.amazonaws.com/logo_dd205a026c.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAVHN56EQU4CD57NNV%2F20240402%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240402T082407Z&X-Amz-Expires=900&X-Amz-Signature=706f6bed17acfb0875466d20764aea19bd5461d0e222472a06eeecf471f96d6a&X-Amz-SignedHeaders=host&x-id=GetObject",
-          productName: "Bloom",
+          productName: "Buxx",
           receiver: {
             name: user.username,
             email: user.email,
@@ -525,7 +525,7 @@ export const emailConfirmation = async (ctx: Koa.Context, next, returnUser) => {
           // }/uploads/favicon_32x32_0dc5a4933d.png`,
           logoImageUrl:
             "https://action-store.s3.ap-northeast-1.amazonaws.com/logo_dd205a026c.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAVHN56EQU4CD57NNV%2F20240402%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240402T082407Z&X-Amz-Expires=900&X-Amz-Signature=706f6bed17acfb0875466d20764aea19bd5461d0e222472a06eeecf471f96d6a&X-Amz-SignedHeaders=host&x-id=GetObject",
-          productName: "Bloom",
+          productName: "Buxx",
           receiver: {
             name: user.username,
             email: user.email,
@@ -540,11 +540,11 @@ export const emailConfirmation = async (ctx: Koa.Context, next, returnUser) => {
           },
         },
         content: {
-          title: "歡迎您加入 Bloom!",
+          title: "歡迎您加入 Buxx!",
           greeting: `👋嗨，${user.username}!`,
-          thankYouForSigningUp: `感謝您註冊Bloom．真高興您來了！點擊下方按鈕以登入您的帳號：`,
+          thankYouForSigningUp: `感謝您註冊Buxx．真高興您來了！點擊下方按鈕以登入您的帳號：`,
           bestRegard: `乾杯`,
-          team: "Bloom 團隊",
+          team: "Buxx 團隊",
         },
         loginButton: {
           text: "登入我的帳號",

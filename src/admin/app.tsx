@@ -16,9 +16,9 @@ export default {
     },
     translations: {
       en: {
-        "Auth.form.welcome.title": "Welcome to Bloom!",
+        "Auth.form.welcome.title": "Welcome to Buxx!",
         "Auth.form.welcome.subtitle": "Log in to your account",
-        "app.components.LeftMenu.navbrand.title": "Bloom",
+        "app.components.LeftMenu.navbrand.title": "Buxx",
       },
     },
     tutorials: false,

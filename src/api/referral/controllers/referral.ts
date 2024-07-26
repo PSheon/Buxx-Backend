@@ -88,6 +88,7 @@ export default factories.createCoreController(
             path: `${referrer.referralPath}${ctx.state.user.id}_`,
             user: ctx.state.user.id,
             referrer: referrer.id,
+            lastTeamShareSettlementDate: new Date(),
           },
         });
 

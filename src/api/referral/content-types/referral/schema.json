@@ -49,6 +49,9 @@
       "default": 0,
       "min": 0
     },
+    "lastTeamShareSettlementDate": {
+      "type": "datetime"
+    },
     "isActive": {
       "type": "boolean",
       "default": true

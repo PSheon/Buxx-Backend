@@ -22,7 +22,7 @@ export default factories.createCoreService(
         },
       });
 
-      return strapi.entityService.update(
+      await strapi.entityService.update(
         "plugin::users-permissions.user",
         user.id,
         {
@@ -32,6 +32,8 @@ export default factories.createCoreService(
           },
         }
       );
+
+      return;
     },
   })
 );

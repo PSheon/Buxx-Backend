@@ -3,8 +3,9 @@ import type { UserType } from "../../../extensions/users-permissions/types/userT
 export interface ILogPointRecordType {
   type:
     | "StakeShare"
-    | "TeamBonus"
+    | "TeamStakeShare"
     | "JoinReferral"
+    | "ReferralLevelUp"
     | "DailyCheck"
     | "Referral";
   user: UserType;

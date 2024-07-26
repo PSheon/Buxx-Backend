@@ -16,7 +16,7 @@
       "type": "enumeration",
       "enum": [
         "StakeShare",
-        "TeamBonus",
+        "TeamStakeShare",
         "JoinReferral",
         "ReferralLevelUp",
         "DailyCheck",

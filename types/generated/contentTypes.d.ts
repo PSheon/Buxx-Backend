@@ -1261,7 +1261,7 @@ export interface ApiPointRecordPointRecord extends Schema.CollectionType {
     type: Attribute.Enumeration<
       [
         'StakeShare',
-        'TeamBonus',
+        'TeamStakeShare',
         'JoinReferral',
         'ReferralLevelUp',
         'DailyCheck',
@@ -1366,6 +1366,7 @@ export interface ApiReferralReferral extends Schema.CollectionType {
         number
       > &
       Attribute.DefaultTo<0>;
+    lastTeamShareSettlementDate: Attribute.DateTime;
     isActive: Attribute.Boolean & Attribute.DefaultTo<true>;
     isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;

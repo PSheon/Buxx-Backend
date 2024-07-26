@@ -608,6 +608,29 @@ export const fetchTokenEventLogTask = async ({
           .toNumber();
         const earningExp = N(earningPoints).mul(3).round().toNumber();
 
+        const referralEntities = await strapi.entityService.findMany(
+          "api::referral.referral",
+          {
+            filters: {
+              user: {
+                id: walletEntities[0].user.id,
+              },
+            },
+          }
+        );
+        if (referralEntities.length) {
+          await strapi.entityService.update(
+            "api::referral.referral",
+            referralEntities[0].id,
+            {
+              data: {
+                claimedRewards:
+                  referralEntities[0].claimedRewards + earningPoints,
+              },
+            }
+          );
+        }
+
         await strapi.service("api::point-record.point-record").logPointRecord({
           type: "StakeShare",
           user: walletEntities[0].user,

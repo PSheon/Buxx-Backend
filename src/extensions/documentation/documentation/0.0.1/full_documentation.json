@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-07-19T17:11:57.436Z"
+    "x-generation-date": "2024-07-26T19:29:20.859Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -8291,7 +8291,7 @@
                 "type": "string",
                 "enum": [
                   "StakeShare",
-                  "TeamBonus",
+                  "TeamStakeShare",
                   "JoinReferral",
                   "ReferralLevelUp",
                   "DailyCheck",
@@ -8380,7 +8380,7 @@
             "type": "string",
             "enum": [
               "StakeShare",
-              "TeamBonus",
+              "TeamStakeShare",
               "JoinReferral",
               "ReferralLevelUp",
               "DailyCheck",
@@ -9423,6 +9423,10 @@
               "claimedRewards": {
                 "type": "integer"
               },
+              "lastTeamShareSettlementDate": {
+                "type": "string",
+                "format": "date-time"
+              },
               "isActive": {
                 "type": "boolean"
               },
@@ -10427,6 +10431,10 @@
           },
           "claimedRewards": {
             "type": "integer"
+          },
+          "lastTeamShareSettlementDate": {
+            "type": "string",
+            "format": "date-time"
           },
           "isActive": {
             "type": "boolean"

@@ -677,6 +677,7 @@
           "path",
           "level",
           "claimedRewards",
+          "lastTeamShareSettlementDate",
           "isActive",
           "isHighlighted"
         ]
@@ -703,6 +704,7 @@
           "path",
           "level",
           "claimedRewards",
+          "lastTeamShareSettlementDate",
           "isActive",
           "isHighlighted"
         ]
@@ -722,6 +724,7 @@
           "path",
           "level",
           "claimedRewards",
+          "lastTeamShareSettlementDate",
           "isActive",
           "isHighlighted"
         ]

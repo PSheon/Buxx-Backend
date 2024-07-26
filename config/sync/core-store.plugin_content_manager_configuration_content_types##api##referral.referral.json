@@ -19,34 +19,6 @@
           "sortable": true
         }
       },
-      "rank": {
-        "edit": {
-          "label": "rank",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "rank",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "path": {
-        "edit": {
-          "label": "path",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "path",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "user": {
         "edit": {
           "label": "user",
@@ -73,6 +45,48 @@
         },
         "list": {
           "label": "referrer",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "stakedValue": {
+        "edit": {
+          "label": "stakedValue",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "stakedValue",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "rank": {
+        "edit": {
+          "label": "rank",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "rank",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "path": {
+        "edit": {
+          "label": "path",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "path",
           "searchable": true,
           "sortable": true
         }
@@ -133,16 +147,16 @@
           "sortable": true
         }
       },
-      "stakedValue": {
+      "lastTeamShareSettlementDate": {
         "edit": {
-          "label": "stakedValue",
+          "label": "lastTeamShareSettlementDate",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "stakedValue",
+          "label": "lastTeamShareSettlementDate",
           "searchable": true,
           "sortable": true
         }
@@ -242,6 +256,12 @@
           {
             "name": "claimedRewards",
             "size": 8
+          }
+        ],
+        [
+          {
+            "name": "lastTeamShareSettlementDate",
+            "size": 12
           }
         ],
         [

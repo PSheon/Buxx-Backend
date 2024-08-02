@@ -21,8 +21,8 @@ const syncEventLog = async () => {
 
   /* Init Provider */
   const alchemy = new Alchemy({
-    apiKey: process.env.ALCHEMY_ETHEREUM_SEPOLIA_KEY,
-    network: Network.ETH_SEPOLIA,
+    apiKey: process.env.ALCHEMY_API_KEY,
+    network: process.env.ALCHEMY_NETWORK as Network,
   });
   const web3 = new Web3(Web3.givenProvider);
 

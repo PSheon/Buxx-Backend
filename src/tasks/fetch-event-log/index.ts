@@ -143,7 +143,8 @@ export const fetchTokenEventLogTask = async ({
       const eventNameHash = topics[0];
       const fundEntity = fundEntities.find(
         (fund) =>
-          fund.sft.contractAddress.toLowerCase() === txLog.address.toLowerCase()
+          fund.sft?.contractAddress.toLowerCase() ===
+          txLog.address.toLowerCase()
       );
 
       /* Detect log action - MintPackage, TransferToken, TransferValue, ChangeSlot, Stake, Unstake, Burn */

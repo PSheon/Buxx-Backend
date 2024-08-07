@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "task_logs",
+  "info": {
+    "singularName": "task-log",
+    "pluralName": "task-logs",
+    "displayName": "TaskLog"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "action": {
+      "type": "enumeration",
+      "enum": ["SyncEventLog"],
+      "required": true
+    },
+    "trigger": {
+      "type": "enumeration",
+      "enum": ["CronJob", "Manual"]
+    },
+    "message": {
+      "type": "text"
+    },
+    "detail": {
+      "type": "json"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["Pending", "Fulfilled", "Rejected"],
+      "required": true
+    }
+  }
+}

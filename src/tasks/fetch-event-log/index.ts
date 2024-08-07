@@ -25,6 +25,7 @@ const alchemy = new Alchemy({
 });
 const web3 = new Web3(Web3.givenProvider);
 
+/* TODO: added multi chain support */
 export const fetchTokenEventLogTask = async ({
   strapi,
 }: {
@@ -32,12 +33,22 @@ export const fetchTokenEventLogTask = async ({
 }) => {
   let latestTokenEventLogBlockNumber = 0;
   let latestTokenEventLogIndex = 0;
+  let totalSynced = 0;
 
   /* Step 01 - Check Fund exists */
   const fundEntities = await strapi.entityService.findMany("api::fund.fund", {
     populate: ["sft", "defaultPackages", "vault"],
   });
   if (fundEntities.length === 0) {
+    await strapi.entityService.create("api::task-log.task-log", {
+      data: {
+        action: "SyncEventLog",
+        trigger: "CronJob",
+        message: "Fund not initialized",
+        detail: {},
+        status: "Rejected",
+      },
+    });
     return;
   }
 
@@ -52,6 +63,15 @@ export const fetchTokenEventLogTask = async ({
     })
     .filter((contractAddress) => contractAddress !== null);
   if (watchSFTContracts.length === 0) {
+    await strapi.entityService.create("api::task-log.task-log", {
+      data: {
+        action: "SyncEventLog",
+        trigger: "CronJob",
+        message: "No SFT contract found",
+        detail: {},
+        status: "Rejected",
+      },
+    });
     return;
   }
   const watchVaultContracts = fundEntities
@@ -64,6 +84,15 @@ export const fetchTokenEventLogTask = async ({
     })
     .filter((contractAddress) => contractAddress !== null);
   if (watchVaultContracts.length === 0) {
+    await strapi.entityService.create("api::task-log.task-log", {
+      data: {
+        action: "SyncEventLog",
+        trigger: "CronJob",
+        message: "No Vault contract found",
+        detail: {},
+        status: "Rejected",
+      },
+    });
     return;
   }
 
@@ -82,354 +111,458 @@ export const fetchTokenEventLogTask = async ({
   }
 
   /* Step 04 - Fetch logs from blockchain */
-  const txLogsResponse = await alchemy.core.getLogs({
-    fromBlock: latestTokenEventLogBlockNumber,
-    address: watchSFTContracts,
-    topics: [
-      [
-        TRANSFER_TOKEN_EVENT_HASH,
-        TRANSFER_VALUE_EVENT_HASH,
-        SLOT_CHANGED_EVENT_HASH,
+  try {
+    const txLogsResponse = await alchemy.core.getLogs({
+      fromBlock: latestTokenEventLogBlockNumber,
+      address: watchSFTContracts,
+      topics: [
+        [
+          TRANSFER_TOKEN_EVENT_HASH,
+          TRANSFER_VALUE_EVENT_HASH,
+          SLOT_CHANGED_EVENT_HASH,
+        ],
       ],
-    ],
-  });
-  const claimTxLogsResponse = await alchemy.core.getLogs({
-    fromBlock: latestTokenEventLogBlockNumber,
-    address: watchVaultContracts,
-    topics: [[CLAIM_EVENT_HASH]],
-  });
+    });
+    const claimTxLogsResponse = await alchemy.core.getLogs({
+      fromBlock: latestTokenEventLogBlockNumber,
+      address: watchVaultContracts,
+      topics: [[CLAIM_EVENT_HASH]],
+    });
 
-  for await (let txLog of txLogsResponse) {
-    if (
-      latestTokenEventLogBlockNumber === txLog.blockNumber &&
-      latestTokenEventLogIndex >= txLog.logIndex
-    ) {
-      continue;
-    }
-
-    const topics = txLog.topics;
-    const eventNameHash = topics[0];
-    const fundEntity = fundEntities.find(
-      (fund) =>
-        fund.sft.contractAddress.toLowerCase() === txLog.address.toLowerCase()
-    );
-
-    /* Detect log action - MintPackage, TransferToken, TransferValue, ChangeSlot, Stake, Unstake, Burn */
-    if (eventNameHash === TRANSFER_VALUE_EVENT_HASH) {
-      const { _fromTokenId, _toTokenId, _value } = web3.eth.abi.decodeLog(
-        TRANSFER_VALUE_EVENT_ABI,
-        txLog.data,
-        txLog.topics.slice(1)
-      );
-
-      /* ------------ TransferValue ------------ */
-      await strapi.entityService.create("api::event-log.event-log", {
-        data: {
-          action: "TransferValue",
-          blockNumber: txLog.blockNumber,
-          blockHash: txLog.blockHash,
-          transactionIndex: txLog.transactionIndex,
-          sftAddress: txLog.address,
-          data: txLog.data,
-          topics: txLog.topics,
-          transactionHash: txLog.transactionHash,
-          logIndex: txLog.logIndex,
-        },
-      });
-
-      const fromTokenEntities = await strapi.entityService.findMany(
-        "api::token.token",
-        {
-          filters: {
-            contractAddress: {
-              $eqi: fundEntity.sft.contractAddress,
-            },
-            tokenId: {
-              $eqi: web3.utils.padLeft(
-                web3.utils.toHex(_fromTokenId as bigint),
-                64
-              ),
-            },
-          },
-        }
-      );
-      if (fromTokenEntities.length !== 0) {
-        const tokenEntity = fromTokenEntities[0];
-        await strapi.entityService.update("api::token.token", tokenEntity.id, {
-          data: {
-            tokenValue: N(tokenEntity.tokenValue)
-              .sub(_value as string)
-              .toString(),
-          },
-        });
+    for await (let txLog of txLogsResponse) {
+      if (
+        latestTokenEventLogBlockNumber === txLog.blockNumber &&
+        latestTokenEventLogIndex >= txLog.logIndex
+      ) {
+        continue;
+      } else {
+        totalSynced += 1;
       }
 
-      const toTokenEntities = await strapi.entityService.findMany(
-        "api::token.token",
-        {
-          filters: {
-            contractAddress: {
-              $eqi: fundEntity.sft.contractAddress,
-            },
-            tokenId: {
-              $eqi: web3.utils.padLeft(
-                web3.utils.toHex(_toTokenId as bigint),
-                64
-              ),
-            },
-          },
-        }
+      const topics = txLog.topics;
+      const eventNameHash = topics[0];
+      const fundEntity = fundEntities.find(
+        (fund) =>
+          fund.sft.contractAddress.toLowerCase() === txLog.address.toLowerCase()
       );
-      if (toTokenEntities.length !== 0) {
-        const tokenEntity = toTokenEntities[0];
-        await strapi.entityService.update("api::token.token", tokenEntity.id, {
+
+      /* Detect log action - MintPackage, TransferToken, TransferValue, ChangeSlot, Stake, Unstake, Burn */
+      if (eventNameHash === TRANSFER_VALUE_EVENT_HASH) {
+        const { _fromTokenId, _toTokenId, _value } = web3.eth.abi.decodeLog(
+          TRANSFER_VALUE_EVENT_ABI,
+          txLog.data,
+          txLog.topics.slice(1)
+        );
+
+        /* ------------ TransferValue ------------ */
+        await strapi.entityService.create("api::event-log.event-log", {
           data: {
-            tokenValue: N(tokenEntity.tokenValue)
-              .add(_value as string)
-              .toString(),
+            action: "TransferValue",
+            blockNumber: txLog.blockNumber,
+            blockHash: txLog.blockHash,
+            transactionIndex: txLog.transactionIndex,
+            sftAddress: txLog.address,
+            data: txLog.data,
+            topics: txLog.topics,
+            transactionHash: txLog.transactionHash,
+            logIndex: txLog.logIndex,
           },
         });
-      }
 
-      continue;
-    } else if (eventNameHash === SLOT_CHANGED_EVENT_HASH) {
-      const { _tokenId, _newSlot } = web3.eth.abi.decodeLog(
-        SLOT_CHANGED_EVENT_ABI,
-        txLog.data,
-        txLog.topics.slice(1)
-      );
-
-      /* -------------- ChangeSlot ------------- */
-      await strapi.entityService.create("api::event-log.event-log", {
-        data: {
-          action: "ChangeSlot",
-          blockNumber: txLog.blockNumber,
-          blockHash: txLog.blockHash,
-          transactionIndex: txLog.transactionIndex,
-          sftAddress: txLog.address,
-          data: txLog.data,
-          topics: txLog.topics,
-          transactionHash: txLog.transactionHash,
-          logIndex: txLog.logIndex,
-        },
-      });
-
-      const tokenEntities = await strapi.entityService.findMany(
-        "api::token.token",
-        {
-          filters: {
-            contractAddress: {
-              $eqi: fundEntity.sft.contractAddress,
+        const fromTokenEntities = await strapi.entityService.findMany(
+          "api::token.token",
+          {
+            filters: {
+              contractAddress: {
+                $eqi: fundEntity.sft.contractAddress,
+              },
+              tokenId: {
+                $eqi: web3.utils.padLeft(
+                  web3.utils.toHex(_fromTokenId as bigint),
+                  64
+                ),
+              },
             },
-            tokenId: {
-              $eqi: web3.utils.padLeft(
+          }
+        );
+        if (fromTokenEntities.length !== 0) {
+          const tokenEntity = fromTokenEntities[0];
+          await strapi.entityService.update(
+            "api::token.token",
+            tokenEntity.id,
+            {
+              data: {
+                tokenValue: N(tokenEntity.tokenValue)
+                  .sub(_value as string)
+                  .toString(),
+              },
+            }
+          );
+        }
+
+        const toTokenEntities = await strapi.entityService.findMany(
+          "api::token.token",
+          {
+            filters: {
+              contractAddress: {
+                $eqi: fundEntity.sft.contractAddress,
+              },
+              tokenId: {
+                $eqi: web3.utils.padLeft(
+                  web3.utils.toHex(_toTokenId as bigint),
+                  64
+                ),
+              },
+            },
+          }
+        );
+        if (toTokenEntities.length !== 0) {
+          const tokenEntity = toTokenEntities[0];
+          await strapi.entityService.update(
+            "api::token.token",
+            tokenEntity.id,
+            {
+              data: {
+                tokenValue: N(tokenEntity.tokenValue)
+                  .add(_value as string)
+                  .toString(),
+              },
+            }
+          );
+        }
+
+        continue;
+      } else if (eventNameHash === SLOT_CHANGED_EVENT_HASH) {
+        const { _tokenId, _newSlot } = web3.eth.abi.decodeLog(
+          SLOT_CHANGED_EVENT_ABI,
+          txLog.data,
+          txLog.topics.slice(1)
+        );
+
+        /* -------------- ChangeSlot ------------- */
+        await strapi.entityService.create("api::event-log.event-log", {
+          data: {
+            action: "ChangeSlot",
+            blockNumber: txLog.blockNumber,
+            blockHash: txLog.blockHash,
+            transactionIndex: txLog.transactionIndex,
+            sftAddress: txLog.address,
+            data: txLog.data,
+            topics: txLog.topics,
+            transactionHash: txLog.transactionHash,
+            logIndex: txLog.logIndex,
+          },
+        });
+
+        const tokenEntities = await strapi.entityService.findMany(
+          "api::token.token",
+          {
+            filters: {
+              contractAddress: {
+                $eqi: fundEntity.sft.contractAddress,
+              },
+              tokenId: {
+                $eqi: web3.utils.padLeft(
+                  web3.utils.toHex(_tokenId as bigint),
+                  64
+                ),
+              },
+            },
+          }
+        );
+        if (tokenEntities.length !== 0) {
+          const tokenEntity = tokenEntities[0];
+          const packageId = fundEntity.defaultPackages.find(
+            (pkg) => pkg.packageId === (_newSlot as bigint).toString()
+          )?.id;
+          await strapi.entityService.update(
+            "api::token.token",
+            tokenEntity.id,
+            {
+              data: {
+                package: packageId || null,
+              },
+            }
+          );
+        }
+
+        continue;
+      } else if (eventNameHash === TRANSFER_TOKEN_EVENT_HASH) {
+        const { _from, _to, _tokenId } = web3.eth.abi.decodeLog(
+          TRANSFER_TOKEN_EVENT_ABI,
+          txLog.data,
+          txLog.topics.slice(1)
+        );
+
+        /* ------------- MintPackage; ------------ */
+        if (_from === "0x0000000000000000000000000000000000000000") {
+          await strapi.entityService.create("api::event-log.event-log", {
+            data: {
+              action: "MintPackage",
+              blockNumber: txLog.blockNumber,
+              blockHash: txLog.blockHash,
+              transactionIndex: txLog.transactionIndex,
+              sftAddress: txLog.address,
+              data: txLog.data,
+              topics: txLog.topics,
+              transactionHash: txLog.transactionHash,
+              logIndex: txLog.logIndex,
+            },
+          });
+
+          await strapi.entityService.create("api::token.token", {
+            data: {
+              belongToFund: fundEntity.id,
+              contractAddress: fundEntity.sft.contractAddress,
+              tokenId: web3.utils.padLeft(
                 web3.utils.toHex(_tokenId as bigint),
                 64
               ),
+              owner: _to as string,
             },
-          },
-        }
-      );
-      if (tokenEntities.length !== 0) {
-        const tokenEntity = tokenEntities[0];
-        const packageId = fundEntity.defaultPackages.find(
-          (pkg) => pkg.packageId === (_newSlot as bigint).toString()
-        )?.id;
-        await strapi.entityService.update("api::token.token", tokenEntity.id, {
-          data: {
-            package: packageId || null,
-          },
-        });
-      }
+          });
 
-      continue;
-    } else if (eventNameHash === TRANSFER_TOKEN_EVENT_HASH) {
-      const { _from, _to, _tokenId } = web3.eth.abi.decodeLog(
-        TRANSFER_TOKEN_EVENT_ABI,
-        txLog.data,
-        txLog.topics.slice(1)
-      );
-
-      /* ------------- MintPackage; ------------ */
-      if (_from === "0x0000000000000000000000000000000000000000") {
-        await strapi.entityService.create("api::event-log.event-log", {
-          data: {
-            action: "MintPackage",
-            blockNumber: txLog.blockNumber,
-            blockHash: txLog.blockHash,
-            transactionIndex: txLog.transactionIndex,
-            sftAddress: txLog.address,
-            data: txLog.data,
-            topics: txLog.topics,
-            transactionHash: txLog.transactionHash,
-            logIndex: txLog.logIndex,
-          },
-        });
-
-        await strapi.entityService.create("api::token.token", {
-          data: {
-            belongToFund: fundEntity.id,
-            contractAddress: fundEntity.sft.contractAddress,
-            tokenId: web3.utils.padLeft(
-              web3.utils.toHex(_tokenId as bigint),
-              64
-            ),
-            owner: _to as string,
-          },
-        });
-
-        continue;
-      }
-
-      /* ----------------- Burn ---------------- */
-      if (_to === "0x0000000000000000000000000000000000000000") {
-        await strapi.entityService.create("api::event-log.event-log", {
-          data: {
-            action: "Burn",
-            blockNumber: txLog.blockNumber,
-            blockHash: txLog.blockHash,
-            transactionIndex: txLog.transactionIndex,
-            sftAddress: txLog.address,
-            data: txLog.data,
-            topics: txLog.topics,
-            transactionHash: txLog.transactionHash,
-            logIndex: txLog.logIndex,
-          },
-        });
-
-        const tokenEntities = await strapi.entityService.findMany(
-          "api::token.token",
-          {
-            filters: {
-              contractAddress: {
-                $eqi: fundEntity.sft.contractAddress,
-              },
-              tokenId: {
-                $eqi: web3.utils.padLeft(
-                  web3.utils.toHex(_tokenId as bigint),
-                  64
-                ),
-              },
-            },
-          }
-        );
-        if (tokenEntities.length !== 0) {
-          const tokenEntity = tokenEntities[0];
-          await strapi.entityService.update(
-            "api::token.token",
-            tokenEntity.id,
-            {
-              data: {
-                status: "Burned",
-              },
-            }
-          );
+          continue;
         }
 
-        continue;
-      }
-
-      /* --------------- Unstake --------------- */
-      if (
-        (_from as string).toLowerCase() ===
-        fundEntity.vault.contractAddress.toLowerCase()
-      ) {
-        await strapi.entityService.create("api::event-log.event-log", {
-          data: {
-            action: "Unstake",
-            blockNumber: txLog.blockNumber,
-            blockHash: txLog.blockHash,
-            transactionIndex: txLog.transactionIndex,
-            sftAddress: txLog.address,
-            data: txLog.data,
-            topics: txLog.topics,
-            transactionHash: txLog.transactionHash,
-            logIndex: txLog.logIndex,
-          },
-        });
-
-        const tokenEntities = await strapi.entityService.findMany(
-          "api::token.token",
-          {
-            filters: {
-              contractAddress: {
-                $eqi: fundEntity.sft.contractAddress,
-              },
-              tokenId: {
-                $eqi: web3.utils.padLeft(
-                  web3.utils.toHex(_tokenId as bigint),
-                  64
-                ),
-              },
+        /* ----------------- Burn ---------------- */
+        if (_to === "0x0000000000000000000000000000000000000000") {
+          await strapi.entityService.create("api::event-log.event-log", {
+            data: {
+              action: "Burn",
+              blockNumber: txLog.blockNumber,
+              blockHash: txLog.blockHash,
+              transactionIndex: txLog.transactionIndex,
+              sftAddress: txLog.address,
+              data: txLog.data,
+              topics: txLog.topics,
+              transactionHash: txLog.transactionHash,
+              logIndex: txLog.logIndex,
             },
-          }
-        );
-        if (tokenEntities.length !== 0) {
-          const tokenEntity = tokenEntities[0];
-          await strapi.entityService.update(
-            "api::token.token",
-            tokenEntity.id,
-            {
-              data: {
-                status: "Holding",
-              },
-            }
-          );
+          });
 
-          const walletEntities = await strapi.entityService.findMany(
-            "api::wallet.wallet",
+          const tokenEntities = await strapi.entityService.findMany(
+            "api::token.token",
             {
               filters: {
-                address: {
-                  $eqi: _to as string,
+                contractAddress: {
+                  $eqi: fundEntity.sft.contractAddress,
+                },
+                tokenId: {
+                  $eqi: web3.utils.padLeft(
+                    web3.utils.toHex(_tokenId as bigint),
+                    64
+                  ),
                 },
               },
-              populate: ["user"],
             }
           );
-          if (walletEntities.length !== 0) {
-            const userId = walletEntities[0].user.id;
-
-            const referralEntities = await strapi.entityService.findMany(
-              "api::referral.referral",
+          if (tokenEntities.length !== 0) {
+            const tokenEntity = tokenEntities[0];
+            await strapi.entityService.update(
+              "api::token.token",
+              tokenEntity.id,
               {
-                filters: {
-                  user: {
-                    id: userId,
-                  },
+                data: {
+                  status: "Burned",
                 },
               }
             );
-            if (referralEntities.length !== 0) {
-              const referralEntity = referralEntities[0];
-              const tokenValue = N(tokenEntity.tokenValue).div(N(10).pow(18));
-
-              await strapi.db.query("api::referral.referral").update({
-                where: {
-                  id: referralEntity.id,
-                },
-                data: {
-                  stakedValue: N(referralEntity.stakedValue)
-                    .sub(tokenValue)
-                    .round()
-                    .toNumber(),
-                },
-              });
-            }
           }
+
+          continue;
         }
 
-        continue;
-      }
+        /* --------------- Unstake --------------- */
+        if (
+          (_from as string).toLowerCase() ===
+          fundEntity.vault.contractAddress.toLowerCase()
+        ) {
+          await strapi.entityService.create("api::event-log.event-log", {
+            data: {
+              action: "Unstake",
+              blockNumber: txLog.blockNumber,
+              blockHash: txLog.blockHash,
+              transactionIndex: txLog.transactionIndex,
+              sftAddress: txLog.address,
+              data: txLog.data,
+              topics: txLog.topics,
+              transactionHash: txLog.transactionHash,
+              logIndex: txLog.logIndex,
+            },
+          });
 
-      /* ---------------- Stake ---------------- */
-      if (
-        (_to as string).toLowerCase() ===
-        fundEntity.vault.contractAddress.toLowerCase()
-      ) {
+          const tokenEntities = await strapi.entityService.findMany(
+            "api::token.token",
+            {
+              filters: {
+                contractAddress: {
+                  $eqi: fundEntity.sft.contractAddress,
+                },
+                tokenId: {
+                  $eqi: web3.utils.padLeft(
+                    web3.utils.toHex(_tokenId as bigint),
+                    64
+                  ),
+                },
+              },
+            }
+          );
+          if (tokenEntities.length !== 0) {
+            const tokenEntity = tokenEntities[0];
+            await strapi.entityService.update(
+              "api::token.token",
+              tokenEntity.id,
+              {
+                data: {
+                  status: "Holding",
+                },
+              }
+            );
+
+            const walletEntities = await strapi.entityService.findMany(
+              "api::wallet.wallet",
+              {
+                filters: {
+                  address: {
+                    $eqi: _to as string,
+                  },
+                },
+                populate: ["user"],
+              }
+            );
+            if (walletEntities.length !== 0) {
+              const userId = walletEntities[0].user.id;
+
+              const referralEntities = await strapi.entityService.findMany(
+                "api::referral.referral",
+                {
+                  filters: {
+                    user: {
+                      id: userId,
+                    },
+                  },
+                }
+              );
+              if (referralEntities.length !== 0) {
+                const referralEntity = referralEntities[0];
+                const tokenValue = N(tokenEntity.tokenValue).div(N(10).pow(18));
+
+                await strapi.db.query("api::referral.referral").update({
+                  where: {
+                    id: referralEntity.id,
+                  },
+                  data: {
+                    stakedValue: N(referralEntity.stakedValue)
+                      .sub(tokenValue)
+                      .round()
+                      .toNumber(),
+                  },
+                });
+              }
+            }
+          }
+
+          continue;
+        }
+
+        /* ---------------- Stake ---------------- */
+        if (
+          (_to as string).toLowerCase() ===
+          fundEntity.vault.contractAddress.toLowerCase()
+        ) {
+          await strapi.entityService.create("api::event-log.event-log", {
+            data: {
+              action: "Stake",
+              blockNumber: txLog.blockNumber,
+              blockHash: txLog.blockHash,
+              transactionIndex: txLog.transactionIndex,
+              sftAddress: txLog.address,
+              data: txLog.data,
+              topics: txLog.topics,
+              transactionHash: txLog.transactionHash,
+              logIndex: txLog.logIndex,
+            },
+          });
+
+          const tokenEntities = await strapi.entityService.findMany(
+            "api::token.token",
+            {
+              filters: {
+                contractAddress: {
+                  $eqi: fundEntity.sft.contractAddress,
+                },
+                tokenId: {
+                  $eqi: web3.utils.padLeft(
+                    web3.utils.toHex(_tokenId as bigint),
+                    64
+                  ),
+                },
+              },
+            }
+          );
+          if (tokenEntities.length !== 0) {
+            const tokenEntity = tokenEntities[0];
+            await strapi.entityService.update(
+              "api::token.token",
+              tokenEntity.id,
+              {
+                data: {
+                  status: "Staking",
+                },
+              }
+            );
+
+            const walletEntities = await strapi.entityService.findMany(
+              "api::wallet.wallet",
+              {
+                filters: {
+                  address: {
+                    $eqi: _from as string,
+                  },
+                },
+                populate: ["user"],
+              }
+            );
+            if (walletEntities.length !== 0) {
+              const userId = walletEntities[0].user.id;
+
+              const referralEntities = await strapi.entityService.findMany(
+                "api::referral.referral",
+                {
+                  filters: {
+                    user: {
+                      id: userId,
+                    },
+                  },
+                }
+              );
+              if (referralEntities.length !== 0) {
+                const referralEntity = referralEntities[0];
+                const tokenValue = N(tokenEntity.tokenValue).div(N(10).pow(18));
+
+                await strapi.db.query("api::referral.referral").update({
+                  where: {
+                    id: referralEntity.id,
+                  },
+                  data: {
+                    stakedValue: N(referralEntity.stakedValue)
+                      .add(tokenValue)
+                      .round()
+                      .toNumber(),
+                  },
+                });
+              }
+            }
+          }
+
+          continue;
+        }
+
+        /* ------------ TransferToken ------------ */
         await strapi.entityService.create("api::event-log.event-log", {
           data: {
-            action: "Stake",
+            action: "TransferToken",
             blockNumber: txLog.blockNumber,
             blockHash: txLog.blockHash,
             transactionIndex: txLog.transactionIndex,
@@ -464,185 +597,129 @@ export const fetchTokenEventLogTask = async ({
             tokenEntity.id,
             {
               data: {
-                status: "Staking",
+                owner: _to as string,
               },
             }
           );
-
-          const walletEntities = await strapi.entityService.findMany(
-            "api::wallet.wallet",
-            {
-              filters: {
-                address: {
-                  $eqi: _from as string,
-                },
-              },
-              populate: ["user"],
-            }
-          );
-          if (walletEntities.length !== 0) {
-            const userId = walletEntities[0].user.id;
-
-            const referralEntities = await strapi.entityService.findMany(
-              "api::referral.referral",
-              {
-                filters: {
-                  user: {
-                    id: userId,
-                  },
-                },
-              }
-            );
-            if (referralEntities.length !== 0) {
-              const referralEntity = referralEntities[0];
-              const tokenValue = N(tokenEntity.tokenValue).div(N(10).pow(18));
-
-              await strapi.db.query("api::referral.referral").update({
-                where: {
-                  id: referralEntity.id,
-                },
-                data: {
-                  stakedValue: N(referralEntity.stakedValue)
-                    .add(tokenValue)
-                    .round()
-                    .toNumber(),
-                },
-              });
-            }
-          }
         }
 
         continue;
       }
-
-      /* ------------ TransferToken ------------ */
-      await strapi.entityService.create("api::event-log.event-log", {
-        data: {
-          action: "TransferToken",
-          blockNumber: txLog.blockNumber,
-          blockHash: txLog.blockHash,
-          transactionIndex: txLog.transactionIndex,
-          sftAddress: txLog.address,
-          data: txLog.data,
-          topics: txLog.topics,
-          transactionHash: txLog.transactionHash,
-          logIndex: txLog.logIndex,
-        },
-      });
-
-      const tokenEntities = await strapi.entityService.findMany(
-        "api::token.token",
-        {
-          filters: {
-            contractAddress: {
-              $eqi: fundEntity.sft.contractAddress,
-            },
-            tokenId: {
-              $eqi: web3.utils.padLeft(
-                web3.utils.toHex(_tokenId as bigint),
-                64
-              ),
-            },
-          },
-        }
-      );
-      if (tokenEntities.length !== 0) {
-        const tokenEntity = tokenEntities[0];
-        await strapi.entityService.update("api::token.token", tokenEntity.id, {
-          data: {
-            owner: _to as string,
-          },
-        });
+    }
+    for await (let txLog of claimTxLogsResponse) {
+      if (
+        latestTokenEventLogBlockNumber === txLog.blockNumber &&
+        latestTokenEventLogIndex >= txLog.logIndex
+      ) {
+        continue;
+      } else {
+        totalSynced += 1;
       }
 
-      continue;
-    }
-  }
-  for await (let txLog of claimTxLogsResponse) {
-    if (
-      latestTokenEventLogBlockNumber === txLog.blockNumber &&
-      latestTokenEventLogIndex >= txLog.logIndex
-    ) {
-      continue;
-    }
+      const topics = txLog.topics;
+      const eventNameHash = topics[0];
 
-    const topics = txLog.topics;
-    const eventNameHash = topics[0];
+      if (eventNameHash === CLAIM_EVENT_HASH) {
+        const { owner, amount } = web3.eth.abi.decodeLog(
+          CLAIM_EVENT_ABI,
+          txLog.data,
+          txLog.topics.slice(1)
+        );
 
-    if (eventNameHash === CLAIM_EVENT_HASH) {
-      const { owner, amount } = web3.eth.abi.decodeLog(
-        CLAIM_EVENT_ABI,
-        txLog.data,
-        txLog.topics.slice(1)
-      );
-
-      await strapi.entityService.create("api::event-log.event-log", {
-        data: {
-          action: "Claim",
-          blockNumber: txLog.blockNumber,
-          blockHash: txLog.blockHash,
-          transactionIndex: txLog.transactionIndex,
-          sftAddress: txLog.address,
-          data: txLog.data,
-          topics: txLog.topics,
-          transactionHash: txLog.transactionHash,
-          logIndex: txLog.logIndex,
-        },
-      });
-
-      const walletEntities = await strapi.entityService.findMany(
-        "api::wallet.wallet",
-        {
-          filters: {
-            address: {
-              $eqi: owner as string,
-            },
+        await strapi.entityService.create("api::event-log.event-log", {
+          data: {
+            action: "Claim",
+            blockNumber: txLog.blockNumber,
+            blockHash: txLog.blockHash,
+            transactionIndex: txLog.transactionIndex,
+            sftAddress: txLog.address,
+            data: txLog.data,
+            topics: txLog.topics,
+            transactionHash: txLog.transactionHash,
+            logIndex: txLog.logIndex,
           },
-          populate: ["user"],
-        }
-      );
-      if (walletEntities.length) {
-        const earningPoints = N(amount as string)
-          .div(N(10).pow(18))
-          .round()
-          .toNumber();
-        const earningExp = N(earningPoints).mul(3).round().toNumber();
+        });
 
-        const referralEntities = await strapi.entityService.findMany(
-          "api::referral.referral",
+        const walletEntities = await strapi.entityService.findMany(
+          "api::wallet.wallet",
           {
             filters: {
-              user: {
-                id: walletEntities[0].user.id,
+              address: {
+                $eqi: owner as string,
               },
             },
+            populate: ["user"],
           }
         );
-        if (referralEntities.length) {
-          await strapi.entityService.update(
+        if (walletEntities.length) {
+          const earningPoints = N(amount as string)
+            .div(N(10).pow(18))
+            .round()
+            .toNumber();
+          const earningExp = N(earningPoints).mul(3).round().toNumber();
+
+          const referralEntities = await strapi.entityService.findMany(
             "api::referral.referral",
-            referralEntities[0].id,
             {
-              data: {
-                claimedRewards:
-                  referralEntities[0].claimedRewards + earningPoints,
+              filters: {
+                user: {
+                  id: walletEntities[0].user.id,
+                },
               },
             }
           );
-        }
+          if (referralEntities.length) {
+            await strapi.entityService.update(
+              "api::referral.referral",
+              referralEntities[0].id,
+              {
+                data: {
+                  claimedRewards:
+                    referralEntities[0].claimedRewards + earningPoints,
+                },
+              }
+            );
+          }
 
-        await strapi.service("api::point-record.point-record").logPointRecord({
-          type: "StakeShare",
-          user: walletEntities[0].user,
-          earningExp,
-          earningPoints,
-          receipt: {
-            userId: walletEntities[0].user.id,
-            exp: earningExp,
-            points: N(amount as string).toString(),
-          },
-        });
+          await strapi
+            .service("api::point-record.point-record")
+            .logPointRecord({
+              type: "StakeShare",
+              user: walletEntities[0].user,
+              earningExp,
+              earningPoints: 0,
+              receipt: {
+                userId: walletEntities[0].user.id,
+                exp: earningExp,
+                points: 0,
+              },
+            });
+        }
       }
     }
+
+    await strapi.entityService.create("api::task-log.task-log", {
+      data: {
+        action: "SyncEventLog",
+        trigger: "CronJob",
+        message: "Sync event log successfully",
+        detail: {
+          latestTokenEventLogBlockNumber,
+          latestTokenEventLogIndex,
+          totalSynced,
+        },
+        status: "Fulfilled",
+      },
+    });
+  } catch (error) {
+    await strapi.entityService.create("api::task-log.task-log", {
+      data: {
+        action: "SyncEventLog",
+        trigger: "CronJob",
+        message: error.message,
+        detail: {},
+        status: "Rejected",
+      },
+    });
   }
 };

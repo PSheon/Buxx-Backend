@@ -29,14 +29,25 @@ const syncEventLog = async () => {
   /* Sync Event Log */
   let latestTokenEventLogBlockNumber = 0;
   let latestTokenEventLogIndex = 0;
+  let totalSynced = 0;
 
   /* Step 01 - Check Fund exists */
   const fundEntities = await app.entityService.findMany("api::fund.fund", {
     populate: ["sft", "defaultPackages", "vault"],
   });
   if (fundEntities.length === 0) {
+    await app.entityService.create("api::task-log.task-log", {
+      data: {
+        action: "SyncEventLog",
+        trigger: "Manual",
+        message: "Fund not initialized",
+        detail: {},
+        status: "Rejected",
+      },
+    });
     return;
   }
+
   /* Step 02 - Find watch sft and vault contract addresses */
   const watchSFTContracts = fundEntities
     .map((fundEntity) => {
@@ -48,6 +59,15 @@ const syncEventLog = async () => {
     })
     .filter((contractAddress) => contractAddress !== null);
   if (watchSFTContracts.length === 0) {
+    await app.entityService.create("api::task-log.task-log", {
+      data: {
+        action: "SyncEventLog",
+        trigger: "Manual",
+        message: "No SFT contract found",
+        detail: {},
+        status: "Rejected",
+      },
+    });
     return;
   }
   const watchVaultContracts = fundEntities
@@ -60,8 +80,18 @@ const syncEventLog = async () => {
     })
     .filter((contractAddress) => contractAddress !== null);
   if (watchVaultContracts.length === 0) {
+    await app.entityService.create("api::task-log.task-log", {
+      data: {
+        action: "SyncEventLog",
+        trigger: "Manual",
+        message: "No Vault contract found",
+        detail: {},
+        status: "Rejected",
+      },
+    });
     return;
   }
+
   /* Step 03 - Find latest event log entity */
   const tokenEventLogEntities = await app.entityService.findMany(
     "api::event-log.event-log",
@@ -75,264 +105,55 @@ const syncEventLog = async () => {
     latestTokenEventLogBlockNumber = tokenEventLogEntities[0].blockNumber;
     latestTokenEventLogIndex = tokenEventLogEntities[0].logIndex;
   }
+
   /* Step 04 - Fetch logs from blockchain */
-  const txLogsResponse = await alchemy.core.getLogs({
-    fromBlock: latestTokenEventLogBlockNumber,
-    address: watchSFTContracts,
-    topics: [
-      [
-        TRANSFER_TOKEN_EVENT_HASH,
-        TRANSFER_VALUE_EVENT_HASH,
-        SLOT_CHANGED_EVENT_HASH,
+  try {
+    const txLogsResponse = await alchemy.core.getLogs({
+      fromBlock: latestTokenEventLogBlockNumber,
+      address: watchSFTContracts,
+      topics: [
+        [
+          TRANSFER_TOKEN_EVENT_HASH,
+          TRANSFER_VALUE_EVENT_HASH,
+          SLOT_CHANGED_EVENT_HASH,
+        ],
       ],
-    ],
-  });
-  const claimTxLogsResponse = await alchemy.core.getLogs({
-    fromBlock: latestTokenEventLogBlockNumber,
-    address: watchVaultContracts,
-    topics: [[CLAIM_EVENT_HASH]],
-  });
+    });
+    const claimTxLogsResponse = await alchemy.core.getLogs({
+      fromBlock: latestTokenEventLogBlockNumber,
+      address: watchVaultContracts,
+      topics: [[CLAIM_EVENT_HASH]],
+    });
 
-  for await (let txLog of txLogsResponse) {
-    if (
-      latestTokenEventLogBlockNumber === txLog.blockNumber &&
-      latestTokenEventLogIndex >= txLog.logIndex
-    ) {
-      continue;
-    }
-
-    const topics = txLog.topics;
-    const eventNameHash = topics[0];
-    const fundEntity = fundEntities.find(
-      (fund) =>
-        fund.sft.contractAddress.toLowerCase() === txLog.address.toLowerCase()
-    );
-
-    /* Detect log action - MintPackage, TransferToken, TransferValue, ChangeSlot, Stake, Unstake, Burn */
-    if (eventNameHash === TRANSFER_VALUE_EVENT_HASH) {
-      const { _fromTokenId, _toTokenId, _value } = web3.eth.abi.decodeLog(
-        TRANSFER_VALUE_EVENT_ABI,
-        txLog.data,
-        txLog.topics.slice(1)
-      );
-
-      /* ------------ TransferValue ------------ */
-      await app.entityService.create("api::event-log.event-log", {
-        data: {
-          action: "TransferValue",
-          blockNumber: txLog.blockNumber,
-          blockHash: txLog.blockHash,
-          transactionIndex: txLog.transactionIndex,
-          sftAddress: txLog.address,
-          data: txLog.data,
-          topics: txLog.topics,
-          transactionHash: txLog.transactionHash,
-          logIndex: txLog.logIndex,
-        },
-      });
-
-      const fromTokenEntities = await app.entityService.findMany(
-        "api::token.token",
-        {
-          filters: {
-            contractAddress: {
-              $eqi: fundEntity.sft.contractAddress,
-            },
-            tokenId: {
-              $eqi: web3.utils.padLeft(
-                web3.utils.toHex(_fromTokenId as bigint),
-                64
-              ),
-            },
-          },
-        }
-      );
-      if (fromTokenEntities.length !== 0) {
-        const tokenEntity = fromTokenEntities[0];
-        await app.db.query("api::token.token").update({
-          where: {
-            id: tokenEntity.id,
-          },
-          data: {
-            tokenValue: N(tokenEntity.tokenValue)
-              .sub(_value as string)
-              .toString(),
-          },
-        });
-      }
-
-      const toTokenEntities = await app.entityService.findMany(
-        "api::token.token",
-        {
-          filters: {
-            contractAddress: {
-              $eqi: fundEntity.sft.contractAddress,
-            },
-            tokenId: {
-              $eqi: web3.utils.padLeft(
-                web3.utils.toHex(_toTokenId as bigint),
-                64
-              ),
-            },
-          },
-        }
-      );
-      if (toTokenEntities.length !== 0) {
-        const tokenEntity = toTokenEntities[0];
-        await app.db.query("api::token.token").update({
-          where: {
-            id: tokenEntity.id,
-          },
-          data: {
-            tokenValue: N(tokenEntity.tokenValue)
-              .add(_value as string)
-              .toString(),
-          },
-        });
-      }
-
-      continue;
-    } else if (eventNameHash === SLOT_CHANGED_EVENT_HASH) {
-      const { _tokenId, _newSlot } = web3.eth.abi.decodeLog(
-        SLOT_CHANGED_EVENT_ABI,
-        txLog.data,
-        txLog.topics.slice(1)
-      );
-
-      /* -------------- ChangeSlot ------------- */
-      await app.entityService.create("api::event-log.event-log", {
-        data: {
-          action: "ChangeSlot",
-          blockNumber: txLog.blockNumber,
-          blockHash: txLog.blockHash,
-          transactionIndex: txLog.transactionIndex,
-          sftAddress: txLog.address,
-          data: txLog.data,
-          topics: txLog.topics,
-          transactionHash: txLog.transactionHash,
-          logIndex: txLog.logIndex,
-        },
-      });
-
-      const tokenEntities = await app.db.query("api::token.token").findMany({
-        where: {
-          contractAddress: {
-            $eqi: fundEntity.sft.contractAddress,
-          },
-          tokenId: {
-            $eqi: web3.utils.padLeft(web3.utils.toHex(_tokenId as bigint), 64),
-          },
-        },
-      });
-      if (tokenEntities.length !== 0) {
-        const tokenEntity = tokenEntities[0];
-        const packageId = fundEntity.defaultPackages.find(
-          (pkg) => pkg.packageId === _newSlot.toString()
-        )?.id;
-        await app.db.query("api::token.token").update({
-          where: {
-            id: tokenEntity.id,
-          },
-          data: {
-            package: packageId || null,
-          },
-        });
-      }
-
-      continue;
-    } else if (eventNameHash === TRANSFER_TOKEN_EVENT_HASH) {
-      const { _from, _to, _tokenId } = web3.eth.abi.decodeLog(
-        TRANSFER_TOKEN_EVENT_ABI,
-        txLog.data,
-        txLog.topics.slice(1)
-      );
-
-      /* ------------- MintPackage; ------------ */
-      if (_from === "0x0000000000000000000000000000000000000000") {
-        await app.entityService.create("api::event-log.event-log", {
-          data: {
-            action: "MintPackage",
-            blockNumber: txLog.blockNumber,
-            blockHash: txLog.blockHash,
-            transactionIndex: txLog.transactionIndex,
-            sftAddress: txLog.address,
-            data: txLog.data,
-            topics: txLog.topics,
-            transactionHash: txLog.transactionHash,
-            logIndex: txLog.logIndex,
-          },
-        });
-
-        await app.entityService.create("api::token.token", {
-          data: {
-            belongToFund: fundEntity.id,
-            contractAddress: fundEntity.sft.contractAddress,
-            tokenId: web3.utils.padLeft(
-              web3.utils.toHex(_tokenId as bigint),
-              64
-            ),
-            owner: _to as string,
-          },
-        });
-
-        continue;
-      }
-
-      /* ----------------- Burn ---------------- */
-      if (_to === "0x0000000000000000000000000000000000000000") {
-        await app.entityService.create("api::event-log.event-log", {
-          data: {
-            action: "Burn",
-            blockNumber: txLog.blockNumber,
-            blockHash: txLog.blockHash,
-            transactionIndex: txLog.transactionIndex,
-            sftAddress: txLog.address,
-            data: txLog.data,
-            topics: txLog.topics,
-            transactionHash: txLog.transactionHash,
-            logIndex: txLog.logIndex,
-          },
-        });
-
-        const tokenEntities = await app.entityService.findMany(
-          "api::token.token",
-          {
-            filters: {
-              contractAddress: {
-                $eqi: fundEntity.sft.contractAddress,
-              },
-              tokenId: {
-                $eqi: web3.utils.padLeft(
-                  web3.utils.toHex(_tokenId as bigint),
-                  64
-                ),
-              },
-            },
-          }
-        );
-        if (tokenEntities.length !== 0) {
-          const tokenEntity = tokenEntities[0];
-          await app.db.query("api::token.token").update({
-            where: {
-              id: tokenEntity.id,
-            },
-            data: {
-              status: "Burned",
-            },
-          });
-        }
-
-        continue;
-      }
-
-      /* --------------- Unstake --------------- */
+    for await (let txLog of txLogsResponse) {
       if (
-        (_from as string).toLowerCase() ===
-        fundEntity.vault.contractAddress.toLowerCase()
+        latestTokenEventLogBlockNumber === txLog.blockNumber &&
+        latestTokenEventLogIndex >= txLog.logIndex
       ) {
+        continue;
+      } else {
+        totalSynced += 1;
+      }
+
+      const topics = txLog.topics;
+      const eventNameHash = topics[0];
+      const fundEntity = fundEntities.find(
+        (fund) =>
+          fund.sft.contractAddress.toLowerCase() === txLog.address.toLowerCase()
+      );
+
+      /* Detect log action - MintPackage, TransferToken, TransferValue, ChangeSlot, Stake, Unstake, Burn */
+      if (eventNameHash === TRANSFER_VALUE_EVENT_HASH) {
+        const { _fromTokenId, _toTokenId, _value } = web3.eth.abi.decodeLog(
+          TRANSFER_VALUE_EVENT_ABI,
+          txLog.data,
+          txLog.topics.slice(1)
+        );
+
+        /* ------------ TransferValue ------------ */
         await app.entityService.create("api::event-log.event-log", {
           data: {
-            action: "Unstake",
+            action: "TransferValue",
             blockNumber: txLog.blockNumber,
             blockHash: txLog.blockHash,
             transactionIndex: txLog.transactionIndex,
@@ -344,7 +165,7 @@ const syncEventLog = async () => {
           },
         });
 
-        const tokenEntities = await app.entityService.findMany(
+        const fromTokenEntities = await app.entityService.findMany(
           "api::token.token",
           {
             filters: {
@@ -353,78 +174,69 @@ const syncEventLog = async () => {
               },
               tokenId: {
                 $eqi: web3.utils.padLeft(
-                  web3.utils.toHex(_tokenId as bigint),
+                  web3.utils.toHex(_fromTokenId as bigint),
                   64
                 ),
               },
             },
           }
         );
-        if (tokenEntities.length !== 0) {
-          const tokenEntity = tokenEntities[0];
+        if (fromTokenEntities.length !== 0) {
+          const tokenEntity = fromTokenEntities[0];
           await app.db.query("api::token.token").update({
             where: {
               id: tokenEntity.id,
             },
             data: {
-              status: "Holding",
+              tokenValue: N(tokenEntity.tokenValue)
+                .sub(_value as string)
+                .toString(),
             },
           });
+        }
 
-          const walletEntities = await app.entityService.findMany(
-            "api::wallet.wallet",
-            {
-              filters: {
-                address: {
-                  $eqi: _to as string,
-                },
+        const toTokenEntities = await app.entityService.findMany(
+          "api::token.token",
+          {
+            filters: {
+              contractAddress: {
+                $eqi: fundEntity.sft.contractAddress,
               },
-              populate: ["user"],
-            }
-          );
-          if (walletEntities.length !== 0) {
-            const userId = walletEntities[0].user.id;
-
-            const referralEntities = await app.entityService.findMany(
-              "api::referral.referral",
-              {
-                filters: {
-                  user: {
-                    id: userId,
-                  },
-                },
-              }
-            );
-            if (referralEntities.length !== 0) {
-              const referralEntity = referralEntities[0];
-              const tokenValue = N(tokenEntity.tokenValue).div(N(10).pow(18));
-
-              await app.db.query("api::referral.referral").update({
-                where: {
-                  id: referralEntity.id,
-                },
-                data: {
-                  stakedValue: N(referralEntity.stakedValue)
-                    .sub(tokenValue)
-                    .round()
-                    .toNumber(),
-                },
-              });
-            }
+              tokenId: {
+                $eqi: web3.utils.padLeft(
+                  web3.utils.toHex(_toTokenId as bigint),
+                  64
+                ),
+              },
+            },
           }
+        );
+        if (toTokenEntities.length !== 0) {
+          const tokenEntity = toTokenEntities[0];
+          await app.db.query("api::token.token").update({
+            where: {
+              id: tokenEntity.id,
+            },
+            data: {
+              tokenValue: N(tokenEntity.tokenValue)
+                .add(_value as string)
+                .toString(),
+            },
+          });
         }
 
         continue;
-      }
+      } else if (eventNameHash === SLOT_CHANGED_EVENT_HASH) {
+        const { _tokenId, _newSlot } = web3.eth.abi.decodeLog(
+          SLOT_CHANGED_EVENT_ABI,
+          txLog.data,
+          txLog.topics.slice(1)
+        );
 
-      /* ---------------- Stake ---------------- */
-      if (
-        (_to as string).toLowerCase() ===
-        fundEntity.vault.contractAddress.toLowerCase()
-      ) {
+        /* -------------- ChangeSlot ------------- */
         await app.entityService.create("api::event-log.event-log", {
           data: {
-            action: "Stake",
+            action: "ChangeSlot",
             blockNumber: txLog.blockNumber,
             blockHash: txLog.blockHash,
             transactionIndex: txLog.transactionIndex,
@@ -436,98 +248,8 @@ const syncEventLog = async () => {
           },
         });
 
-        const tokenEntities = await app.entityService.findMany(
-          "api::token.token",
-          {
-            filters: {
-              contractAddress: {
-                $eqi: fundEntity.sft.contractAddress,
-              },
-              tokenId: {
-                $eqi: web3.utils.padLeft(
-                  web3.utils.toHex(_tokenId as bigint),
-                  64
-                ),
-              },
-            },
-          }
-        );
-        if (tokenEntities.length !== 0) {
-          const tokenEntity = tokenEntities[0];
-          await app.db.query("api::token.token").update({
-            where: {
-              id: tokenEntity.id,
-            },
-            data: {
-              status: "Staking",
-            },
-          });
-
-          const walletEntities = await app.entityService.findMany(
-            "api::wallet.wallet",
-            {
-              filters: {
-                address: {
-                  $eqi: _from as string,
-                },
-              },
-              populate: ["user"],
-            }
-          );
-          if (walletEntities.length !== 0) {
-            const userId = walletEntities[0].user.id;
-
-            const referralEntities = await app.entityService.findMany(
-              "api::referral.referral",
-              {
-                filters: {
-                  user: {
-                    id: userId,
-                  },
-                },
-              }
-            );
-            if (referralEntities.length !== 0) {
-              const referralEntity = referralEntities[0];
-              const tokenValue = N(tokenEntity.tokenValue).div(N(10).pow(18));
-
-              await app.db.query("api::referral.referral").update({
-                where: {
-                  id: referralEntity.id,
-                },
-                data: {
-                  stakedValue: N(referralEntity.stakedValue)
-                    .add(tokenValue)
-                    .round()
-                    .toNumber(),
-                },
-              });
-            }
-          }
-        }
-
-        continue;
-      }
-
-      /* ------------ TransferToken ------------ */
-      await app.entityService.create("api::event-log.event-log", {
-        data: {
-          action: "TransferToken",
-          blockNumber: txLog.blockNumber,
-          blockHash: txLog.blockHash,
-          transactionIndex: txLog.transactionIndex,
-          sftAddress: txLog.address,
-          data: txLog.data,
-          topics: txLog.topics,
-          transactionHash: txLog.transactionHash,
-          logIndex: txLog.logIndex,
-        },
-      });
-
-      const tokenEntities = await app.entityService.findMany(
-        "api::token.token",
-        {
-          filters: {
+        const tokenEntities = await app.db.query("api::token.token").findMany({
+          where: {
             contractAddress: {
               $eqi: fundEntity.sft.contractAddress,
             },
@@ -538,109 +260,452 @@ const syncEventLog = async () => {
               ),
             },
           },
+        });
+        if (tokenEntities.length !== 0) {
+          const tokenEntity = tokenEntities[0];
+          const packageId = fundEntity.defaultPackages.find(
+            (pkg) => pkg.packageId === _newSlot.toString()
+          )?.id;
+          await app.db.query("api::token.token").update({
+            where: {
+              id: tokenEntity.id,
+            },
+            data: {
+              package: packageId || null,
+            },
+          });
         }
-      );
-      if (tokenEntities.length !== 0) {
-        const tokenEntity = tokenEntities[0];
-        await app.db.query("api::token.token").update({
-          where: {
-            id: tokenEntity.id,
-          },
+
+        continue;
+      } else if (eventNameHash === TRANSFER_TOKEN_EVENT_HASH) {
+        const { _from, _to, _tokenId } = web3.eth.abi.decodeLog(
+          TRANSFER_TOKEN_EVENT_ABI,
+          txLog.data,
+          txLog.topics.slice(1)
+        );
+
+        /* ------------- MintPackage; ------------ */
+        if (_from === "0x0000000000000000000000000000000000000000") {
+          await app.entityService.create("api::event-log.event-log", {
+            data: {
+              action: "MintPackage",
+              blockNumber: txLog.blockNumber,
+              blockHash: txLog.blockHash,
+              transactionIndex: txLog.transactionIndex,
+              sftAddress: txLog.address,
+              data: txLog.data,
+              topics: txLog.topics,
+              transactionHash: txLog.transactionHash,
+              logIndex: txLog.logIndex,
+            },
+          });
+
+          await app.entityService.create("api::token.token", {
+            data: {
+              belongToFund: fundEntity.id,
+              contractAddress: fundEntity.sft.contractAddress,
+              tokenId: web3.utils.padLeft(
+                web3.utils.toHex(_tokenId as bigint),
+                64
+              ),
+              owner: _to as string,
+            },
+          });
+
+          continue;
+        }
+
+        /* ----------------- Burn ---------------- */
+        if (_to === "0x0000000000000000000000000000000000000000") {
+          await app.entityService.create("api::event-log.event-log", {
+            data: {
+              action: "Burn",
+              blockNumber: txLog.blockNumber,
+              blockHash: txLog.blockHash,
+              transactionIndex: txLog.transactionIndex,
+              sftAddress: txLog.address,
+              data: txLog.data,
+              topics: txLog.topics,
+              transactionHash: txLog.transactionHash,
+              logIndex: txLog.logIndex,
+            },
+          });
+
+          const tokenEntities = await app.entityService.findMany(
+            "api::token.token",
+            {
+              filters: {
+                contractAddress: {
+                  $eqi: fundEntity.sft.contractAddress,
+                },
+                tokenId: {
+                  $eqi: web3.utils.padLeft(
+                    web3.utils.toHex(_tokenId as bigint),
+                    64
+                  ),
+                },
+              },
+            }
+          );
+          if (tokenEntities.length !== 0) {
+            const tokenEntity = tokenEntities[0];
+            await app.db.query("api::token.token").update({
+              where: {
+                id: tokenEntity.id,
+              },
+              data: {
+                status: "Burned",
+              },
+            });
+          }
+
+          continue;
+        }
+
+        /* --------------- Unstake --------------- */
+        if (
+          (_from as string).toLowerCase() ===
+          fundEntity.vault.contractAddress.toLowerCase()
+        ) {
+          await app.entityService.create("api::event-log.event-log", {
+            data: {
+              action: "Unstake",
+              blockNumber: txLog.blockNumber,
+              blockHash: txLog.blockHash,
+              transactionIndex: txLog.transactionIndex,
+              sftAddress: txLog.address,
+              data: txLog.data,
+              topics: txLog.topics,
+              transactionHash: txLog.transactionHash,
+              logIndex: txLog.logIndex,
+            },
+          });
+
+          const tokenEntities = await app.entityService.findMany(
+            "api::token.token",
+            {
+              filters: {
+                contractAddress: {
+                  $eqi: fundEntity.sft.contractAddress,
+                },
+                tokenId: {
+                  $eqi: web3.utils.padLeft(
+                    web3.utils.toHex(_tokenId as bigint),
+                    64
+                  ),
+                },
+              },
+            }
+          );
+          if (tokenEntities.length !== 0) {
+            const tokenEntity = tokenEntities[0];
+            await app.db.query("api::token.token").update({
+              where: {
+                id: tokenEntity.id,
+              },
+              data: {
+                status: "Holding",
+              },
+            });
+
+            const walletEntities = await app.entityService.findMany(
+              "api::wallet.wallet",
+              {
+                filters: {
+                  address: {
+                    $eqi: _to as string,
+                  },
+                },
+                populate: ["user"],
+              }
+            );
+            if (walletEntities.length !== 0) {
+              const userId = walletEntities[0].user.id;
+
+              const referralEntities = await app.entityService.findMany(
+                "api::referral.referral",
+                {
+                  filters: {
+                    user: {
+                      id: userId,
+                    },
+                  },
+                }
+              );
+              if (referralEntities.length !== 0) {
+                const referralEntity = referralEntities[0];
+                const tokenValue = N(tokenEntity.tokenValue).div(N(10).pow(18));
+
+                await app.db.query("api::referral.referral").update({
+                  where: {
+                    id: referralEntity.id,
+                  },
+                  data: {
+                    stakedValue: N(referralEntity.stakedValue)
+                      .sub(tokenValue)
+                      .round()
+                      .toNumber(),
+                  },
+                });
+              }
+            }
+          }
+
+          continue;
+        }
+
+        /* ---------------- Stake ---------------- */
+        if (
+          (_to as string).toLowerCase() ===
+          fundEntity.vault.contractAddress.toLowerCase()
+        ) {
+          await app.entityService.create("api::event-log.event-log", {
+            data: {
+              action: "Stake",
+              blockNumber: txLog.blockNumber,
+              blockHash: txLog.blockHash,
+              transactionIndex: txLog.transactionIndex,
+              sftAddress: txLog.address,
+              data: txLog.data,
+              topics: txLog.topics,
+              transactionHash: txLog.transactionHash,
+              logIndex: txLog.logIndex,
+            },
+          });
+
+          const tokenEntities = await app.entityService.findMany(
+            "api::token.token",
+            {
+              filters: {
+                contractAddress: {
+                  $eqi: fundEntity.sft.contractAddress,
+                },
+                tokenId: {
+                  $eqi: web3.utils.padLeft(
+                    web3.utils.toHex(_tokenId as bigint),
+                    64
+                  ),
+                },
+              },
+            }
+          );
+          if (tokenEntities.length !== 0) {
+            const tokenEntity = tokenEntities[0];
+            await app.db.query("api::token.token").update({
+              where: {
+                id: tokenEntity.id,
+              },
+              data: {
+                status: "Staking",
+              },
+            });
+
+            const walletEntities = await app.entityService.findMany(
+              "api::wallet.wallet",
+              {
+                filters: {
+                  address: {
+                    $eqi: _from as string,
+                  },
+                },
+                populate: ["user"],
+              }
+            );
+            if (walletEntities.length !== 0) {
+              const userId = walletEntities[0].user.id;
+
+              const referralEntities = await app.entityService.findMany(
+                "api::referral.referral",
+                {
+                  filters: {
+                    user: {
+                      id: userId,
+                    },
+                  },
+                }
+              );
+              if (referralEntities.length !== 0) {
+                const referralEntity = referralEntities[0];
+                const tokenValue = N(tokenEntity.tokenValue).div(N(10).pow(18));
+
+                await app.db.query("api::referral.referral").update({
+                  where: {
+                    id: referralEntity.id,
+                  },
+                  data: {
+                    stakedValue: N(referralEntity.stakedValue)
+                      .add(tokenValue)
+                      .round()
+                      .toNumber(),
+                  },
+                });
+              }
+            }
+          }
+
+          continue;
+        }
+
+        /* ------------ TransferToken ------------ */
+        await app.entityService.create("api::event-log.event-log", {
           data: {
-            owner: _to as string,
+            action: "TransferToken",
+            blockNumber: txLog.blockNumber,
+            blockHash: txLog.blockHash,
+            transactionIndex: txLog.transactionIndex,
+            sftAddress: txLog.address,
+            data: txLog.data,
+            topics: txLog.topics,
+            transactionHash: txLog.transactionHash,
+            logIndex: txLog.logIndex,
           },
         });
-      }
 
-      continue;
-    }
-  }
-  for await (let txLog of claimTxLogsResponse) {
-    if (
-      latestTokenEventLogBlockNumber === txLog.blockNumber &&
-      latestTokenEventLogIndex >= txLog.logIndex
-    ) {
-      continue;
-    }
-
-    const topics = txLog.topics;
-    const eventNameHash = topics[0];
-
-    if (eventNameHash === CLAIM_EVENT_HASH) {
-      const { owner, amount } = web3.eth.abi.decodeLog(
-        CLAIM_EVENT_ABI,
-        txLog.data,
-        txLog.topics.slice(1)
-      );
-
-      await app.entityService.create("api::event-log.event-log", {
-        data: {
-          action: "Claim",
-          blockNumber: txLog.blockNumber,
-          blockHash: txLog.blockHash,
-          transactionIndex: txLog.transactionIndex,
-          sftAddress: txLog.address,
-          data: txLog.data,
-          topics: txLog.topics,
-          transactionHash: txLog.transactionHash,
-          logIndex: txLog.logIndex,
-        },
-      });
-
-      const walletEntities = await app.entityService.findMany(
-        "api::wallet.wallet",
-        {
-          filters: {
-            address: {
-              $eqi: owner as string,
-            },
-          },
-          populate: ["user"],
-        }
-      );
-      if (walletEntities.length) {
-        const earningPoints = N(amount as string)
-          .div(N(10).pow(18))
-          .round()
-          .toNumber();
-        const earningExp = N(earningPoints).mul(3).round().toNumber();
-
-        const referralEntities = await app.entityService.findMany(
-          "api::referral.referral",
+        const tokenEntities = await app.entityService.findMany(
+          "api::token.token",
           {
             filters: {
-              user: {
-                id: walletEntities[0].user.id,
+              contractAddress: {
+                $eqi: fundEntity.sft.contractAddress,
+              },
+              tokenId: {
+                $eqi: web3.utils.padLeft(
+                  web3.utils.toHex(_tokenId as bigint),
+                  64
+                ),
               },
             },
           }
         );
-        if (referralEntities.length) {
-          await app.entityService.update(
+        if (tokenEntities.length !== 0) {
+          const tokenEntity = tokenEntities[0];
+          await app.db.query("api::token.token").update({
+            where: {
+              id: tokenEntity.id,
+            },
+            data: {
+              owner: _to as string,
+            },
+          });
+        }
+
+        continue;
+      }
+    }
+    for await (let txLog of claimTxLogsResponse) {
+      if (
+        latestTokenEventLogBlockNumber === txLog.blockNumber &&
+        latestTokenEventLogIndex >= txLog.logIndex
+      ) {
+        continue;
+      } else {
+        totalSynced += 1;
+      }
+
+      const topics = txLog.topics;
+      const eventNameHash = topics[0];
+
+      if (eventNameHash === CLAIM_EVENT_HASH) {
+        const { owner, amount } = web3.eth.abi.decodeLog(
+          CLAIM_EVENT_ABI,
+          txLog.data,
+          txLog.topics.slice(1)
+        );
+
+        await app.entityService.create("api::event-log.event-log", {
+          data: {
+            action: "Claim",
+            blockNumber: txLog.blockNumber,
+            blockHash: txLog.blockHash,
+            transactionIndex: txLog.transactionIndex,
+            sftAddress: txLog.address,
+            data: txLog.data,
+            topics: txLog.topics,
+            transactionHash: txLog.transactionHash,
+            logIndex: txLog.logIndex,
+          },
+        });
+
+        const walletEntities = await app.entityService.findMany(
+          "api::wallet.wallet",
+          {
+            filters: {
+              address: {
+                $eqi: owner as string,
+              },
+            },
+            populate: ["user"],
+          }
+        );
+        if (walletEntities.length) {
+          const earningPoints = N(amount as string)
+            .div(N(10).pow(18))
+            .round()
+            .toNumber();
+          const earningExp = N(earningPoints).mul(3).round().toNumber();
+
+          const referralEntities = await app.entityService.findMany(
             "api::referral.referral",
-            referralEntities[0].id,
             {
-              data: {
-                claimedRewards:
-                  referralEntities[0].claimedRewards + earningPoints,
+              filters: {
+                user: {
+                  id: walletEntities[0].user.id,
+                },
               },
             }
           );
-        }
+          if (referralEntities.length) {
+            await app.entityService.update(
+              "api::referral.referral",
+              referralEntities[0].id,
+              {
+                data: {
+                  // @ts-ignore
+                  claimedRewards:
+                    referralEntities[0].claimedRewards + earningPoints,
+                },
+              }
+            );
+          }
 
-        await app.service("api::point-record.point-record").logPointRecord({
-          type: "StakeShare",
-          user: walletEntities[0].user,
-          earningExp,
-          earningPoints,
-          receipt: {
-            userId: walletEntities[0].user.id,
-            exp: earningExp,
-            points: amount.toString(),
-          },
-        });
+          await app.service("api::point-record.point-record").logPointRecord({
+            type: "StakeShare",
+            user: walletEntities[0].user,
+            earningExp,
+            earningPoints: 0,
+            receipt: {
+              userId: walletEntities[0].user.id,
+              exp: earningExp,
+              points: 0,
+            },
+          });
+        }
       }
     }
+
+    await app.entityService.create("api::task-log.task-log", {
+      data: {
+        action: "SyncEventLog",
+        trigger: "Manual",
+        message: "Sync event log successfully",
+        detail: {
+          latestTokenEventLogBlockNumber,
+          latestTokenEventLogIndex,
+          totalSynced,
+        },
+        status: "Fulfilled",
+      },
+    });
+  } catch (error) {
+    await app.entityService.create("api::task-log.task-log", {
+      data: {
+        action: "SyncEventLog",
+        trigger: "Manual",
+        message: error.message,
+        detail: {},
+        status: "Rejected",
+      },
+    });
   }
 
   app.server.destroy();

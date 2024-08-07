@@ -1392,12 +1392,14 @@ export interface ApiTaskLogTaskLog extends Schema.CollectionType {
     singularName: 'task-log';
     pluralName: 'task-logs';
     displayName: 'TaskLog';
+    description: '';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    action: Attribute.Enumeration<['SyncEventLog']> & Attribute.Required;
+    action: Attribute.Enumeration<['SyncEventLog', 'ClearTaskLog']> &
+      Attribute.Required;
     trigger: Attribute.Enumeration<['CronJob', 'Manual']>;
     message: Attribute.Text;
     detail: Attribute.JSON;

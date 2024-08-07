@@ -1386,6 +1386,40 @@ export interface ApiReferralReferral extends Schema.CollectionType {
   };
 }
 
+export interface ApiTaskLogTaskLog extends Schema.CollectionType {
+  collectionName: 'task_logs';
+  info: {
+    singularName: 'task-log';
+    pluralName: 'task-logs';
+    displayName: 'TaskLog';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    action: Attribute.Enumeration<['SyncEventLog']> & Attribute.Required;
+    trigger: Attribute.Enumeration<['CronJob', 'Manual']>;
+    message: Attribute.Text;
+    detail: Attribute.JSON;
+    status: Attribute.Enumeration<['Pending', 'Fulfilled', 'Rejected']> &
+      Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::task-log.task-log',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::task-log.task-log',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiTokenToken extends Schema.CollectionType {
   collectionName: 'tokens';
   info: {
@@ -1501,6 +1535,7 @@ declare module '@strapi/types' {
       'api::package.package': ApiPackagePackage;
       'api::point-record.point-record': ApiPointRecordPointRecord;
       'api::referral.referral': ApiReferralReferral;
+      'api::task-log.task-log': ApiTaskLogTaskLog;
       'api::token.token': ApiTokenToken;
       'api::wallet.wallet': ApiWalletWallet;
     }

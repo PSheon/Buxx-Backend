@@ -734,6 +734,58 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::task-log.task-log",
+      "properties": {
+        "fields": [
+          "action",
+          "trigger",
+          "message",
+          "detail",
+          "status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::task-log.task-log",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::task-log.task-log",
+      "properties": {
+        "fields": [
+          "action",
+          "trigger",
+          "message",
+          "detail",
+          "status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::task-log.task-log",
+      "properties": {
+        "fields": [
+          "action",
+          "trigger",
+          "message",
+          "detail",
+          "status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::token.token",
       "properties": {
         "fields": [

@@ -67,8 +67,6 @@ export default factories.createCoreController(
             points: 0,
           },
         });
-
-        return ctx.send({ ok: true });
       } else {
         const latestMeDailyCheckRecord = meDailyCheckRecordEntities[0];
         const latestDate = new Date(latestMeDailyCheckRecord.date);
@@ -101,13 +99,13 @@ export default factories.createCoreController(
         } else {
           throw new ValidationError("Not in the daily-check time");
         }
-
-        await strapi
-          .service("api::daily-check-record.daily-check-record")
-          .updateUserReferralLevel(ctx.state.user.id);
-
-        return ctx.send({ ok: true });
       }
+
+      await strapi
+        .service("api::daily-check-record.daily-check-record")
+        .updateUserReferralLevel(ctx.state.user.id);
+
+      return ctx.send({ ok: true });
     },
   })
 );

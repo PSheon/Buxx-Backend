@@ -241,8 +241,8 @@
       "list": [
         "id",
         "displayName",
-        "createdAt",
-        "updatedAt"
+        "category",
+        "createdAt"
       ]
     },
     "uid": "api::article.article"

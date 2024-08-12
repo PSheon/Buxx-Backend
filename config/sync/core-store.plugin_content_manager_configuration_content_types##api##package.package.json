@@ -221,7 +221,10 @@
         "id",
         "displayName",
         "description",
-        "packageId"
+        "packageId",
+        "priceInUnit",
+        "skin",
+        "status"
       ]
     },
     "uid": "api::package.package"

@@ -510,10 +510,18 @@
       ],
       "list": [
         "id",
+        "avatar",
         "username",
         "email",
         "role",
-        "confirmed"
+        "confirmed",
+        "exp",
+        "points",
+        "fullName",
+        "nationality",
+        "phoneNumber",
+        "idType",
+        "idNumber"
       ]
     },
     "uid": "plugin::users-permissions.user"

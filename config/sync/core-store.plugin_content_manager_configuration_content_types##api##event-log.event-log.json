@@ -257,7 +257,8 @@
         "id",
         "action",
         "blockNumber",
-        "sftAddress"
+        "transactionHash",
+        "transactionIndex"
       ]
     },
     "uid": "api::event-log.event-log"

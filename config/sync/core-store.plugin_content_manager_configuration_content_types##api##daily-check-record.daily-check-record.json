@@ -122,12 +122,6 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "user",
-        "createdAt",
-        "updatedAt"
-      ],
       "edit": [
         [
           {
@@ -145,6 +139,11 @@
             "size": 4
           }
         ]
+      ],
+      "list": [
+        "id",
+        "user",
+        "createdAt"
       ]
     },
     "uid": "api::daily-check-record.daily-check-record"

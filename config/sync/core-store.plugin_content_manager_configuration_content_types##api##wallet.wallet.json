@@ -184,7 +184,8 @@
         "id",
         "user",
         "chain",
-        "address"
+        "address",
+        "connector"
       ]
     },
     "uid": "api::wallet.wallet"

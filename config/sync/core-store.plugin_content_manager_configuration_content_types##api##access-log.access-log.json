@@ -259,8 +259,11 @@
       "list": [
         "id",
         "action",
-        "responseMessage",
-        "status"
+        "status",
+        "browser",
+        "ip",
+        "os",
+        "date"
       ]
     },
     "uid": "api::access-log.access-log"

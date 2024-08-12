@@ -240,8 +240,9 @@
       "list": [
         "id",
         "tokenId",
-        "createdAt",
-        "tokenValue"
+        "tokenValue",
+        "belongToFund",
+        "createdAt"
       ]
     },
     "uid": "api::token.token"

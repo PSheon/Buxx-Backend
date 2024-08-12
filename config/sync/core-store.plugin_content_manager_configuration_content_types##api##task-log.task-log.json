@@ -181,9 +181,10 @@
       ],
       "list": [
         "id",
-        "createdAt",
-        "updatedAt",
-        "action"
+        "action",
+        "trigger",
+        "status",
+        "createdAt"
       ]
     },
     "uid": "api::task-log.task-log"

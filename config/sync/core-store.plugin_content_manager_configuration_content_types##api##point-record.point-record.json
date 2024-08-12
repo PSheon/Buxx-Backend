@@ -202,7 +202,9 @@
         "id",
         "type",
         "user",
-        "earningPoints"
+        "earningExp",
+        "earningPoints",
+        "createdAt"
       ]
     },
     "uid": "api::point-record.point-record"

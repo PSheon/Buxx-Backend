@@ -469,8 +469,10 @@
       "list": [
         "id",
         "displayName",
-        "createdAt",
-        "updatedAt"
+        "category",
+        "baseCurrency",
+        "chain",
+        "createdAt"
       ]
     },
     "uid": "api::fund.fund"

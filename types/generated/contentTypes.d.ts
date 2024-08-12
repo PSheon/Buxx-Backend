@@ -773,8 +773,14 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'plugin::users-permissions.role'
     >;
     avatar: Attribute.Media<'images'>;
-    title: Attribute.String;
-    phone: Attribute.String;
+    fullName: Attribute.String;
+    nationality: Attribute.String;
+    phoneNumber: Attribute.String;
+    idType: Attribute.Enumeration<
+      ['Passport', 'ID Card', 'Permanent Resident Card', 'Driving License']
+    >;
+    idNumber: Attribute.String;
+    contactAddress: Attribute.String;
     referralRank: Attribute.Integer &
       Attribute.SetMinMax<
         {

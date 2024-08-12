@@ -13,7 +13,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-08-07T19:06:36.201Z"
+    "x-generation-date": "2024-08-12T06:45:46.850Z"
   },
   "openapi": "3.0.0",
   "x-strapi-config": {
@@ -1049,10 +1049,28 @@
                           }
                         }
                       },
-                      "title": {
+                      "fullName": {
                         "type": "string"
                       },
-                      "phone": {
+                      "nationality": {
+                        "type": "string"
+                      },
+                      "phoneNumber": {
+                        "type": "string"
+                      },
+                      "idType": {
+                        "type": "string",
+                        "enum": [
+                          "Passport",
+                          "ID Card",
+                          "Permanent Resident Card",
+                          "Driving License"
+                        ]
+                      },
+                      "idNumber": {
+                        "type": "string"
+                      },
+                      "contactAddress": {
                         "type": "string"
                       },
                       "referralRank": {
@@ -2197,10 +2215,28 @@
                           }
                         }
                       },
-                      "title": {
+                      "fullName": {
                         "type": "string"
                       },
-                      "phone": {
+                      "nationality": {
+                        "type": "string"
+                      },
+                      "phoneNumber": {
+                        "type": "string"
+                      },
+                      "idType": {
+                        "type": "string",
+                        "enum": [
+                          "Passport",
+                          "ID Card",
+                          "Permanent Resident Card",
+                          "Driving License"
+                        ]
+                      },
+                      "idNumber": {
+                        "type": "string"
+                      },
+                      "contactAddress": {
                         "type": "string"
                       },
                       "referralRank": {
@@ -3460,10 +3496,28 @@
                           }
                         }
                       },
-                      "title": {
+                      "fullName": {
                         "type": "string"
                       },
-                      "phone": {
+                      "nationality": {
+                        "type": "string"
+                      },
+                      "phoneNumber": {
+                        "type": "string"
+                      },
+                      "idType": {
+                        "type": "string",
+                        "enum": [
+                          "Passport",
+                          "ID Card",
+                          "Permanent Resident Card",
+                          "Driving License"
+                        ]
+                      },
+                      "idNumber": {
+                        "type": "string"
+                      },
+                      "contactAddress": {
                         "type": "string"
                       },
                       "referralRank": {
@@ -4534,10 +4588,28 @@
                           }
                         }
                       },
-                      "title": {
+                      "fullName": {
                         "type": "string"
                       },
-                      "phone": {
+                      "nationality": {
+                        "type": "string"
+                      },
+                      "phoneNumber": {
+                        "type": "string"
+                      },
+                      "idType": {
+                        "type": "string",
+                        "enum": [
+                          "Passport",
+                          "ID Card",
+                          "Permanent Resident Card",
+                          "Driving License"
+                        ]
+                      },
+                      "idNumber": {
+                        "type": "string"
+                      },
+                      "contactAddress": {
                         "type": "string"
                       },
                       "referralRank": {
@@ -7609,10 +7681,28 @@
                           }
                         }
                       },
-                      "title": {
+                      "fullName": {
                         "type": "string"
                       },
-                      "phone": {
+                      "nationality": {
+                        "type": "string"
+                      },
+                      "phoneNumber": {
+                        "type": "string"
+                      },
+                      "idType": {
+                        "type": "string",
+                        "enum": [
+                          "Passport",
+                          "ID Card",
+                          "Permanent Resident Card",
+                          "Driving License"
+                        ]
+                      },
+                      "idNumber": {
+                        "type": "string"
+                      },
+                      "contactAddress": {
                         "type": "string"
                       },
                       "referralRank": {
@@ -9225,10 +9315,28 @@
                           }
                         }
                       },
-                      "title": {
+                      "fullName": {
                         "type": "string"
                       },
-                      "phone": {
+                      "nationality": {
+                        "type": "string"
+                      },
+                      "phoneNumber": {
+                        "type": "string"
+                      },
+                      "idType": {
+                        "type": "string",
+                        "enum": [
+                          "Passport",
+                          "ID Card",
+                          "Permanent Resident Card",
+                          "Driving License"
+                        ]
+                      },
+                      "idNumber": {
+                        "type": "string"
+                      },
+                      "contactAddress": {
                         "type": "string"
                       },
                       "referralRank": {
@@ -10328,10 +10436,28 @@
                           }
                         }
                       },
-                      "title": {
+                      "fullName": {
                         "type": "string"
                       },
-                      "phone": {
+                      "nationality": {
+                        "type": "string"
+                      },
+                      "phoneNumber": {
+                        "type": "string"
+                      },
+                      "idType": {
+                        "type": "string",
+                        "enum": [
+                          "Passport",
+                          "ID Card",
+                          "Permanent Resident Card",
+                          "Driving License"
+                        ]
+                      },
+                      "idNumber": {
+                        "type": "string"
+                      },
+                      "contactAddress": {
                         "type": "string"
                       },
                       "referralRank": {
@@ -10524,7 +10650,8 @@
               "action": {
                 "type": "string",
                 "enum": [
-                  "SyncEventLog"
+                  "SyncEventLog",
+                  "ClearTaskLog"
                 ]
               },
               "trigger": {
@@ -10606,7 +10733,8 @@
           "action": {
             "type": "string",
             "enum": [
-              "SyncEventLog"
+              "SyncEventLog",
+              "ClearTaskLog"
             ]
           },
           "trigger": {
@@ -13065,10 +13193,28 @@
                           }
                         }
                       },
-                      "title": {
+                      "fullName": {
                         "type": "string"
                       },
-                      "phone": {
+                      "nationality": {
+                        "type": "string"
+                      },
+                      "phoneNumber": {
+                        "type": "string"
+                      },
+                      "idType": {
+                        "type": "string",
+                        "enum": [
+                          "Passport",
+                          "ID Card",
+                          "Permanent Resident Card",
+                          "Driving License"
+                        ]
+                      },
+                      "idNumber": {
+                        "type": "string"
+                      },
+                      "contactAddress": {
                         "type": "string"
                       },
                       "referralRank": {

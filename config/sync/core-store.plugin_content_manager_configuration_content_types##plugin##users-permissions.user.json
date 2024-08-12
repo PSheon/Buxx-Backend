@@ -174,30 +174,86 @@
           "sortable": false
         }
       },
-      "title": {
+      "fullName": {
         "edit": {
-          "label": "title",
+          "label": "fullName",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "title",
+          "label": "fullName",
           "searchable": true,
           "sortable": true
         }
       },
-      "phone": {
+      "nationality": {
         "edit": {
-          "label": "phone",
+          "label": "nationality",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "phone",
+          "label": "nationality",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "phoneNumber": {
+        "edit": {
+          "label": "phoneNumber",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "phoneNumber",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "idType": {
+        "edit": {
+          "label": "idType",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "idType",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "idNumber": {
+        "edit": {
+          "label": "idNumber",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "idNumber",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "contactAddress": {
+        "edit": {
+          "label": "contactAddress",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "contactAddress",
           "searchable": true,
           "sortable": true
         }
@@ -375,21 +431,43 @@
         ],
         [
           {
-            "name": "exp",
+            "name": "fullName",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "nationality",
             "size": 6
           },
           {
-            "name": "points",
+            "name": "phoneNumber",
             "size": 6
           }
         ],
         [
           {
-            "name": "title",
+            "name": "idType",
             "size": 6
           },
           {
-            "name": "phone",
+            "name": "idNumber",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "contactAddress",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "exp",
+            "size": 6
+          },
+          {
+            "name": "points",
             "size": 6
           }
         ],

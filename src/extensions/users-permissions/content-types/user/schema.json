@@ -75,12 +75,32 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
-    "title": {
+    "fullName": {
       "type": "string"
     },
-    "phone": {
+    "nationality": {
+      "type": "string"
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "idType": {
+      "type": "enumeration",
+      "enum": [
+        "Passport",
+        "ID Card",
+        "Permanent Resident Card",
+        "Driving License"
+      ]
+    },
+    "idNumber": {
+      "type": "string"
+    },
+    "contactAddress": {
       "type": "string"
     },
     "referralRank": {

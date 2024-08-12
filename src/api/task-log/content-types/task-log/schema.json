@@ -4,7 +4,8 @@
   "info": {
     "singularName": "task-log",
     "pluralName": "task-logs",
-    "displayName": "TaskLog"
+    "displayName": "TaskLog",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -13,12 +14,18 @@
   "attributes": {
     "action": {
       "type": "enumeration",
-      "enum": ["SyncEventLog"],
+      "enum": [
+        "SyncEventLog",
+        "ClearTaskLog"
+      ],
       "required": true
     },
     "trigger": {
       "type": "enumeration",
-      "enum": ["CronJob", "Manual"]
+      "enum": [
+        "CronJob",
+        "Manual"
+      ]
     },
     "message": {
       "type": "text"
@@ -28,7 +35,11 @@
     },
     "status": {
       "type": "enumeration",
-      "enum": ["Pending", "Fulfilled", "Rejected"],
+      "enum": [
+        "Pending",
+        "Fulfilled",
+        "Rejected"
+      ],
       "required": true
     }
   }

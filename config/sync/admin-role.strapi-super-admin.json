@@ -734,13 +734,14 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
-      "subject": "api::task-log.task-log",
+      "subject": "api::sync-event-log-task-log.sync-event-log-task-log",
       "properties": {
         "fields": [
-          "action",
           "trigger",
           "message",
-          "detail",
+          "latestTokenEventLogBlockNumber",
+          "latestTokenEventLogIndex",
+          "totalSynced",
           "status"
         ]
       },
@@ -749,20 +750,21 @@
     {
       "action": "plugin::content-manager.explorer.delete",
       "actionParameters": {},
-      "subject": "api::task-log.task-log",
+      "subject": "api::sync-event-log-task-log.sync-event-log-task-log",
       "properties": {},
       "conditions": []
     },
     {
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
-      "subject": "api::task-log.task-log",
+      "subject": "api::sync-event-log-task-log.sync-event-log-task-log",
       "properties": {
         "fields": [
-          "action",
           "trigger",
           "message",
-          "detail",
+          "latestTokenEventLogBlockNumber",
+          "latestTokenEventLogIndex",
+          "totalSynced",
           "status"
         ]
       },
@@ -771,13 +773,14 @@
     {
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
-      "subject": "api::task-log.task-log",
+      "subject": "api::sync-event-log-task-log.sync-event-log-task-log",
       "properties": {
         "fields": [
-          "action",
           "trigger",
           "message",
-          "detail",
+          "latestTokenEventLogBlockNumber",
+          "latestTokenEventLogIndex",
+          "totalSynced",
           "status"
         ]
       },

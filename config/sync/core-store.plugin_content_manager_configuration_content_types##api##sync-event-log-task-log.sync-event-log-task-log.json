@@ -1,12 +1,12 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::task-log.task-log",
+  "key": "plugin_content_manager_configuration_content_types::api::sync-event-log-task-log.sync-event-log-task-log",
   "value": {
     "settings": {
       "bulkable": true,
       "filterable": true,
       "searchable": true,
       "pageSize": 10,
-      "mainField": "id",
+      "mainField": "latestTokenEventLogBlockNumber",
       "defaultSortBy": "id",
       "defaultSortOrder": "ASC"
     },
@@ -15,20 +15,6 @@
         "edit": {},
         "list": {
           "label": "id",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "action": {
-        "edit": {
-          "label": "action",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "action",
           "searchable": true,
           "sortable": true
         }
@@ -61,20 +47,6 @@
           "sortable": true
         }
       },
-      "detail": {
-        "edit": {
-          "label": "detail",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "detail",
-          "searchable": false,
-          "sortable": false
-        }
-      },
       "status": {
         "edit": {
           "label": "status",
@@ -85,6 +57,48 @@
         },
         "list": {
           "label": "status",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "latestTokenEventLogBlockNumber": {
+        "edit": {
+          "label": "latestTokenEventLogBlockNumber",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "latestTokenEventLogBlockNumber",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "latestTokenEventLogIndex": {
+        "edit": {
+          "label": "latestTokenEventLogIndex",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "latestTokenEventLogIndex",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "totalSynced": {
+        "edit": {
+          "label": "totalSynced",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "totalSynced",
           "searchable": true,
           "sortable": true
         }
@@ -152,10 +166,6 @@
       "edit": [
         [
           {
-            "name": "action",
-            "size": 6
-          },
-          {
             "name": "trigger",
             "size": 6
           }
@@ -168,7 +178,17 @@
         ],
         [
           {
-            "name": "detail",
+            "name": "latestTokenEventLogBlockNumber",
+            "size": 6
+          },
+          {
+            "name": "latestTokenEventLogIndex",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "totalSynced",
             "size": 12
           }
         ],
@@ -181,13 +201,15 @@
       ],
       "list": [
         "id",
-        "action",
         "trigger",
-        "status",
-        "createdAt"
+        "message",
+        "latestTokenEventLogBlockNumber",
+        "latestTokenEventLogIndex",
+        "totalSynced",
+        "status"
       ]
     },
-    "uid": "api::task-log.task-log"
+    "uid": "api::sync-event-log-task-log.sync-event-log-task-log"
   },
   "type": "object",
   "environment": null,

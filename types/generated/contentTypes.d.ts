@@ -1392,35 +1392,63 @@ export interface ApiReferralReferral extends Schema.CollectionType {
   };
 }
 
-export interface ApiTaskLogTaskLog extends Schema.CollectionType {
-  collectionName: 'task_logs';
+export interface ApiSyncEventLogTaskLogSyncEventLogTaskLog
+  extends Schema.CollectionType {
+  collectionName: 'sync_event_log_task_logs';
   info: {
-    singularName: 'task-log';
-    pluralName: 'task-logs';
-    displayName: 'TaskLog';
+    singularName: 'sync-event-log-task-log';
+    pluralName: 'sync-event-log-task-logs';
+    displayName: 'SyncEventLogTaskLog';
     description: '';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    action: Attribute.Enumeration<['SyncEventLog', 'ClearTaskLog']> &
-      Attribute.Required;
-    trigger: Attribute.Enumeration<['CronJob', 'Manual']>;
-    message: Attribute.Text;
-    detail: Attribute.JSON;
+    trigger: Attribute.Enumeration<['CronJob', 'Manual']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'CronJob'>;
+    message: Attribute.Text & Attribute.Required;
+    latestTokenEventLogBlockNumber: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Attribute.DefaultTo<0>;
+    latestTokenEventLogIndex: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Attribute.DefaultTo<0>;
+    totalSynced: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Attribute.DefaultTo<0>;
     status: Attribute.Enumeration<['Pending', 'Fulfilled', 'Rejected']> &
-      Attribute.Required;
+      Attribute.Required &
+      Attribute.DefaultTo<'Fulfilled'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::task-log.task-log',
+      'api::sync-event-log-task-log.sync-event-log-task-log',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::task-log.task-log',
+      'api::sync-event-log-task-log.sync-event-log-task-log',
       'oneToOne',
       'admin::user'
     > &
@@ -1543,7 +1571,7 @@ declare module '@strapi/types' {
       'api::package.package': ApiPackagePackage;
       'api::point-record.point-record': ApiPointRecordPointRecord;
       'api::referral.referral': ApiReferralReferral;
-      'api::task-log.task-log': ApiTaskLogTaskLog;
+      'api::sync-event-log-task-log.sync-event-log-task-log': ApiSyncEventLogTaskLogSyncEventLogTaskLog;
       'api::token.token': ApiTokenToken;
       'api::wallet.wallet': ApiWalletWallet;
     }

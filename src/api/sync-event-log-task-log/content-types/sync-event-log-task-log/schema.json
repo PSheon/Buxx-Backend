@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sync_event_log_task_logs",
+  "info": {
+    "singularName": "sync-event-log-task-log",
+    "pluralName": "sync-event-log-task-logs",
+    "displayName": "SyncEventLogTaskLog",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "trigger": {
+      "type": "enumeration",
+      "enum": [
+        "CronJob",
+        "Manual"
+      ],
+      "default": "CronJob",
+      "required": true
+    },
+    "message": {
+      "type": "text",
+      "required": true
+    },
+    "latestTokenEventLogBlockNumber": {
+      "type": "integer",
+      "default": 0,
+      "required": true,
+      "min": 0
+    },
+    "latestTokenEventLogIndex": {
+      "type": "integer",
+      "default": 0,
+      "required": true,
+      "min": 0
+    },
+    "totalSynced": {
+      "type": "integer",
+      "default": 0,
+      "required": true,
+      "min": 0
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Pending",
+        "Fulfilled",
+        "Rejected"
+      ],
+      "default": "Fulfilled",
+      "required": true
+    }
+  }
+}

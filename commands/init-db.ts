@@ -30,8 +30,10 @@ const initDB = async () => {
   await app.db.query("api::access-log.access-log").deleteMany();
   /* Delete activity log */
   await app.db.query("api::activity-log.activity-log").deleteMany();
-  /* Delete task log */
-  await app.db.query("api::task-log.task-log").deleteMany();
+  /* Delete sync event log task log */
+  await app.db
+    .query("api::sync-event-log-task-log.sync-event-log-task-log")
+    .deleteMany();
   /* Delete notification */
   await app.db.query("api::notification.notification").deleteMany();
 

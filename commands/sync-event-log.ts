@@ -3,6 +3,7 @@ import strapi from "@strapi/strapi";
 import { Alchemy, Network } from "alchemy-sdk";
 import Web3 from "web3";
 import { ExactNumber as N } from "exactnumber";
+import subDays from "date-fns/subDays";
 
 import {
   TRANSFER_TOKEN_EVENT_HASH,
@@ -36,15 +37,19 @@ const syncEventLog = async () => {
     populate: ["sft", "defaultPackages", "vault"],
   });
   if (fundEntities.length === 0) {
-    await app.entityService.create("api::task-log.task-log", {
-      data: {
-        action: "SyncEventLog",
-        trigger: "Manual",
-        message: "Fund not initialized",
-        detail: {},
-        status: "Rejected",
-      },
-    });
+    await app.entityService.create(
+      "api::sync-event-log-task-log.sync-event-log-task-log",
+      {
+        data: {
+          trigger: "Manual",
+          message: "Fund not initialized",
+          latestTokenEventLogBlockNumber,
+          latestTokenEventLogIndex,
+          totalSynced,
+          status: "Rejected",
+        },
+      }
+    );
     return;
   }
 
@@ -59,15 +64,19 @@ const syncEventLog = async () => {
     })
     .filter((contractAddress) => contractAddress !== null);
   if (watchSFTContracts.length === 0) {
-    await app.entityService.create("api::task-log.task-log", {
-      data: {
-        action: "SyncEventLog",
-        trigger: "Manual",
-        message: "No SFT contract found",
-        detail: {},
-        status: "Rejected",
-      },
-    });
+    await app.entityService.create(
+      "api::sync-event-log-task-log.sync-event-log-task-log",
+      {
+        data: {
+          trigger: "Manual",
+          message: "No SFT contract found",
+          latestTokenEventLogBlockNumber,
+          latestTokenEventLogIndex,
+          totalSynced,
+          status: "Rejected",
+        },
+      }
+    );
     return;
   }
   const watchVaultContracts = fundEntities
@@ -80,15 +89,19 @@ const syncEventLog = async () => {
     })
     .filter((contractAddress) => contractAddress !== null);
   if (watchVaultContracts.length === 0) {
-    await app.entityService.create("api::task-log.task-log", {
-      data: {
-        action: "SyncEventLog",
-        trigger: "Manual",
-        message: "No Vault contract found",
-        detail: {},
-        status: "Rejected",
-      },
-    });
+    await app.entityService.create(
+      "api::sync-event-log-task-log.sync-event-log-task-log",
+      {
+        data: {
+          trigger: "Manual",
+          message: "No Vault contract found",
+          latestTokenEventLogBlockNumber,
+          latestTokenEventLogIndex,
+          totalSynced,
+          status: "Rejected",
+        },
+      }
+    );
     return;
   }
 
@@ -106,7 +119,20 @@ const syncEventLog = async () => {
     latestTokenEventLogIndex = tokenEventLogEntities[0].logIndex;
   }
 
-  /* Step 04 - Fetch logs from blockchain */
+  /* Step 04 - Clear outdated task log */
+  await app.db
+    .query("api::sync-event-log-task-log.sync-event-log-task-log")
+    .deleteMany({
+      where: {
+        trigger: "CronJib",
+        status: "Fulfilled",
+        createdAt: {
+          $lt: subDays(new Date(), 3),
+        },
+      },
+    });
+
+  /* Step 05 - Fetch logs from blockchain */
   try {
     const txLogsResponse = await alchemy.core.getLogs({
       fromBlock: latestTokenEventLogBlockNumber,
@@ -684,29 +710,33 @@ const syncEventLog = async () => {
       }
     }
 
-    await app.entityService.create("api::task-log.task-log", {
-      data: {
-        action: "SyncEventLog",
-        trigger: "Manual",
-        message: "Sync event log successfully",
-        detail: {
+    await app.entityService.create(
+      "api::sync-event-log-task-log.sync-event-log-task-log",
+      {
+        data: {
+          trigger: "Manual",
+          message: "Sync event log successfully",
           latestTokenEventLogBlockNumber,
           latestTokenEventLogIndex,
           totalSynced,
+          status: "Fulfilled",
         },
-        status: "Fulfilled",
-      },
-    });
+      }
+    );
   } catch (error) {
-    await app.entityService.create("api::task-log.task-log", {
-      data: {
-        action: "SyncEventLog",
-        trigger: "Manual",
-        message: error.message,
-        detail: {},
-        status: "Rejected",
-      },
-    });
+    await app.entityService.create(
+      "api::sync-event-log-task-log.sync-event-log-task-log",
+      {
+        data: {
+          trigger: "Manual",
+          message: error.message,
+          latestTokenEventLogBlockNumber: 0,
+          latestTokenEventLogIndex: 0,
+          totalSynced: 0,
+          status: "Rejected",
+        },
+      }
+    );
   }
 
   app.server.destroy();

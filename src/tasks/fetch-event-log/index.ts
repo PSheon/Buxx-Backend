@@ -7,6 +7,7 @@ import { Strapi } from "@strapi/strapi";
 import { Alchemy, Network } from "alchemy-sdk";
 import Web3 from "web3";
 import { ExactNumber as N } from "exactnumber";
+import subDays from "date-fns/subDays";
 
 import {
   TRANSFER_TOKEN_EVENT_HASH,
@@ -40,15 +41,19 @@ export const fetchTokenEventLogTask = async ({
     populate: ["sft", "defaultPackages", "vault"],
   });
   if (fundEntities.length === 0) {
-    await strapi.entityService.create("api::task-log.task-log", {
-      data: {
-        action: "SyncEventLog",
-        trigger: "CronJob",
-        message: "Fund not initialized",
-        detail: {},
-        status: "Rejected",
-      },
-    });
+    await strapi.entityService.create(
+      "api::sync-event-log-task-log.sync-event-log-task-log",
+      {
+        data: {
+          trigger: "CronJob",
+          message: "Fund not initialized",
+          latestTokenEventLogBlockNumber,
+          latestTokenEventLogIndex,
+          totalSynced,
+          status: "Rejected",
+        },
+      }
+    );
     return;
   }
 
@@ -63,15 +68,19 @@ export const fetchTokenEventLogTask = async ({
     })
     .filter((contractAddress) => contractAddress !== null);
   if (watchSFTContracts.length === 0) {
-    await strapi.entityService.create("api::task-log.task-log", {
-      data: {
-        action: "SyncEventLog",
-        trigger: "CronJob",
-        message: "No SFT contract found",
-        detail: {},
-        status: "Rejected",
-      },
-    });
+    await strapi.entityService.create(
+      "api::sync-event-log-task-log.sync-event-log-task-log",
+      {
+        data: {
+          trigger: "CronJob",
+          message: "No SFT contract found",
+          latestTokenEventLogBlockNumber,
+          latestTokenEventLogIndex,
+          totalSynced,
+          status: "Rejected",
+        },
+      }
+    );
     return;
   }
   const watchVaultContracts = fundEntities
@@ -84,15 +93,19 @@ export const fetchTokenEventLogTask = async ({
     })
     .filter((contractAddress) => contractAddress !== null);
   if (watchVaultContracts.length === 0) {
-    await strapi.entityService.create("api::task-log.task-log", {
-      data: {
-        action: "SyncEventLog",
-        trigger: "CronJob",
-        message: "No Vault contract found",
-        detail: {},
-        status: "Rejected",
-      },
-    });
+    await strapi.entityService.create(
+      "api::sync-event-log-task-log.sync-event-log-task-log",
+      {
+        data: {
+          trigger: "CronJob",
+          message: "No Vault contract found",
+          latestTokenEventLogBlockNumber,
+          latestTokenEventLogIndex,
+          totalSynced,
+          status: "Rejected",
+        },
+      }
+    );
     return;
   }
 
@@ -110,7 +123,20 @@ export const fetchTokenEventLogTask = async ({
     latestTokenEventLogIndex = tokenEventLogEntities[0].logIndex;
   }
 
-  /* Step 04 - Fetch logs from blockchain */
+  /* Step 04 - Clear outdated task log */
+  await strapi.db
+    .query("api::sync-event-log-task-log.sync-event-log-task-log")
+    .deleteMany({
+      where: {
+        trigger: "CronJib",
+        status: "Fulfilled",
+        createdAt: {
+          $lt: subDays(new Date(), 3),
+        },
+      },
+    });
+
+  /* Step 05 - Fetch logs from blockchain */
   try {
     const txLogsResponse = await alchemy.core.getLogs({
       fromBlock: latestTokenEventLogBlockNumber,
@@ -699,28 +725,32 @@ export const fetchTokenEventLogTask = async ({
       }
     }
 
-    await strapi.entityService.create("api::task-log.task-log", {
-      data: {
-        action: "SyncEventLog",
-        trigger: "CronJob",
-        message: "Sync event log successfully",
-        detail: {
+    await strapi.entityService.create(
+      "api::sync-event-log-task-log.sync-event-log-task-log",
+      {
+        data: {
+          trigger: "CronJob",
+          message: "Sync event log successfully",
           latestTokenEventLogBlockNumber,
           latestTokenEventLogIndex,
           totalSynced,
+          status: "Fulfilled",
         },
-        status: "Fulfilled",
-      },
-    });
+      }
+    );
   } catch (error) {
-    await strapi.entityService.create("api::task-log.task-log", {
-      data: {
-        action: "SyncEventLog",
-        trigger: "CronJob",
-        message: error.message,
-        detail: {},
-        status: "Rejected",
-      },
-    });
+    await strapi.entityService.create(
+      "api::sync-event-log-task-log.sync-event-log-task-log",
+      {
+        data: {
+          trigger: "CronJob",
+          message: error.message,
+          latestTokenEventLogBlockNumber: 0,
+          latestTokenEventLogIndex: 0,
+          totalSynced: 0,
+          status: "Rejected",
+        },
+      }
+    );
   }
 };

@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "point_records",
+  "collectionName": "earning_records",
   "info": {
-    "singularName": "point-record",
-    "pluralName": "point-records",
-    "displayName": "PointRecord",
+    "singularName": "earning-record",
+    "pluralName": "earning-records",
+    "displayName": "EarningRecord",
     "description": ""
   },
   "options": {
@@ -12,21 +12,23 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "type": {
-      "type": "enumeration",
-      "enum": [
-        "StakeShare",
-        "TeamStakeShare",
-        "JoinReferral",
-        "ReferralLevelUp",
-        "DailyCheck",
-        "Referral"
-      ]
-    },
     "user": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "ClaimReward",
+        "TeamStakeShare",
+        "JoinReferral",
+        "ReferralLevelUp",
+        "DailyCheck",
+        "Referral",
+        "MarketingCampaign"
+      ],
+      "required": true
     },
     "earningExp": {
       "type": "integer",
@@ -35,7 +37,7 @@
       "min": 0
     },
     "earningPoints": {
-      "type": "integer",
+      "type": "float",
       "default": 0,
       "required": true,
       "min": 0

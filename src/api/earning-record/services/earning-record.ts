@@ -1,18 +1,18 @@
 /**
- * point-record service
+ * earning-record service
  */
 
 import { factories } from "@strapi/strapi";
 
-import { ILogPointRecordType } from "../types/pointRecordTypes";
+import { ILogEarningRecordType } from "../types/earningRecordTypes";
 
 export default factories.createCoreService(
-  "api::point-record.point-record",
+  "api::earning-record.earning-record",
   ({ strapi }) => ({
-    async logPointRecord(params: ILogPointRecordType) {
+    async logEarningRecord(params: ILogEarningRecordType) {
       const { type, user, earningExp, earningPoints, receipt } = params;
 
-      await strapi.entityService.create("api::point-record.point-record", {
+      await strapi.entityService.create("api::earning-record.earning-record", {
         data: {
           type,
           user: user.id,

@@ -1,13 +1,14 @@
 import type { UserType } from "../../../extensions/users-permissions/types/userTypes";
 
-export interface ILogPointRecordType {
+export interface ILogEarningRecordType {
   type:
-    | "StakeShare"
+    | "ClaimReward"
     | "TeamStakeShare"
     | "JoinReferral"
     | "ReferralLevelUp"
     | "DailyCheck"
-    | "Referral";
+    | "Referral"
+    | "MarketingCampaign";
   user: UserType;
   earningExp: number;
   earningPoints: number;

@@ -1,5 +1,5 @@
 {
-  "/point-records/me": {
+  "/earning-records/me": {
     "get": {
       "responses": {
         "200": {
@@ -7,7 +7,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PointRecordResponse"
+                "$ref": "#/components/schemas/EarningRecordResponse"
               }
             }
           }
@@ -64,13 +64,13 @@
         }
       },
       "tags": [
-        "Point-record"
+        "Earning-record"
       ],
       "parameters": [],
-      "operationId": "get/point-records/me"
+      "operationId": "get/earning-records/me"
     }
   },
-  "/point-records/me/statistics": {
+  "/earning-records/me/statistics": {
     "get": {
       "responses": {
         "200": {
@@ -78,7 +78,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PointRecordResponse"
+                "$ref": "#/components/schemas/EarningRecordResponse"
               }
             }
           }
@@ -135,13 +135,13 @@
         }
       },
       "tags": [
-        "Point-record"
+        "Earning-record"
       ],
       "parameters": [],
-      "operationId": "get/point-records/me/statistics"
+      "operationId": "get/earning-records/me/statistics"
     }
   },
-  "/point-records": {
+  "/earning-records": {
     "get": {
       "responses": {
         "200": {
@@ -149,7 +149,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PointRecordListResponse"
+                "$ref": "#/components/schemas/EarningRecordListResponse"
               }
             }
           }
@@ -206,7 +206,7 @@
         }
       },
       "tags": [
-        "Point-record"
+        "Earning-record"
       ],
       "parameters": [
         {
@@ -312,7 +312,7 @@
           }
         }
       ],
-      "operationId": "get/point-records"
+      "operationId": "get/earning-records"
     },
     "post": {
       "responses": {
@@ -321,7 +321,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PointRecordResponse"
+                "$ref": "#/components/schemas/EarningRecordResponse"
               }
             }
           }
@@ -378,23 +378,23 @@
         }
       },
       "tags": [
-        "Point-record"
+        "Earning-record"
       ],
       "parameters": [],
-      "operationId": "post/point-records",
+      "operationId": "post/earning-records",
       "requestBody": {
         "required": true,
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/PointRecordRequest"
+              "$ref": "#/components/schemas/EarningRecordRequest"
             }
           }
         }
       }
     }
   },
-  "/point-records/{id}": {
+  "/earning-records/{id}": {
     "get": {
       "responses": {
         "200": {
@@ -402,7 +402,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PointRecordResponse"
+                "$ref": "#/components/schemas/EarningRecordResponse"
               }
             }
           }
@@ -459,7 +459,7 @@
         }
       },
       "tags": [
-        "Point-record"
+        "Earning-record"
       ],
       "parameters": [
         {
@@ -473,7 +473,7 @@
           }
         }
       ],
-      "operationId": "get/point-records/{id}"
+      "operationId": "get/earning-records/{id}"
     },
     "put": {
       "responses": {
@@ -482,7 +482,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PointRecordResponse"
+                "$ref": "#/components/schemas/EarningRecordResponse"
               }
             }
           }
@@ -539,7 +539,7 @@
         }
       },
       "tags": [
-        "Point-record"
+        "Earning-record"
       ],
       "parameters": [
         {
@@ -553,13 +553,13 @@
           }
         }
       ],
-      "operationId": "put/point-records/{id}",
+      "operationId": "put/earning-records/{id}",
       "requestBody": {
         "required": true,
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/PointRecordRequest"
+              "$ref": "#/components/schemas/EarningRecordRequest"
             }
           }
         }
@@ -630,7 +630,7 @@
         }
       },
       "tags": [
-        "Point-record"
+        "Earning-record"
       ],
       "parameters": [
         {
@@ -644,7 +644,7 @@
           }
         }
       ],
-      "operationId": "delete/point-records/{id}"
+      "operationId": "delete/earning-records/{id}"
     }
   }
 }

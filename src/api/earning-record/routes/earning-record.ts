@@ -1,11 +1,11 @@
 /**
- * point-record router
+ * earning-record router
  */
 
 import { factories } from "@strapi/strapi";
 
 const defaultRouter = factories.createCoreRouter(
-  "api::point-record.point-record"
+  "api::earning-record.earning-record"
 );
 
 const customRouter = (defaultRouter, customRoutes = []) => {
@@ -24,13 +24,13 @@ const customRouter = (defaultRouter, customRoutes = []) => {
 const customRoutes = [
   {
     method: "GET",
-    path: "/point-records/me",
-    handler: "point-record.findMe",
+    path: "/earning-records/me",
+    handler: "earning-record.findMe",
   },
   {
     method: "GET",
-    path: "/point-records/me/statistics",
-    handler: "point-record.findMeStatistics",
+    path: "/earning-records/me/statistics",
+    handler: "earning-record.findMeStatistics",
   },
 ];
 

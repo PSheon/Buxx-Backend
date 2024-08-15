@@ -27,7 +27,6 @@ export default factories.createCoreService(
           action,
           responseMessage,
           status,
-          date: new Date(),
           user: user.id,
           ip: clientIp,
           os: requestOS,

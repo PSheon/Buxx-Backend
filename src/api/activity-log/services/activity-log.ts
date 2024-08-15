@@ -29,7 +29,6 @@ export default factories.createCoreService(
           refId,
           message,
           payload,
-          date: new Date(),
           user: user.id,
           isHighlighted,
         },

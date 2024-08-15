@@ -11,7 +11,6 @@ export type ILogActivityType = {
   refId: number;
   message: string;
   payload: Record<string, string | number>;
-  date: Date;
   user: UserType;
   isHighlighted: boolean;
 };

@@ -50,23 +50,24 @@ export default factories.createCoreController(
           {
             data: {
               user: ctx.state.user.id,
-              date: new Date(),
             },
           }
         );
 
-        await strapi.service("api::point-record.point-record").logPointRecord({
-          type: "DailyCheck",
-          user: ctx.state.user,
-          earningExp: 60,
-          earningPoints: 0,
-          receipt: {
-            task: "Daily Check",
-            userId: ctx.state.user.id,
-            exp: 60,
-            points: 0,
-          },
-        });
+        await strapi
+          .service("api::earning-record.earning-record")
+          .logEarningRecord({
+            type: "DailyCheck",
+            user: ctx.state.user,
+            earningExp: 60,
+            earningPoints: 0,
+            receipt: {
+              type: "Daily Check",
+              userId: ctx.state.user.id,
+              exp: 60,
+              points: 0,
+            },
+          });
       } else {
         const latestMeDailyCheckRecord = meDailyCheckRecordEntities[0];
         const latestDate = new Date(latestMeDailyCheckRecord.createdAt);
@@ -77,20 +78,19 @@ export default factories.createCoreController(
             {
               data: {
                 user: ctx.state.user.id,
-                date: new Date(),
               },
             }
           );
 
           await strapi
-            .service("api::point-record.point-record")
-            .logPointRecord({
+            .service("api::earning-record.earning-record")
+            .logEarningRecord({
               type: "DailyCheck",
               user: ctx.state.user,
               earningExp: 60,
               earningPoints: 0,
               receipt: {
-                task: "Daily Check",
+                type: "Daily Check",
                 userId: ctx.state.user.id,
                 exp: 60,
                 points: 0,

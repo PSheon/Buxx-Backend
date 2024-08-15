@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "claimed_reward_records",
+  "info": {
+    "singularName": "claimed-reward-record",
+    "pluralName": "claimed-reward-records",
+    "displayName": "ClaimedRewardRecord",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "belongToFund": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::fund.fund"
+    },
+    "chain": {
+      "type": "enumeration",
+      "enum": [
+        "Ethereum",
+        "Ethereum Sepolia",
+        "Blast"
+      ],
+      "required": true
+    },
+    "rewardCurrency": {
+      "type": "enumeration",
+      "enum": [
+        "ETH",
+        "DAI",
+        "USDC",
+        "USDT",
+        "BLT"
+      ],
+      "required": true
+    },
+    "balance": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

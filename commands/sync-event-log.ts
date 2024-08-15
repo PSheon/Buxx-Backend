@@ -631,6 +631,11 @@ const syncEventLog = async () => {
 
       const topics = txLog.topics;
       const eventNameHash = topics[0];
+      const fundEntity = fundEntities.find(
+        (fund) =>
+          fund.vault?.contractAddress.toLowerCase() ===
+          txLog.address.toLowerCase()
+      );
 
       if (eventNameHash === CLAIM_EVENT_HASH) {
         const { owner, amount } = web3.eth.abi.decodeLog(
@@ -665,11 +670,11 @@ const syncEventLog = async () => {
           }
         );
         if (walletEntities.length) {
-          const earningPoints = N(amount as string)
+          const claimedBalance = N(amount as string)
             .div(N(10).pow(18))
             .round()
             .toNumber();
-          const earningExp = N(earningPoints).mul(3).round().toNumber();
+          const earningExp = N(claimedBalance).mul(3).round().toNumber();
 
           const referralEntities = await app.entityService.findMany(
             "api::referral.referral",
@@ -682,30 +687,35 @@ const syncEventLog = async () => {
             }
           );
           if (referralEntities.length) {
-            await app.entityService.update(
-              "api::referral.referral",
-              referralEntities[0].id,
+            // ** Create Claim Reward Record
+            await app.entityService.create(
+              "api::claimed-reward-record.claimed-reward-record",
               {
                 data: {
-                  // @ts-ignore
-                  claimedRewards:
-                    referralEntities[0].claimedRewards + earningPoints,
+                  user: walletEntities[0].user.id,
+                  belongToFund: fundEntity.id,
+                  chain: fundEntity.chain,
+                  rewardCurrency: fundEntity.baseCurrency,
+                  balance: claimedBalance.toString(),
                 },
               }
             );
-          }
 
-          await app.service("api::point-record.point-record").logPointRecord({
-            type: "StakeShare",
-            user: walletEntities[0].user,
-            earningExp,
-            earningPoints: 0,
-            receipt: {
-              userId: walletEntities[0].user.id,
-              exp: earningExp,
-              points: 0,
-            },
-          });
+            // ** Earn Exp
+            await app
+              .service("api::earning-record.earning-record")
+              .logEarningRecord({
+                type: "ClaimReward",
+                user: walletEntities[0].user,
+                earningExp,
+                earningPoints: 0,
+                receipt: {
+                  userId: walletEntities[0].user.id,
+                  exp: earningExp,
+                  points: 0,
+                },
+              });
+          }
         }
       }
     }

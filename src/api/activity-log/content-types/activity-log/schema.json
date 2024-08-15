@@ -37,10 +37,6 @@
     "payload": {
       "type": "json"
     },
-    "date": {
-      "type": "datetime",
-      "required": true
-    },
     "user": {
       "type": "relation",
       "relation": "oneToOne",

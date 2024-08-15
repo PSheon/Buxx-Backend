@@ -41,7 +41,7 @@ export default factories.createCoreController(
           filters: {
             user: ctx.state.user.id,
           },
-          sort: ["date:desc"],
+          sort: ["createdAt:desc"],
         }
       );
       if (meDailyCheckRecordEntities.length === 0) {
@@ -69,7 +69,7 @@ export default factories.createCoreController(
         });
       } else {
         const latestMeDailyCheckRecord = meDailyCheckRecordEntities[0];
-        const latestDate = new Date(latestMeDailyCheckRecord.date);
+        const latestDate = new Date(latestMeDailyCheckRecord.createdAt);
 
         if (isAfter(new Date(), new Date(addDays(new Date(latestDate), 1)))) {
           await strapi.entityService.create(

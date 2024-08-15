@@ -28,9 +28,6 @@
     "status": {
       "type": "boolean"
     },
-    "date": {
-      "type": "datetime"
-    },
     "user": {
       "type": "relation",
       "relation": "oneToOne",

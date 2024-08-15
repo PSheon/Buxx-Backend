@@ -18,7 +18,6 @@ export default factories.createCoreService(
           category: "System",
           title: `Welcome ${notifier.username}!`,
           content: getWelcomeNotificationContent({ notifier }),
-          date: new Date(),
         },
       });
     },

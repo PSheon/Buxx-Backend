@@ -30,9 +30,6 @@
     "content": {
       "type": "json"
     },
-    "date": {
-      "type": "datetime"
-    },
     "isSeen": {
       "type": "boolean",
       "default": false

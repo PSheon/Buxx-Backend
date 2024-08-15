@@ -17,11 +17,6 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
-    "date": {
-      "type": "datetime",
-      "required": true,
-      "unique": false
-    },
     "isHighlighted": {
       "type": "boolean",
       "default": false

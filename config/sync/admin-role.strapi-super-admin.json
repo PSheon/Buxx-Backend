@@ -12,7 +12,6 @@
           "action",
           "responseMessage",
           "status",
-          "date",
           "user",
           "ip",
           "os",
@@ -38,7 +37,6 @@
           "action",
           "responseMessage",
           "status",
-          "date",
           "user",
           "ip",
           "os",
@@ -57,7 +55,6 @@
           "action",
           "responseMessage",
           "status",
-          "date",
           "user",
           "ip",
           "os",
@@ -79,7 +76,6 @@
           "refId",
           "message",
           "payload",
-          "date",
           "user",
           "isHighlighted"
         ]
@@ -105,7 +101,6 @@
           "refId",
           "message",
           "payload",
-          "date",
           "user",
           "isHighlighted"
         ]
@@ -124,7 +119,6 @@
           "refId",
           "message",
           "payload",
-          "date",
           "user",
           "isHighlighted"
         ]
@@ -195,11 +189,105 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::calculate-team-share-log.calculate-team-share-log",
+      "properties": {
+        "fields": [
+          "settlementStartDate",
+          "settlementEndDate"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::calculate-team-share-log.calculate-team-share-log",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::calculate-team-share-log.calculate-team-share-log",
+      "properties": {
+        "fields": [
+          "settlementStartDate",
+          "settlementEndDate"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::calculate-team-share-log.calculate-team-share-log",
+      "properties": {
+        "fields": [
+          "settlementStartDate",
+          "settlementEndDate"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::claimed-reward-record.claimed-reward-record",
+      "properties": {
+        "fields": [
+          "user",
+          "belongToFund",
+          "chain",
+          "rewardCurrency",
+          "balance"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::claimed-reward-record.claimed-reward-record",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::claimed-reward-record.claimed-reward-record",
+      "properties": {
+        "fields": [
+          "user",
+          "belongToFund",
+          "chain",
+          "rewardCurrency",
+          "balance"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::claimed-reward-record.claimed-reward-record",
+      "properties": {
+        "fields": [
+          "user",
+          "belongToFund",
+          "chain",
+          "rewardCurrency",
+          "balance"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::daily-check-record.daily-check-record",
       "properties": {
         "fields": [
           "user",
-          "date",
           "isHighlighted"
         ]
       },
@@ -219,7 +307,6 @@
       "properties": {
         "fields": [
           "user",
-          "date",
           "isHighlighted"
         ]
       },
@@ -232,7 +319,61 @@
       "properties": {
         "fields": [
           "user",
-          "date",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::earning-record.earning-record",
+      "properties": {
+        "fields": [
+          "user",
+          "type",
+          "earningExp",
+          "earningPoints",
+          "receipt",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::earning-record.earning-record",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::earning-record.earning-record",
+      "properties": {
+        "fields": [
+          "user",
+          "type",
+          "earningExp",
+          "earningPoints",
+          "receipt",
+          "isHighlighted"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::earning-record.earning-record",
+      "properties": {
+        "fields": [
+          "user",
+          "type",
+          "earningExp",
+          "earningPoints",
+          "receipt",
           "isHighlighted"
         ]
       },
@@ -485,7 +626,6 @@
           "category",
           "title",
           "content",
-          "date",
           "isSeen",
           "isHighlighted"
         ]
@@ -509,7 +649,6 @@
           "category",
           "title",
           "content",
-          "date",
           "isSeen",
           "isHighlighted"
         ]
@@ -526,7 +665,6 @@
           "category",
           "title",
           "content",
-          "date",
           "isSeen",
           "isHighlighted"
         ]
@@ -605,61 +743,6 @@
           "slots.order",
           "slots.displayType",
           "status"
-        ]
-      },
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.create",
-      "actionParameters": {},
-      "subject": "api::point-record.point-record",
-      "properties": {
-        "fields": [
-          "type",
-          "user",
-          "earningExp",
-          "earningPoints",
-          "receipt",
-          "isHighlighted"
-        ]
-      },
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.delete",
-      "actionParameters": {},
-      "subject": "api::point-record.point-record",
-      "properties": {},
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.read",
-      "actionParameters": {},
-      "subject": "api::point-record.point-record",
-      "properties": {
-        "fields": [
-          "type",
-          "user",
-          "earningExp",
-          "earningPoints",
-          "receipt",
-          "isHighlighted"
-        ]
-      },
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.update",
-      "actionParameters": {},
-      "subject": "api::point-record.point-record",
-      "properties": {
-        "fields": [
-          "type",
-          "user",
-          "earningExp",
-          "earningPoints",
-          "receipt",
-          "isHighlighted"
         ]
       },
       "conditions": []
@@ -676,7 +759,6 @@
           "rank",
           "path",
           "level",
-          "claimedRewards",
           "lastTeamShareSettlementDate",
           "isActive",
           "isHighlighted"
@@ -703,7 +785,6 @@
           "rank",
           "path",
           "level",
-          "claimedRewards",
           "lastTeamShareSettlementDate",
           "isActive",
           "isHighlighted"
@@ -723,7 +804,6 @@
           "rank",
           "path",
           "level",
-          "claimedRewards",
           "lastTeamShareSettlementDate",
           "isActive",
           "isHighlighted"

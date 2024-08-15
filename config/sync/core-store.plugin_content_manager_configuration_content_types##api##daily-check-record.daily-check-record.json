@@ -34,20 +34,6 @@
           "sortable": true
         }
       },
-      "date": {
-        "edit": {
-          "label": "date",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "date",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "isHighlighted": {
         "edit": {
           "label": "isHighlighted",
@@ -127,10 +113,6 @@
           {
             "name": "user",
             "size": 6
-          },
-          {
-            "name": "date",
-            "size": 6
           }
         ],
         [
@@ -143,6 +125,7 @@
       "list": [
         "id",
         "user",
+        "isHighlighted",
         "createdAt"
       ]
     },

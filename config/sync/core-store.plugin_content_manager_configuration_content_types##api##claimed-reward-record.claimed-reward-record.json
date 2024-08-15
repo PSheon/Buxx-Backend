@@ -1,12 +1,12 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::notification.notification",
+  "key": "plugin_content_manager_configuration_content_types::api::claimed-reward-record.claimed-reward-record",
   "value": {
     "settings": {
       "bulkable": true,
       "filterable": true,
       "searchable": true,
       "pageSize": 10,
-      "mainField": "id",
+      "mainField": "chain",
       "defaultSortBy": "id",
       "defaultSortOrder": "ASC"
     },
@@ -19,9 +19,9 @@
           "sortable": true
         }
       },
-      "notifier": {
+      "user": {
         "edit": {
-          "label": "notifier",
+          "label": "user",
           "description": "",
           "placeholder": "",
           "visible": true,
@@ -29,77 +29,64 @@
           "mainField": "username"
         },
         "list": {
-          "label": "notifier",
+          "label": "user",
           "searchable": true,
           "sortable": true
         }
       },
-      "category": {
+      "chain": {
         "edit": {
-          "label": "category",
+          "label": "chain",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "category",
+          "label": "chain",
           "searchable": true,
           "sortable": true
         }
       },
-      "title": {
+      "rewardCurrency": {
         "edit": {
-          "label": "title",
+          "label": "rewardCurrency",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "title",
+          "label": "rewardCurrency",
           "searchable": true,
           "sortable": true
         }
       },
-      "content": {
+      "balance": {
         "edit": {
-          "label": "content",
+          "label": "balance",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "content",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "isSeen": {
-        "edit": {
-          "label": "isSeen",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "isSeen",
+          "label": "balance",
           "searchable": true,
           "sortable": true
         }
       },
-      "isHighlighted": {
+      "belongToFund": {
         "edit": {
-          "label": "isHighlighted",
+          "label": "belongToFund",
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true
+          "editable": true,
+          "mainField": "displayName"
         },
         "list": {
-          "label": "isHighlighted",
+          "label": "belongToFund",
           "searchable": true,
           "sortable": true
         }
@@ -167,48 +154,42 @@
       "edit": [
         [
           {
-            "name": "notifier",
-            "size": 4
+            "name": "user",
+            "size": 6
           },
           {
-            "name": "category",
-            "size": 8
+            "name": "belongToFund",
+            "size": 6
           }
         ],
         [
           {
-            "name": "title",
-            "size": 8
+            "name": "chain",
+            "size": 6
           },
           {
-            "name": "isSeen",
-            "size": 4
+            "name": "rewardCurrency",
+            "size": 6
           }
         ],
         [
           {
-            "name": "content",
+            "name": "balance",
             "size": 12
-          }
-        ],
-        [
-          {
-            "name": "isHighlighted",
-            "size": 4
           }
         ]
       ],
       "list": [
         "id",
-        "notifier",
-        "title",
-        "category",
-        "isSeen",
-        "isHighlighted",
+        "user",
+        "belongToFund",
+        "chain",
+        "rewardCurrency",
+        "balance",
         "createdAt"
       ]
     },
-    "uid": "api::notification.notification"
+    "uid": "api::claimed-reward-record.claimed-reward-record"
   },
   "type": "object",
   "environment": null,

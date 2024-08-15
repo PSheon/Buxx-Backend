@@ -470,6 +470,7 @@
         "id",
         "displayName",
         "category",
+        "estimatedAPY",
         "baseCurrency",
         "chain",
         "createdAt"

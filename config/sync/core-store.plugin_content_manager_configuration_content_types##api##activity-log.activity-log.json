@@ -103,20 +103,6 @@
           "sortable": false
         }
       },
-      "date": {
-        "edit": {
-          "label": "date",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "date",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "user": {
         "edit": {
           "label": "user",
@@ -241,10 +227,6 @@
         ],
         [
           {
-            "name": "date",
-            "size": 8
-          },
-          {
             "name": "user",
             "size": 4
           }
@@ -259,8 +241,11 @@
       "list": [
         "id",
         "message",
-        "createdAt",
-        "updatedAt"
+        "action",
+        "refContentType",
+        "refId",
+        "isHighlighted",
+        "createdAt"
       ]
     },
     "uid": "api::activity-log.activity-log"

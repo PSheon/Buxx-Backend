@@ -206,7 +206,8 @@
         "latestTokenEventLogBlockNumber",
         "latestTokenEventLogIndex",
         "totalSynced",
-        "status"
+        "status",
+        "createdAt"
       ]
     },
     "uid": "api::sync-event-log-task-log.sync-event-log-task-log"

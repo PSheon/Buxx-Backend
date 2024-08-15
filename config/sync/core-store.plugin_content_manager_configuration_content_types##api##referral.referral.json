@@ -105,16 +105,16 @@
           "sortable": true
         }
       },
-      "claimedRewards": {
+      "lastTeamShareSettlementDate": {
         "edit": {
-          "label": "claimedRewards",
+          "label": "lastTeamShareSettlementDate",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "claimedRewards",
+          "label": "lastTeamShareSettlementDate",
           "searchable": true,
           "sortable": true
         }
@@ -143,20 +143,6 @@
         },
         "list": {
           "label": "isHighlighted",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "lastTeamShareSettlementDate": {
-        "edit": {
-          "label": "lastTeamShareSettlementDate",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "lastTeamShareSettlementDate",
           "searchable": true,
           "sortable": true
         }
@@ -252,10 +238,6 @@
           {
             "name": "level",
             "size": 4
-          },
-          {
-            "name": "claimedRewards",
-            "size": 8
           }
         ],
         [
@@ -279,11 +261,11 @@
         "id",
         "user",
         "referrer",
-        "claimedRewards",
         "level",
         "rank",
         "stakedValue",
-        "isActive"
+        "isActive",
+        "createdAt"
       ]
     },
     "uid": "api::referral.referral"

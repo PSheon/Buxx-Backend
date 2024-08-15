@@ -239,9 +239,10 @@
       ],
       "list": [
         "id",
+        "belongToFund",
+        "owner",
         "tokenId",
         "tokenValue",
-        "belongToFund",
         "createdAt"
       ]
     },

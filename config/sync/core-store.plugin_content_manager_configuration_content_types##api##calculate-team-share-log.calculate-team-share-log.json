@@ -1,5 +1,5 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::notification.notification",
+  "key": "plugin_content_manager_configuration_content_types::api::calculate-team-share-log.calculate-team-share-log",
   "value": {
     "settings": {
       "bulkable": true,
@@ -19,87 +19,30 @@
           "sortable": true
         }
       },
-      "notifier": {
+      "settlementStartDate": {
         "edit": {
-          "label": "notifier",
+          "label": "settlementStartDate",
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
-          "mainField": "username"
+          "editable": true
         },
         "list": {
-          "label": "notifier",
+          "label": "settlementStartDate",
           "searchable": true,
           "sortable": true
         }
       },
-      "category": {
+      "settlementEndDate": {
         "edit": {
-          "label": "category",
+          "label": "settlementEndDate",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "category",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "title": {
-        "edit": {
-          "label": "title",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "title",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "content": {
-        "edit": {
-          "label": "content",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "content",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "isSeen": {
-        "edit": {
-          "label": "isSeen",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "isSeen",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "isHighlighted": {
-        "edit": {
-          "label": "isHighlighted",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "isHighlighted",
+          "label": "settlementEndDate",
           "searchable": true,
           "sortable": true
         }
@@ -164,51 +107,26 @@
       }
     },
     "layouts": {
+      "list": [
+        "id",
+        "settlementStartDate",
+        "settlementEndDate",
+        "createdAt"
+      ],
       "edit": [
         [
           {
-            "name": "notifier",
-            "size": 4
+            "name": "settlementStartDate",
+            "size": 6
           },
           {
-            "name": "category",
-            "size": 8
-          }
-        ],
-        [
-          {
-            "name": "title",
-            "size": 8
-          },
-          {
-            "name": "isSeen",
-            "size": 4
-          }
-        ],
-        [
-          {
-            "name": "content",
-            "size": 12
-          }
-        ],
-        [
-          {
-            "name": "isHighlighted",
-            "size": 4
+            "name": "settlementEndDate",
+            "size": 6
           }
         ]
-      ],
-      "list": [
-        "id",
-        "notifier",
-        "title",
-        "category",
-        "isSeen",
-        "isHighlighted",
-        "createdAt"
       ]
     },
-    "uid": "api::notification.notification"
+    "uid": "api::calculate-team-share-log.calculate-team-share-log"
   },
   "type": "object",
   "environment": null,

@@ -257,8 +257,10 @@
         "id",
         "action",
         "blockNumber",
+        "logIndex",
         "transactionHash",
-        "transactionIndex"
+        "transactionIndex",
+        "createdAt"
       ]
     },
     "uid": "api::event-log.event-log"

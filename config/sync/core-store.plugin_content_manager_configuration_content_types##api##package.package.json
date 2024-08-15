@@ -224,7 +224,8 @@
         "packageId",
         "priceInUnit",
         "skin",
-        "status"
+        "status",
+        "createdAt"
       ]
     },
     "uid": "api::package.package"

@@ -1,5 +1,5 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::point-record.point-record",
+  "key": "plugin_content_manager_configuration_content_types::api::earning-record.earning-record",
   "value": {
     "settings": {
       "bulkable": true,
@@ -19,20 +19,6 @@
           "sortable": true
         }
       },
-      "type": {
-        "edit": {
-          "label": "type",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "type",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "user": {
         "edit": {
           "label": "user",
@@ -44,6 +30,20 @@
         },
         "list": {
           "label": "user",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "type": {
+        "edit": {
+          "label": "type",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "type",
           "searchable": true,
           "sortable": true
         }
@@ -167,22 +167,22 @@
       "edit": [
         [
           {
-            "name": "type",
+            "name": "user",
             "size": 6
           },
           {
-            "name": "user",
+            "name": "type",
             "size": 6
           }
         ],
         [
           {
-            "name": "earningPoints",
-            "size": 6
+            "name": "earningExp",
+            "size": 4
           },
           {
-            "name": "earningExp",
-            "size": 6
+            "name": "earningPoints",
+            "size": 4
           }
         ],
         [
@@ -200,14 +200,15 @@
       ],
       "list": [
         "id",
-        "type",
         "user",
+        "type",
         "earningExp",
         "earningPoints",
+        "isHighlighted",
         "createdAt"
       ]
     },
-    "uid": "api::point-record.point-record"
+    "uid": "api::earning-record.earning-record"
   },
   "type": "object",
   "environment": null,

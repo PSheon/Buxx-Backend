@@ -521,7 +521,8 @@
         "nationality",
         "phoneNumber",
         "idType",
-        "idNumber"
+        "idNumber",
+        "createdAt"
       ]
     },
     "uid": "plugin::users-permissions.user"

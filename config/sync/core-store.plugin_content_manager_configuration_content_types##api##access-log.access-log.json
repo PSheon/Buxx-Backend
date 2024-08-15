@@ -61,20 +61,6 @@
           "sortable": true
         }
       },
-      "date": {
-        "edit": {
-          "label": "date",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": false
-        },
-        "list": {
-          "label": "date",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "user": {
         "edit": {
           "label": "user",
@@ -229,12 +215,6 @@
         ],
         [
           {
-            "name": "date",
-            "size": 12
-          }
-        ],
-        [
-          {
             "name": "ip",
             "size": 6
           }
@@ -263,7 +243,7 @@
         "browser",
         "ip",
         "os",
-        "date"
+        "createdAt"
       ]
     },
     "uid": "api::access-log.access-log"

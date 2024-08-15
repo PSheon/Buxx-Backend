@@ -71,6 +71,7 @@ export default factories.createCoreController(
       }
 
       try {
+        // ** Update user's referral rank and path
         await strapi.entityService.update(
           "plugin::users-permissions.user",
           ctx.state.user.id,
@@ -82,6 +83,7 @@ export default factories.createCoreController(
           }
         );
 
+        // ** Create referral entity
         await strapi.entityService.create("api::referral.referral", {
           data: {
             rank: referrer.referralRank + 1,
@@ -92,31 +94,38 @@ export default factories.createCoreController(
           },
         });
 
-        await strapi.service("api::point-record.point-record").logPointRecord({
-          type: "Referral",
-          user: referrer,
-          earningExp: 500,
-          earningPoints: 0,
-          receipt: {
-            referrerId: referrer.id,
-            userId: ctx.state.user.id,
-            exp: 500,
-            points: 0,
-          },
-        });
+        // ** Referrer earn 500 exp for referring
+        await strapi
+          .service("api::earning-record.earning-record")
+          .logEarningRecord({
+            type: "Referral",
+            user: referrer,
+            earningExp: 500,
+            earningPoints: 0,
+            receipt: {
+              type: "Referral",
+              referrerId: referrer.id,
+              userId: ctx.state.user.id,
+              exp: 500,
+              points: 0,
+            },
+          });
 
-        await strapi.service("api::point-record.point-record").logPointRecord({
-          type: "JoinReferral",
-          user: ctx.state.user,
-          earningExp: 50,
-          earningPoints: 0,
-          receipt: {
-            task: "Join Referral",
-            userId: ctx.state.user.id,
-            exp: 50,
-            points: 0,
-          },
-        });
+        // ** User earn 50 exp for joining referral
+        await strapi
+          .service("api::earning-record.earning-record")
+          .logEarningRecord({
+            type: "JoinReferral",
+            user: ctx.state.user,
+            earningExp: 50,
+            earningPoints: 0,
+            receipt: {
+              type: "Join Referral",
+              userId: ctx.state.user.id,
+              exp: 50,
+              points: 0,
+            },
+          });
 
         ctx.send({ ok: true, message: "Join referral successfully" });
       } catch (error) {

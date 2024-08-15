@@ -44,11 +44,6 @@
       "max": 9,
       "min": 1
     },
-    "claimedRewards": {
-      "type": "integer",
-      "default": 0,
-      "min": 0
-    },
     "lastTeamShareSettlementDate": {
       "type": "datetime"
     },

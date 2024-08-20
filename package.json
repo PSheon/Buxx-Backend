@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "strapi build",
+    "calculate-team-stake-share": "ts-node ./commands/calculate-team-stake-share",
     "db:init": "ts-node ./commands/init-db",
     "dev": "strapi develop",
     "event-log:sync": "ts-node ./commands/sync-event-log",

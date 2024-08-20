@@ -28,6 +28,11 @@ const initDB = async () => {
   /* Delete activity log */
   await app.db.query("api::activity-log.activity-log").deleteMany();
 
+  /* Delete claimed reward record */
+  await app.db
+    .query("api::claimed-reward-record.claimed-reward-record")
+    .deleteMany();
+
   /* Delete daily check record */
   await app.db.query("api::daily-check-record.daily-check-record").deleteMany();
 
@@ -53,6 +58,9 @@ const initDB = async () => {
   await app.db
     .query("api::sync-event-log-task-log.sync-event-log-task-log")
     .deleteMany();
+
+  /* Delete task log */
+  await app.db.query("api::task-log.task-log").deleteMany();
 
   /* Delete token */
   await app.db.query("api::token.token").deleteMany();

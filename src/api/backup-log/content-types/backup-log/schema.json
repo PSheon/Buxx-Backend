@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "backup_logs",
+  "info": {
+    "singularName": "backup-log",
+    "pluralName": "backup-logs",
+    "displayName": "BackupLog",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "message": {
+      "type": "string"
+    },
+    "backupFilePath": {
+      "type": "string"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["Pending", "Fulfilled", "Rejected", "Deleted"],
+      "default": "Pending",
+      "required": true
+    }
+  }
+}

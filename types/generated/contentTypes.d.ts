@@ -852,7 +852,6 @@ export interface ApiAccessLogAccessLog extends Schema.CollectionType {
     >;
     responseMessage: Attribute.String;
     status: Attribute.Boolean;
-    date: Attribute.DateTime;
     user: Attribute.Relation<
       'api::access-log.access-log',
       'oneToOne',
@@ -900,7 +899,6 @@ export interface ApiActivityLogActivityLog extends Schema.CollectionType {
     refId: Attribute.Integer & Attribute.Required;
     message: Attribute.String;
     payload: Attribute.JSON;
-    date: Attribute.DateTime & Attribute.Required;
     user: Attribute.Relation<
       'api::activity-log.activity-log',
       'oneToOne',
@@ -979,6 +977,136 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   };
 }
 
+export interface ApiBackupLogBackupLog extends Schema.CollectionType {
+  collectionName: 'backup_logs';
+  info: {
+    singularName: 'backup-log';
+    pluralName: 'backup-logs';
+    displayName: 'BackupLog';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    message: Attribute.String;
+    backupFilePath: Attribute.String;
+    status: Attribute.Enumeration<
+      ['Pending', 'Fulfilled', 'Rejected', 'Deleted']
+    > &
+      Attribute.Required &
+      Attribute.DefaultTo<'Pending'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::backup-log.backup-log',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::backup-log.backup-log',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCalculateTeamShareLogCalculateTeamShareLog
+  extends Schema.CollectionType {
+  collectionName: 'calculate_team_share_logs';
+  info: {
+    singularName: 'calculate-team-share-log';
+    pluralName: 'calculate-team-share-logs';
+    displayName: 'CalculateTeamShareLog';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    settlementStartDate: Attribute.DateTime & Attribute.Required;
+    settlementEndDate: Attribute.DateTime & Attribute.Required;
+    totalCalculateCount: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Attribute.DefaultTo<0>;
+    totalQueryExecutionTimeMs: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::calculate-team-share-log.calculate-team-share-log',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::calculate-team-share-log.calculate-team-share-log',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiClaimedRewardRecordClaimedRewardRecord
+  extends Schema.CollectionType {
+  collectionName: 'claimed_reward_records';
+  info: {
+    singularName: 'claimed-reward-record';
+    pluralName: 'claimed-reward-records';
+    displayName: 'ClaimedRewardRecord';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    user: Attribute.Relation<
+      'api::claimed-reward-record.claimed-reward-record',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    belongToFund: Attribute.Relation<
+      'api::claimed-reward-record.claimed-reward-record',
+      'oneToOne',
+      'api::fund.fund'
+    >;
+    chain: Attribute.Enumeration<['Ethereum', 'Ethereum Sepolia', 'Blast']> &
+      Attribute.Required;
+    rewardCurrency: Attribute.Enumeration<
+      ['ETH', 'DAI', 'USDC', 'USDT', 'BLT']
+    > &
+      Attribute.Required;
+    balance: Attribute.String & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::claimed-reward-record.claimed-reward-record',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::claimed-reward-record.claimed-reward-record',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiDailyCheckRecordDailyCheckRecord
   extends Schema.CollectionType {
   collectionName: 'daily_check_records';
@@ -997,7 +1125,6 @@ export interface ApiDailyCheckRecordDailyCheckRecord
       'oneToOne',
       'plugin::users-permissions.user'
     >;
-    date: Attribute.DateTime & Attribute.Required;
     isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1009,6 +1136,72 @@ export interface ApiDailyCheckRecordDailyCheckRecord
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::daily-check-record.daily-check-record',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiEarningRecordEarningRecord extends Schema.CollectionType {
+  collectionName: 'earning_records';
+  info: {
+    singularName: 'earning-record';
+    pluralName: 'earning-records';
+    displayName: 'EarningRecord';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    user: Attribute.Relation<
+      'api::earning-record.earning-record',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    type: Attribute.Enumeration<
+      [
+        'ClaimReward',
+        'TeamStakeShare',
+        'JoinReferral',
+        'ReferralLevelUp',
+        'DailyCheck',
+        'Referral',
+        'MarketingCampaign'
+      ]
+    > &
+      Attribute.Required;
+    earningExp: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Attribute.DefaultTo<0>;
+    earningPoints: Attribute.Float &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Attribute.DefaultTo<0>;
+    receipt: Attribute.JSON;
+    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::earning-record.earning-record',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::earning-record.earning-record',
       'oneToOne',
       'admin::user'
     > &
@@ -1191,7 +1384,6 @@ export interface ApiNotificationNotification extends Schema.CollectionType {
       Attribute.DefaultTo<'System'>;
     title: Attribute.String & Attribute.Required;
     content: Attribute.JSON;
-    date: Attribute.DateTime;
     isSeen: Attribute.Boolean & Attribute.DefaultTo<false>;
     isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
@@ -1252,70 +1444,6 @@ export interface ApiPackagePackage extends Schema.CollectionType {
   };
 }
 
-export interface ApiPointRecordPointRecord extends Schema.CollectionType {
-  collectionName: 'point_records';
-  info: {
-    singularName: 'point-record';
-    pluralName: 'point-records';
-    displayName: 'PointRecord';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    type: Attribute.Enumeration<
-      [
-        'StakeShare',
-        'TeamStakeShare',
-        'JoinReferral',
-        'ReferralLevelUp',
-        'DailyCheck',
-        'Referral'
-      ]
-    >;
-    user: Attribute.Relation<
-      'api::point-record.point-record',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    earningExp: Attribute.Integer &
-      Attribute.Required &
-      Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Attribute.DefaultTo<0>;
-    earningPoints: Attribute.Integer &
-      Attribute.Required &
-      Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Attribute.DefaultTo<0>;
-    receipt: Attribute.JSON;
-    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::point-record.point-record',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::point-record.point-record',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiReferralReferral extends Schema.CollectionType {
   collectionName: 'referrals';
   info: {
@@ -1364,14 +1492,6 @@ export interface ApiReferralReferral extends Schema.CollectionType {
         number
       > &
       Attribute.DefaultTo<1>;
-    claimedRewards: Attribute.Integer &
-      Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      > &
-      Attribute.DefaultTo<0>;
     lastTeamShareSettlementDate: Attribute.DateTime;
     isActive: Attribute.Boolean & Attribute.DefaultTo<true>;
     isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
@@ -1563,13 +1683,16 @@ declare module '@strapi/types' {
       'api::access-log.access-log': ApiAccessLogAccessLog;
       'api::activity-log.activity-log': ApiActivityLogActivityLog;
       'api::article.article': ApiArticleArticle;
+      'api::backup-log.backup-log': ApiBackupLogBackupLog;
+      'api::calculate-team-share-log.calculate-team-share-log': ApiCalculateTeamShareLogCalculateTeamShareLog;
+      'api::claimed-reward-record.claimed-reward-record': ApiClaimedRewardRecordClaimedRewardRecord;
       'api::daily-check-record.daily-check-record': ApiDailyCheckRecordDailyCheckRecord;
+      'api::earning-record.earning-record': ApiEarningRecordEarningRecord;
       'api::event-log.event-log': ApiEventLogEventLog;
       'api::fund.fund': ApiFundFund;
       'api::metadata.metadata': ApiMetadataMetadata;
       'api::notification.notification': ApiNotificationNotification;
       'api::package.package': ApiPackagePackage;
-      'api::point-record.point-record': ApiPointRecordPointRecord;
       'api::referral.referral': ApiReferralReferral;
       'api::sync-event-log-task-log.sync-event-log-task-log': ApiSyncEventLogTaskLogSyncEventLogTaskLog;
       'api::token.token': ApiTokenToken;

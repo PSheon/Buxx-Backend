@@ -1,39 +1,84 @@
-import strapi from "@strapi/strapi";
-import fs from "fs";
-import path from "path";
+/**
+ * Calculate Team Stake Share Task
+ */
+
+import { Strapi } from "@strapi/strapi";
 
 import subDays from "date-fns/subDays";
 import startOfWeek from "date-fns/startOfWeek";
 import endOfWeek from "date-fns/endOfWeek";
 
-const calculateTeamStakeShare = async () => {
-  const appContext = await strapi.compile();
-  const app = await strapi(appContext).load();
-  const knex = app.db.connection;
+export const calculateTeamStakeShareTask = async ({
+  strapi,
+}: {
+  strapi: Strapi;
+}) => {
+  const knex = strapi.db.connection;
   const BATCH_SIZE = 100;
 
-  let teamStakeShareResult = [];
+  let calculateTeamShareLogId = null;
+  let totalCalculateCount = 0;
   let completedCount = 0;
 
-  const totalReferralsCount = await app.entityService.count(
-    "api::referral.referral",
+  // ** Step. Find last week's calculate team share log
+  const currentCalculateTeamShareEntities = await strapi.entityService.findMany(
+    "api::calculate-team-share-log.calculate-team-share-log",
     {
       filters: {
-        createdAt: {
-          $gte: startOfWeek(subDays(new Date(), 7), { weekStartsOn: 1 }),
-          $lt: endOfWeek(subDays(new Date(), 7), { weekStartsOn: 1 }),
-        },
+        settlementStartDate: startOfWeek(subDays(new Date(), 7), {
+          weekStartsOn: 1,
+        }),
+        settlementEndDate: endOfWeek(subDays(new Date(), 7), {
+          weekStartsOn: 1,
+        }),
       },
+      sort: "createdAt:desc",
     }
   );
-
-  const mainStartFlag = Date.now();
-  while (completedCount < totalReferralsCount) {
-    const referrals = await app.entityService.findMany(
+  if (currentCalculateTeamShareEntities.length !== 0) {
+    calculateTeamShareLogId = currentCalculateTeamShareEntities[0].id;
+    totalCalculateCount =
+      currentCalculateTeamShareEntities[0].totalCalculateCount;
+  } else {
+    const totalReferralsCount = await strapi.entityService.count(
       "api::referral.referral",
       {
         filters: {
-          createdAt: {
+          lastTeamShareSettlementDate: {
+            $gte: startOfWeek(subDays(new Date(), 7), { weekStartsOn: 1 }),
+            $lt: endOfWeek(subDays(new Date(), 7), { weekStartsOn: 1 }),
+          },
+        },
+      }
+    );
+
+    const calculateTeamShareLogEntity = await strapi.entityService.create(
+      "api::calculate-team-share-log.calculate-team-share-log",
+      {
+        data: {
+          settlementStartDate: startOfWeek(subDays(new Date(), 7), {
+            weekStartsOn: 1,
+          }),
+          settlementEndDate: endOfWeek(subDays(new Date(), 7), {
+            weekStartsOn: 1,
+          }),
+          totalCalculateCount: totalReferralsCount,
+        },
+      }
+    );
+
+    calculateTeamShareLogId = calculateTeamShareLogEntity.id;
+    totalCalculateCount = totalReferralsCount;
+  }
+
+  // ** Step. Start calculate batch
+  const mainStartFlag = Date.now();
+  while (completedCount < totalCalculateCount) {
+    const referrals = await strapi.entityService.findMany(
+      "api::referral.referral",
+      {
+        filters: {
+          lastTeamShareSettlementDate: {
             $gte: startOfWeek(subDays(new Date(), 7), { weekStartsOn: 1 }),
             $lt: endOfWeek(subDays(new Date(), 7), { weekStartsOn: 1 }),
           },
@@ -48,7 +93,6 @@ const calculateTeamStakeShare = async () => {
       break;
     }
 
-    // @ts-ignore
     for await (const referral of referrals) {
       const userId = referral.user.id;
       const startDateTime = new Date(
@@ -112,11 +156,29 @@ const calculateTeamStakeShare = async () => {
       const totalClaimedRewards = result[0].total_claimed_rewards;
       const queryEndFlag = Date.now();
 
-      teamStakeShareResult.push({
-        referralId: referral.id,
-        userId,
-        totalClaimedRewards,
-        queryExecutionTime: queryEndFlag - queryStartFlag,
+      // ** Create earning record
+      await strapi
+        .service("api::earning-record.earning-record")
+        .logEarningRecord({
+          type: "TeamStakeShare",
+          user: referral.user,
+          earningExp: totalClaimedRewards * 5,
+          earningPoints: totalClaimedRewards,
+          receipt: {
+            type: "TeamStakeShare",
+            userId: referral.user.id,
+            exp: totalClaimedRewards * 5,
+            points: totalClaimedRewards,
+            queryExecutionTime: queryEndFlag - queryStartFlag,
+          },
+        });
+
+      // ** Update lastTeamShareSettlementDate
+      await strapi.entityService.update("api::referral.referral", referral.id, {
+        data: {
+          // @ts-ignore
+          lastTeamShareSettlementDate: new Date(),
+        },
       });
 
       console.log(
@@ -132,19 +194,14 @@ const calculateTeamStakeShare = async () => {
   }
   const mainEndFlag = Date.now();
 
-  console.log(
-    `Total time taken: ${
-      mainEndFlag - mainStartFlag
-    } ms, Total referrals processed: ${completedCount}`
+  // ** Update calculateTeamShareLog
+  await strapi.entityService.update(
+    "api::calculate-team-share-log.calculate-team-share-log",
+    calculateTeamShareLogId,
+    {
+      data: {
+        totalQueryExecutionTimeMs: mainEndFlag - mainStartFlag,
+      },
+    }
   );
-
-  fs.writeFileSync(
-    path.resolve(__dirname, "..", "exports", "team-stake-share-result.json"),
-    JSON.stringify(teamStakeShareResult, null, 2)
-  );
-
-  app.server.destroy();
-  app.stop(0);
 };
-
-calculateTeamStakeShare();

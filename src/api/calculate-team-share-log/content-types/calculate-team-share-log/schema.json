@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "calculate_team_share_logs",
+  "info": {
+    "singularName": "calculate-team-share-log",
+    "pluralName": "calculate-team-share-logs",
+    "displayName": "CalculateTeamShareLog",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "settlementStartDate": {
+      "type": "datetime",
+      "required": true
+    },
+    "settlementEndDate": {
+      "type": "datetime",
+      "required": true
+    },
+    "totalCalculateCount": {
+      "type": "integer",
+      "min": 0,
+      "default": 0
+    },
+    "totalQueryExecutionTimeMs": {
+      "type": "integer",
+      "min": 0
+    }
+  }
+}

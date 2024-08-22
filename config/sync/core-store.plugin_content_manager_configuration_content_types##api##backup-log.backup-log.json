@@ -1,13 +1,13 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::calculate-team-share-log.calculate-team-share-log",
+  "key": "plugin_content_manager_configuration_content_types::api::backup-log.backup-log",
   "value": {
     "settings": {
       "bulkable": true,
       "filterable": true,
       "searchable": true,
       "pageSize": 10,
-      "mainField": "id",
-      "defaultSortBy": "id",
+      "mainField": "backupFilePath",
+      "defaultSortBy": "backupFilePath",
       "defaultSortOrder": "ASC"
     },
     "metadatas": {
@@ -19,58 +19,44 @@
           "sortable": true
         }
       },
-      "settlementStartDate": {
+      "message": {
         "edit": {
-          "label": "settlementStartDate",
+          "label": "message",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "settlementStartDate",
+          "label": "message",
           "searchable": true,
           "sortable": true
         }
       },
-      "settlementEndDate": {
+      "backupFilePath": {
         "edit": {
-          "label": "settlementEndDate",
+          "label": "backupFilePath",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "settlementEndDate",
+          "label": "backupFilePath",
           "searchable": true,
           "sortable": true
         }
       },
-      "totalCalculateCount": {
+      "status": {
         "edit": {
-          "label": "totalCalculateCount",
+          "label": "status",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "totalCalculateCount",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "totalQueryExecutionTimeMs": {
-        "edit": {
-          "label": "totalQueryExecutionTimeMs",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "totalQueryExecutionTimeMs",
+          "label": "status",
           "searchable": true,
           "sortable": true
         }
@@ -138,33 +124,30 @@
       "edit": [
         [
           {
-            "name": "settlementStartDate",
-            "size": 6
-          },
-          {
-            "name": "settlementEndDate",
+            "name": "backupFilePath",
             "size": 6
           }
         ],
         [
           {
-            "name": "totalCalculateCount",
-            "size": 4
+            "name": "status",
+            "size": 6
           },
           {
-            "name": "totalQueryExecutionTimeMs",
-            "size": 8
+            "name": "message",
+            "size": 6
           }
         ]
       ],
       "list": [
         "id",
-        "settlementStartDate",
-        "settlementEndDate",
+        "message",
+        "backupFilePath",
+        "status",
         "createdAt"
       ]
     },
-    "uid": "api::calculate-team-share-log.calculate-team-share-log"
+    "uid": "api::backup-log.backup-log"
   },
   "type": "object",
   "environment": null,

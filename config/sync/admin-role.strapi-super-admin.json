@@ -189,11 +189,59 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::backup-log.backup-log",
+      "properties": {
+        "fields": [
+          "message",
+          "backupFilePath",
+          "status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::backup-log.backup-log",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::backup-log.backup-log",
+      "properties": {
+        "fields": [
+          "message",
+          "backupFilePath",
+          "status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::backup-log.backup-log",
+      "properties": {
+        "fields": [
+          "message",
+          "backupFilePath",
+          "status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::calculate-team-share-log.calculate-team-share-log",
       "properties": {
         "fields": [
           "settlementStartDate",
-          "settlementEndDate"
+          "settlementEndDate",
+          "totalCalculateCount",
+          "totalQueryExecutionTimeMs"
         ]
       },
       "conditions": []
@@ -212,7 +260,9 @@
       "properties": {
         "fields": [
           "settlementStartDate",
-          "settlementEndDate"
+          "settlementEndDate",
+          "totalCalculateCount",
+          "totalQueryExecutionTimeMs"
         ]
       },
       "conditions": []
@@ -224,7 +274,9 @@
       "properties": {
         "fields": [
           "settlementStartDate",
-          "settlementEndDate"
+          "settlementEndDate",
+          "totalCalculateCount",
+          "totalQueryExecutionTimeMs"
         ]
       },
       "conditions": []

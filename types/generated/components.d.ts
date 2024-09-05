@@ -8,7 +8,13 @@ export interface TokenProperty extends Schema.Component {
   };
   attributes: {
     propertyName: Attribute.Enumeration<
-      ['DisplayName', 'APY', 'MinimumStakingPeriod']
+      [
+        'DisplayName',
+        'APY',
+        'MinimumStakingPeriod',
+        'Duration',
+        'PrincipalDelayDays'
+      ]
     > &
       Attribute.Required;
     description: Attribute.String;

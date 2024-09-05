@@ -1143,6 +1143,85 @@ export interface ApiDailyCheckRecordDailyCheckRecord
   };
 }
 
+export interface ApiDvFundDvFund extends Schema.SingleType {
+  collectionName: 'dv_funds';
+  info: {
+    singularName: 'dv-fund';
+    pluralName: 'dv-funds';
+    displayName: 'DVFund';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    banner: Attribute.Media<'images'>;
+    displayName: Attribute.String & Attribute.Required;
+    category: Attribute.Enumeration<
+      [
+        'Health and Medical',
+        'Arts and Culture',
+        'Finance and Technology',
+        'Social Enterprise',
+        'Emerging Industries',
+        'Environment and Sustainability',
+        'Food and Agriculture',
+        'Education and Training',
+        'Travel and Hospitality',
+        'Entertainment and Recreation',
+        'Fashion and Beauty',
+        'Social and Communication',
+        'Web3.0 and Blockchain'
+      ]
+    > &
+      Attribute.DefaultTo<'Web3.0 and Blockchain'>;
+    description: Attribute.String;
+    chain: Attribute.Enumeration<['Ethereum', 'Ethereum Sepolia', 'Blast']> &
+      Attribute.DefaultTo<'Ethereum'>;
+    baseCurrency: Attribute.Enumeration<['ETH', 'DAI', 'USDC', 'USDT', 'BLT']> &
+      Attribute.DefaultTo<'USDT'>;
+    genesisDate: Attribute.DateTime;
+    saleStartTime: Attribute.DateTime;
+    maturityDate: Attribute.DateTime;
+    performanceFeePercentage: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+          max: 100;
+        },
+        number
+      > &
+      Attribute.DefaultTo<10>;
+    redemptionFrequencyInDays: Attribute.Integer & Attribute.DefaultTo<14>;
+    estimatedAPY: Attribute.Integer & Attribute.DefaultTo<6>;
+    detail: Attribute.JSON;
+    defaultPackages: Attribute.Relation<
+      'api::dv-fund.dv-fund',
+      'oneToMany',
+      'api::package.package'
+    >;
+    vault: Attribute.Component<'contract.vault'>;
+    twitterUrl: Attribute.String;
+    discordUrl: Attribute.String;
+    isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;
+    status: Attribute.Enumeration<['Draft', 'Published', 'Archived']> &
+      Attribute.DefaultTo<'Draft'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::dv-fund.dv-fund',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::dv-fund.dv-fund',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiEarningRecordEarningRecord extends Schema.CollectionType {
   collectionName: 'earning_records';
   info: {
@@ -1687,6 +1766,7 @@ declare module '@strapi/types' {
       'api::calculate-team-share-log.calculate-team-share-log': ApiCalculateTeamShareLogCalculateTeamShareLog;
       'api::claimed-reward-record.claimed-reward-record': ApiClaimedRewardRecordClaimedRewardRecord;
       'api::daily-check-record.daily-check-record': ApiDailyCheckRecordDailyCheckRecord;
+      'api::dv-fund.dv-fund': ApiDvFundDvFund;
       'api::earning-record.earning-record': ApiEarningRecordEarningRecord;
       'api::event-log.event-log': ApiEventLogEventLog;
       'api::fund.fund': ApiFundFund;

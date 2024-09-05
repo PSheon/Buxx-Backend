@@ -1,0 +1,461 @@
+{
+  "key": "plugin_content_manager_configuration_content_types::api::dv-fund.dv-fund",
+  "value": {
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "displayName",
+      "defaultSortBy": "displayName",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "banner": {
+        "edit": {
+          "label": "banner",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "banner",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "displayName": {
+        "edit": {
+          "label": "displayName",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "displayName",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "category": {
+        "edit": {
+          "label": "category",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "category",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "description": {
+        "edit": {
+          "label": "description",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "description",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "chain": {
+        "edit": {
+          "label": "chain",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "chain",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "baseCurrency": {
+        "edit": {
+          "label": "baseCurrency",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "baseCurrency",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "genesisDate": {
+        "edit": {
+          "label": "genesisDate",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "genesisDate",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "saleStartTime": {
+        "edit": {
+          "label": "saleStartTime",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "saleStartTime",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "maturityDate": {
+        "edit": {
+          "label": "maturityDate",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "maturityDate",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "performanceFeePercentage": {
+        "edit": {
+          "label": "performanceFeePercentage",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "performanceFeePercentage",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "redemptionFrequencyInDays": {
+        "edit": {
+          "label": "redemptionFrequencyInDays",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "redemptionFrequencyInDays",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "estimatedAPY": {
+        "edit": {
+          "label": "estimatedAPY",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "estimatedAPY",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "detail": {
+        "edit": {
+          "label": "detail",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "detail",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "defaultPackages": {
+        "edit": {
+          "label": "defaultPackages",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "displayName"
+        },
+        "list": {
+          "label": "defaultPackages",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "vault": {
+        "edit": {
+          "label": "vault",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "vault",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "twitterUrl": {
+        "edit": {
+          "label": "twitterUrl",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "twitterUrl",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "discordUrl": {
+        "edit": {
+          "label": "discordUrl",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "discordUrl",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "isHighlighted": {
+        "edit": {
+          "label": "isHighlighted",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "isHighlighted",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "status": {
+        "edit": {
+          "label": "status",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "status",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdAt": {
+        "edit": {
+          "label": "createdAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "createdAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedAt": {
+        "edit": {
+          "label": "updatedAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "updatedAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdBy": {
+        "edit": {
+          "label": "createdBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "createdBy",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedBy": {
+        "edit": {
+          "label": "updatedBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "updatedBy",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "edit": [
+        [
+          {
+            "name": "banner",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "displayName",
+            "size": 8
+          },
+          {
+            "name": "category",
+            "size": 4
+          }
+        ],
+        [
+          {
+            "name": "description",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "chain",
+            "size": 6
+          },
+          {
+            "name": "baseCurrency",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "genesisDate",
+            "size": 4
+          },
+          {
+            "name": "saleStartTime",
+            "size": 4
+          },
+          {
+            "name": "maturityDate",
+            "size": 4
+          }
+        ],
+        [
+          {
+            "name": "performanceFeePercentage",
+            "size": 4
+          },
+          {
+            "name": "redemptionFrequencyInDays",
+            "size": 4
+          },
+          {
+            "name": "estimatedAPY",
+            "size": 4
+          }
+        ],
+        [
+          {
+            "name": "detail",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "defaultPackages",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "vault",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "twitterUrl",
+            "size": 6
+          },
+          {
+            "name": "discordUrl",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "isHighlighted",
+            "size": 6
+          },
+          {
+            "name": "status",
+            "size": 6
+          }
+        ]
+      ],
+      "list": [
+        "id",
+        "displayName",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "uid": "api::dv-fund.dv-fund"
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

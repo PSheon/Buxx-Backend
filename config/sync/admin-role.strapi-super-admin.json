@@ -379,6 +379,115 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::dv-fund.dv-fund",
+      "properties": {
+        "fields": [
+          "banner",
+          "displayName",
+          "category",
+          "description",
+          "chain",
+          "baseCurrency",
+          "genesisDate",
+          "saleStartTime",
+          "maturityDate",
+          "performanceFeePercentage",
+          "redemptionFrequencyInDays",
+          "estimatedAPY",
+          "detail",
+          "defaultPackages",
+          "vault.contractName",
+          "vault.contractAddress",
+          "vault.contractRootSignerAddress",
+          "vault.contractRootSignerPrivateKey",
+          "vault.contractAbi",
+          "vault.version",
+          "twitterUrl",
+          "discordUrl",
+          "isHighlighted",
+          "status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::dv-fund.dv-fund",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::dv-fund.dv-fund",
+      "properties": {
+        "fields": [
+          "banner",
+          "displayName",
+          "category",
+          "description",
+          "chain",
+          "baseCurrency",
+          "genesisDate",
+          "saleStartTime",
+          "maturityDate",
+          "performanceFeePercentage",
+          "redemptionFrequencyInDays",
+          "estimatedAPY",
+          "detail",
+          "defaultPackages",
+          "vault.contractName",
+          "vault.contractAddress",
+          "vault.contractRootSignerAddress",
+          "vault.contractRootSignerPrivateKey",
+          "vault.contractAbi",
+          "vault.version",
+          "twitterUrl",
+          "discordUrl",
+          "isHighlighted",
+          "status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::dv-fund.dv-fund",
+      "properties": {
+        "fields": [
+          "banner",
+          "displayName",
+          "category",
+          "description",
+          "chain",
+          "baseCurrency",
+          "genesisDate",
+          "saleStartTime",
+          "maturityDate",
+          "performanceFeePercentage",
+          "redemptionFrequencyInDays",
+          "estimatedAPY",
+          "detail",
+          "defaultPackages",
+          "vault.contractName",
+          "vault.contractAddress",
+          "vault.contractRootSignerAddress",
+          "vault.contractRootSignerPrivateKey",
+          "vault.contractAbi",
+          "vault.version",
+          "twitterUrl",
+          "discordUrl",
+          "isHighlighted",
+          "status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::earning-record.earning-record",
       "properties": {
         "fields": [

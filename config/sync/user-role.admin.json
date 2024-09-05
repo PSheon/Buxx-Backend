@@ -49,6 +49,15 @@
       "action": "api::daily-check-record.daily-check-record.findMe"
     },
     {
+      "action": "api::dv-fund.dv-fund.claimSignHash"
+    },
+    {
+      "action": "api::dv-fund.dv-fund.depositSignHash"
+    },
+    {
+      "action": "api::dv-fund.dv-fund.find"
+    },
+    {
       "action": "api::event-log.event-log.find"
     },
     {

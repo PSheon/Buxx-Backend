@@ -1,0 +1,110 @@
+{
+  "kind": "singleType",
+  "collectionName": "dv_funds",
+  "info": {
+    "singularName": "dv-fund",
+    "pluralName": "dv-funds",
+    "displayName": "DVFund"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "banner": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "displayName": {
+      "type": "string",
+      "required": true
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "Health and Medical",
+        "Arts and Culture",
+        "Finance and Technology",
+        "Social Enterprise",
+        "Emerging Industries",
+        "Environment and Sustainability",
+        "Food and Agriculture",
+        "Education and Training",
+        "Travel and Hospitality",
+        "Entertainment and Recreation",
+        "Fashion and Beauty",
+        "Social and Communication",
+        "Web3.0 and Blockchain"
+      ],
+      "default": "Web3.0 and Blockchain"
+    },
+    "description": {
+      "type": "string"
+    },
+    "chain": {
+      "type": "enumeration",
+      "enum": ["Ethereum", "Ethereum Sepolia", "Blast"],
+      "default": "Ethereum"
+    },
+    "baseCurrency": {
+      "type": "enumeration",
+      "enum": ["ETH", "DAI", "USDC", "USDT", "BLT"],
+      "default": "USDT"
+    },
+    "genesisDate": {
+      "type": "datetime"
+    },
+    "saleStartTime": {
+      "type": "datetime"
+    },
+    "maturityDate": {
+      "type": "datetime"
+    },
+    "performanceFeePercentage": {
+      "type": "integer",
+      "default": 10,
+      "max": 100,
+      "min": 0
+    },
+    "redemptionFrequencyInDays": {
+      "type": "integer",
+      "default": 14
+    },
+    "estimatedAPY": {
+      "type": "integer",
+      "default": 6
+    },
+    "detail": {
+      "type": "json"
+    },
+    "defaultPackages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::package.package"
+    },
+    "vault": {
+      "displayName": "Vault",
+      "type": "component",
+      "repeatable": false,
+      "component": "contract.vault"
+    },
+    "twitterUrl": {
+      "type": "string"
+    },
+    "discordUrl": {
+      "type": "string"
+    },
+    "isHighlighted": {
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["Draft", "Published", "Archived"],
+      "default": "Draft"
+    }
+  }
+}

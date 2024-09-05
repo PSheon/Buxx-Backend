@@ -11,7 +11,9 @@
       "enum": [
         "DisplayName",
         "APY",
-        "MinimumStakingPeriod"
+        "MinimumStakingPeriod",
+        "Duration",
+        "PrincipalDelayDays"
       ],
       "required": true
     },

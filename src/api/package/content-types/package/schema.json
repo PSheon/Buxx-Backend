@@ -26,7 +26,11 @@
     },
     "skin": {
       "type": "enumeration",
-      "enum": ["Green", "Purple", "Orange"],
+      "enum": [
+        "Green",
+        "Purple",
+        "Orange"
+      ],
       "required": true
     },
     "priceInUnit": {
@@ -41,7 +45,11 @@
     },
     "status": {
       "type": "enumeration",
-      "enum": ["Draft", "Published", "Archived"],
+      "enum": [
+        "Draft",
+        "Published",
+        "Archived"
+      ],
       "default": "Draft",
       "required": true
     }

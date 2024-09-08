@@ -6,6 +6,9 @@ import { factories } from "@strapi/strapi";
 import utils from "@strapi/utils";
 
 import { isObject } from "lodash/fp";
+import fromUnixTime from "date-fns/fromUnixTime";
+import addHours from "date-fns/addHours";
+import getDate from "date-fns/getDate";
 import EthCrypto from "eth-crypto";
 import Web3 from "web3";
 
@@ -22,21 +25,20 @@ const { ValidationError, NotFoundError } = utils.errors;
 
 type DepositSignHashInput = {
   contractAddress: string;
-  user: string;
-  amount: string;
-  interestRate: string;
-  principalDelayDays: string;
-  durationDays: string;
+  sender: string;
+  interestRate: number;
+  startTime: number;
+  principalDelayDays: number;
+  durationDays: number;
 };
 type ClaimSignHashInput = {
   contractAddress: string;
-  user: string;
+  sender: string;
 };
 
 export default factories.createCoreController(
   "api::dv-fund.dv-fund",
   ({ strapi }) => ({
-    /* TODO: fill here later */
     async depositSignHash(ctx: Koa.Context) {
       const { packageId } = ctx.params;
       await this.validateQuery(ctx);
@@ -79,13 +81,59 @@ export default factories.createCoreController(
         throw new NotFoundError("Package slots are not completed");
       }
 
+      const inputStartDate = fromUnixTime(sanitizedInputData.startTime);
+      const dateInUTCPlus8 = addHours(inputStartDate, 8);
+      const isFirstDayOfMonth = getDate(dateInUTCPlus8) === 1;
+      if (!isFirstDayOfMonth) {
+        throw new ValidationError(
+          `Invalid start date, should be 1th of month.`
+        );
+      }
+
+      const packageInterestRate = packageEntity.slots.find(
+        (slot) => slot.propertyName === "APY"
+      )?.value;
+      if (
+        packageInterestRate === undefined ||
+        Number(packageInterestRate) !== sanitizedInputData.interestRate
+      ) {
+        throw new ValidationError(
+          `Invalid package interest rate: ${packageInterestRate} for the given interest rate: ${sanitizedInputData.interestRate}`
+        );
+      }
+
+      const packagePrincipalDelayDays = packageEntity.slots.find(
+        (slot) => slot.propertyName === "PrincipalDelayDays"
+      )?.value;
+      if (
+        packagePrincipalDelayDays === undefined ||
+        Number(packagePrincipalDelayDays) !==
+          sanitizedInputData.principalDelayDays
+      ) {
+        throw new ValidationError(
+          `Invalid package principal delay days: ${packagePrincipalDelayDays} for the given principal delay days: ${sanitizedInputData.principalDelayDays}`
+        );
+      }
+
+      const packageDurationDays = packageEntity.slots.find(
+        (slot) => slot.propertyName === "Duration"
+      )?.value;
+      if (
+        packageDurationDays === undefined ||
+        Number(packageDurationDays) !== sanitizedInputData.durationDays
+      ) {
+        throw new ValidationError(
+          `Invalid package duration days: ${packageDurationDays} for the given duration days: ${sanitizedInputData.durationDays}`
+        );
+      }
+
       const messageHash = Web3.utils.soliditySha3(
         { type: "address", value: sanitizedInputData.contractAddress },
-        { type: "address", value: sanitizedInputData.user },
-        { type: "uint256", value: sanitizedInputData.amount },
-        { type: "uint256", value: sanitizedInputData.interestRate },
-        { type: "uint256", value: sanitizedInputData.principalDelayDays },
-        { type: "uint256", value: sanitizedInputData.durationDays }
+        { type: "address", value: sanitizedInputData.sender },
+        { type: "uint256", value: packageInterestRate },
+        { type: "uint256", value: sanitizedInputData.startTime },
+        { type: "uint256", value: packagePrincipalDelayDays },
+        { type: "uint256", value: packageDurationDays }
       ) as string;
       const signature = EthCrypto.sign(
         dvFundEntity.vault.contractRootSignerPrivateKey,
@@ -95,7 +143,6 @@ export default factories.createCoreController(
       ctx.send({ hash: signature });
     },
 
-    /* TODO: fill here later */
     async claimSignHash(ctx: Koa.Context) {
       await this.validateQuery(ctx);
 
@@ -124,7 +171,7 @@ export default factories.createCoreController(
 
       const messageHash = Web3.utils.soliditySha3(
         { type: "address", value: sanitizedInputData.contractAddress },
-        { type: "address", value: sanitizedInputData.user }
+        { type: "address", value: sanitizedInputData.sender }
       ) as string;
       const signature = EthCrypto.sign(
         entity.vault.contractRootSignerPrivateKey,

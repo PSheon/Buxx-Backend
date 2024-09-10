@@ -1149,6 +1149,7 @@ export interface ApiDvFundDvFund extends Schema.SingleType {
     singularName: 'dv-fund';
     pluralName: 'dv-funds';
     displayName: 'DVFund';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -1200,6 +1201,7 @@ export interface ApiDvFundDvFund extends Schema.SingleType {
       'api::package.package'
     >;
     vault: Attribute.Component<'contract.vault'>;
+    defaultReferrerAddress: Attribute.String;
     twitterUrl: Attribute.String;
     discordUrl: Attribute.String;
     isHighlighted: Attribute.Boolean & Attribute.DefaultTo<false>;

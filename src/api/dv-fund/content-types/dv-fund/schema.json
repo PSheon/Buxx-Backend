@@ -4,7 +4,8 @@
   "info": {
     "singularName": "dv-fund",
     "pluralName": "dv-funds",
-    "displayName": "DVFund"
+    "displayName": "DVFund",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -15,7 +16,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "displayName": {
       "type": "string",
@@ -45,12 +48,22 @@
     },
     "chain": {
       "type": "enumeration",
-      "enum": ["Ethereum", "Ethereum Sepolia", "Blast"],
+      "enum": [
+        "Ethereum",
+        "Ethereum Sepolia",
+        "Blast"
+      ],
       "default": "Ethereum"
     },
     "baseCurrency": {
       "type": "enumeration",
-      "enum": ["ETH", "DAI", "USDC", "USDT", "BLT"],
+      "enum": [
+        "ETH",
+        "DAI",
+        "USDC",
+        "USDT",
+        "BLT"
+      ],
       "default": "USDT"
     },
     "genesisDate": {
@@ -90,6 +103,10 @@
       "repeatable": false,
       "component": "contract.vault"
     },
+    "defaultReferrerAddress": {
+      "type": "string",
+      "regex": "^0x[a-fA-F0-9]{40}$"
+    },
     "twitterUrl": {
       "type": "string"
     },
@@ -103,7 +120,11 @@
     },
     "status": {
       "type": "enumeration",
-      "enum": ["Draft", "Published", "Archived"],
+      "enum": [
+        "Draft",
+        "Published",
+        "Archived"
+      ],
       "default": "Draft"
     }
   }

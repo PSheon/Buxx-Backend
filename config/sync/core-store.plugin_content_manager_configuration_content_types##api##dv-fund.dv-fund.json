@@ -286,6 +286,20 @@
           "sortable": true
         }
       },
+      "defaultReferrerAddress": {
+        "edit": {
+          "label": "defaultReferrerAddress",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "defaultReferrerAddress",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -422,6 +436,12 @@
         [
           {
             "name": "vault",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "defaultReferrerAddress",
             "size": 12
           }
         ],
